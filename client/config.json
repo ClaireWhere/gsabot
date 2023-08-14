@@ -1,0 +1,208 @@
+{
+    "config": {
+        "images": {
+            "gsa_icon": "https://i.imgur.com/ikQzGjP.png",
+            "rules_thmb": "https://i.imgur.com/zCeCcY8.png",
+            "agreement_thmb": "https://i.imgur.com/zCeCcY8.png",
+            "safe_space_thmb": "https://i.imgur.com/BG949wk.png",
+            "politics_thmb": "https://i.imgur.com/BG949wk.png",
+            "pronouns_thmb": "https://i.imgur.com/MqzyIC3.png",
+            "identity_thmb": "https://i.imgur.com/OmYZvIm.png",
+            "year_thmb": "https://i.imgur.com/0tkdFIQ.png",
+            "announcements_thmb": "https://i.imgur.com/2BHUqIu.png",
+            "minecraft_thmb": "https://i.imgur.com/UoiX5mW.png",
+            "vc_text_mobile": "https://i.imgur.com/ktuAlPw.png",
+            "vc_text_pc": "https://i.imgur.com/YNbQ4pF.png"
+        },
+        "roles": {
+            "president": {"name": "GSA President", "color": "0x3498DB", "permissions": ["Administrator"]},
+            "technology_manager": {"name": "GSA Technology Manager", "color": "0x1F8B4C", "permissions": ["Administrator"]},
+            "vice_president": {"name": "GSA Vice President", "color": "0x2ECC71"},
+            "treasurer": {"name": "GSA Treasurer", "color": "0x9B59B6"},
+            "secretary": {"name": "GSA Secretary", "color": "0xF1C40F"},
+            "eboard": {"name": "Eboard", "color": "0xB0E0FF", "permissions": ["CreatePrivateThreads", "DeafenMembers", "KickMembers", "ManageEmojisAndStickers", "ManageEvents", "ManageGuildExpressions",  "ManageRoles", "ManageThreads", "ModerateMembers", "MoveMembers", "MuteMembers", "MentionEveryone", "ViewAuditLog", "ViewGuildInsights"]},
+            "member": {"id": "member", "name": "GSA Member", "color": "0x009ED5", "permissions": ["AddReactions", "AttachFiles", "ChangeNickname", "Connect", "CreateInstantInvite", "CreatePublicThreads", "EmbedLinks", "ReadMessageHistory", "RequestToSpeak", "SendMessages", "SendMessagesInThreads", "Speak", "Stream", "UseApplicationCommands", "UseEmbeddedActivities", "UseExternalEmojis", "UseExternalSounds", "UseExternalStickers", "UseSoundboard", "UseVAD", "ViewChannel"]},
+            "pronouns": {
+                "she_her": {"id": "pronouns:she_her", "name": "She/Her", "color": "0x8365AC", "exclusion": ["she_they", "she_he", "she_he_they", "she_they_he", "he_they", "he_she", "he_she_they", "he_they_she", "they_she", "they_he", "they_she_he", "they_he_she", "any"]},
+                "she_they": {"id": "pronouns:she_they", "name": "She/They", "color": "0x8365AC", "exclusion": ["she_her", "she_he_they", "she_they_he", "he_him", "he_she", "he_she_they", "he_they_she", "they_them", "they_she", "they_he", "they_she_he", "they_he_she", "any"]},
+                "she_he": {"id": "pronouns:she_he", "name": "She/He", "color": "0x8365AC", "exclusion": ["she_her", "she_he_they", "she_they_he", "he_him", "he_they", "he_she", "he_she_they", "he_they_she", "they_them", "they_she", "they_she_he", "they_he_she", "any"]},
+                "she_he_they": {"id": "pronouns:she_he_they", "name": "She/He/They", "color": "0x8365AC", "exclusion": ["she_her", "she_they", "she_he", "she_he_they", "she_they_he", "he_him", "he_they", "he_she", "he_she_they", "he_they_she", "they_them", "they_she", "they_he", "they_she_he", "they_he_she", "any"]},
+                "she_they_he": {"id": "pronouns:she_they_he", "name": "She/They/He", "color": "0x8365AC", "exclusion": ["she_her", "she_they", "she_he", "she_he_they", "she_they_he", "he_him", "he_they", "he_she", "he_she_they", "he_they_she", "they_them", "they_she", "they_he", "they_she_he", "they_he_she", "any"]},
+                "he_him": {"id": "pronouns:he_him", "name": "He/Him", "color": "0x8365AC", "exclusion": ["she_they", "she_he", "she_he_they", "she_they_he", "he_they", "he_she", "he_she_they", "he_they_she", "they_she", "they_he", "they_she_he", "they_he_she", "any"]},
+                "he_they": {"id": "pronouns:he_they", "name": "He/They", "color": "0x8365AC", "exclusion": ["she_her", "she_he", "she_he_they", "she_they_he", "he_him", "he_she_they", "he_they_she", "they_them", "they_she", "they_he", "they_she_he", "they_he_she", "any"]},
+                "he_she": {"id": "pronouns:he_she", "name": "He/She", "color": "0x8365AC", "exclusion": ["she_her", "she_they", "she_he", "she_he_they", "she_they_he", "he_him", "he_she_they", "he_they_she", "they_them", "they_he", "they_she_he", "they_he_she", "any"]},
+                "he_she_they": {"id": "pronouns:he_she_they", "name": "He/She/They", "color": "0x8365AC", "inclusion": ["she_her", "she_they", "she_he", "she_he_they", "she_they_he", "he_him", "he_they", "he_she", "he_she_they", "he_they_she", "they_them", "they_she", "they_he", "they_she_he", "they_he_she", "any"]},
+                "he_they_she": {"id": "pronouns:he_they_she", "name": "He/They/She", "color": "0x8365AC", "inclusion": ["she_her", "she_they", "she_he", "she_he_they", "she_they_he", "he_him", "he_they", "he_she", "he_she_they", "he_they_she", "they_them", "they_she", "they_he", "they_she_he", "they_he_she", "any"]},
+                "they_them": {"id": "pronouns:they_them", "name": "They/Them", "color": "0x8365AC", "exclusion": ["she_they", "she_he", "she_he_they", "she_they_he", "he_they", "he_she", "he_she_they", "he_they_she", "they_she", "they_he", "they_she_he", "they_he_she", "any"]},
+                "they_she": {"id": "pronouns:they_she", "name": "They/She", "color": "0x8365AC", "exclusion": ["she_her", "she_they", "she_he", "she_he_they", "she_they_he", "he_him", "he_they", "he_she_they", "he_they_she", "they_them", "they_she_he", "they_he_she", "any"]},
+                "they_he": {"id": "pronouns:they_he", "name": "They/He", "color": "0x8365AC", "exclusion": ["she_her", "she_they", "she_he_they", "she_they_he", "he_him", "he_they", "he_she", "he_she_they", "he_they_she", "they_them", "they_she_he", "they_he_she", "any"]},
+                "they_she_he": {"id": "pronouns:they_she_he", "name": "They/She/He", "color": "0x8365AC", "exclusion": ["she_her", "she_they", "she_he", "she_he_they", "she_they_he", "he_him", "he_they", "he_she", "he_she_they", "he_they_she", "they_them", "they_she", "they_he", "they_she_he", "they_he_she", "any"]},
+                "they_he_she": {"id": "pronouns:they_he_she", "name": "They/He/She", "color": "0x8365AC", "exclusion": ["she_her", "she_they", "she_he", "she_he_they", "she_they_he", "he_him", "he_they", "he_she", "he_she_they", "he_they_she", "they_them", "they_she", "they_he", "they_she_he", "they_he_she", "any"]},
+                "any": {"id": "pronouns:any", "name": "Any Pronouns", "color": "0x8365AC", "exclusion": ["she_her", "she_they", "she_he", "she_he_they", "she_they_he", "he_him", "he_they", "he_she", "he_she_they", "he_they_she", "they_them", "they_she", "they_he", "they_she_he", "they_he_she", "any"]},
+                "neo": {"id": "pronouns:neo", "name": "Neopronouns", "color": "0x8365AC", "exclusion": []}
+            },
+            "identity": {
+                "straight": {"id": "identity:straight", "name": "Straight", "color": "0xF27275", "exclusion": ["lesbian", "gay"]},
+                "questioning": {"id": "identity:questioning", "name": "Questioning", "color": "0xF27275", "exclusion": []},
+                "queer": {"id": "identity:queer", "name": "Queer", "color": "0xF27275", "exclusion": []},
+                "lesbian": {"id": "identity:lesbian", "name": "Lesbian", "color": "0xF27275", "exclusion": ["straight"]},
+                "gay": {"id": "identity:gay", "name": "Gay", "color": "0xF27275", "exclusion": ["straight"]},
+                "bi": {"id": "identity:bi", "name": "Bisexual", "color": "0xF27275", "exclusion": ["straight", "pan"]},
+                "pan": {"id": "identity:pan", "name": "Pansexual", "color": "0xF27275", "exclusion": ["straight", "bi"]},
+                "ace": {"id": "identity:ace", "name": "Asexual", "color": "0xF27275", "exclusion": []},
+                "aro": {"id": "identity:aro", "name": "Aromantic", "color": "0xF27275", "exclusion": []}
+            },
+            "year": {
+                "1": {"id": "year:1", "name": "Year 1", "color": "0xFFC843", "exclusion": ["2", "3", "4", "alumni", "grad"]},
+                "2": {"id": "year:2", "name": "Year 2", "color": "0xFFC843", "exclusion": ["1", "3", "4", "alumni", "grad"]},
+                "3": {"id": "year:3", "name": "Year 3", "color": "0xFFC843", "exclusion": ["1", "2", "4", "alumni", "grad"]},
+                "4": {"id": "year:4", "name": "Year 4+", "color": "0xFFC843", "exclusion": ["1", "2", "3", "alumni", "grad"]},
+                "alumni": {"id": "year:alumni", "name": "Alumni", "color": "0xFFC843", "exclusion": ["1", "2", "3", "4", "grad"]},
+                "grad": {"id": "year:grad", "name": "Graduate Student", "color": "0xFFC843", "exclusion": ["1", "2", "3", "4", "alumni"]}
+            },
+            "announcements": {"id": "announcements", "name": "Announcements", "color": "0xEF3E4D"},
+            "safe_space": {"id": "safe_space", "name": "Safe Space", "color": "0x6FCDf4"},
+            "politics": {"id": "politics", "name": "Politics", "color": "0x87CB99"},
+            "minecraft": {"id": "minecraft", "name": "Minecraft", "color": "0x00AB59"}
+        },
+        "colors": {
+            "rainbow": [{"hex": "0xFFADAD"}, {"hex": "0xFFD6A5"}, {"hex": "0xFDFFB6"}, {"hex": "0xCAFFBF"}, {"hex": "0x9BF6FF"}, {"hex": "0xA0C4FF"}, {"hex": "0xBDB2FF"}, {"hex": "0xFFC6FF"}],
+            "black": {
+                "hex": "0x000000"
+            },
+            "red": {
+                "hex": "0xEF483E",
+                "darken": [
+                    {"intensity": 1, "hex": "0xEF4037"},
+                    {"intensity": 2, "hex": "0xEE3530"},
+                    {"intensity": 3, "hex": "0xEE2528"}
+                ],
+                "lighten": [
+                    {"intensity": 1, "hex": "0xF05146"},
+                    {"intensity": 2, "hex": "0xF15A4E"},
+                    {"intensity": 3, "hex": "0xF16358"}
+                ]
+            },
+            "light_red": {
+                "hex": "0xF27275",
+                "darken": [
+                    {"intensity": 1, "hex": "0xF16469"},
+                    {"intensity": 2, "hex": "0xF0565C"},
+                    {"intensity": 3, "hex": "0xEF3E4D"}
+                ],
+                "lighten": [
+                    {"intensity": 1, "hex": "0xF37F84"},
+                    {"intensity": 2, "hex": "0xF48B93"},
+                    {"intensity": 3, "hex": "0xF59BA7"}
+                ]
+            },
+            "green": {
+                "hex": "0x028C45",
+                "darken": [
+                    {"intensity": 1, "hex": "0x008444"},
+                    {"intensity": 2, "hex": "0x007C42"},
+                    {"intensity": 3, "hex": "0x007240"}
+                ],
+                "lighten": [
+                    {"intensity": 1, "hex": "0x209547"},
+                    {"intensity": 2, "hex": "0x2B9F48"},
+                    {"intensity": 3, "hex": "0x3EAD49"}
+                ]
+            },
+            "blue": {
+                "hex": "0x273A92",
+                "darken": [
+                    {"intensity": 1, "hex": "0x2A3790"},
+                    {"intensity": 2, "hex": "0x2D348E"},
+                    {"intensity": 3, "hex": "0x2F318B"}
+                ],
+                "lighten": [
+                    {"intensity": 1, "hex": "0x253E96"},
+                    {"intensity": 2, "hex": "0x214198"},
+                    {"intensity": 3, "hex": "0x1C449C"}
+                ]
+            },
+            "light_blue": {
+                "hex": "0x00B3E2",
+                "darken": [
+                    {"intensity": 1, "hex": "0x00ACDE"},
+                    {"intensity": 2, "hex": "0x00A6DA"},
+                    {"intensity": 3, "hex": "0x009ED5"}
+                ],
+                "lighten": [
+                    {"intensity": 1, "hex": "0x3CBAE7"},
+                    {"intensity": 2, "hex": "0x55C2EC"},
+                    {"intensity": 3, "hex": "0x6FCDF4"}
+                ]
+            },
+            "yellow": {
+                "hex": "0xFFC843",
+                "darken": [
+                    {"intensity": 1, "hex": "0xFEBF39"},
+                    {"intensity": 2, "hex": "0xFCB52E"},
+                    {"intensity": 3, "hex": "0xFAA820"}
+                ],
+                "lighten": [
+                    {"intensity": 1, "hex": "0xFFD24E"},
+                    {"intensity": 2, "hex": "0xFFDC5A"},
+                    {"intensity": 3, "hex": "0xFFEA6A"},
+                    {"intensity": 4, "hex": "0xFDFD97"}
+                ]
+            },
+            "light_green": {
+                "hex": "0x46B978",
+                "darken": [
+                    {"intensity": 1, "hex": "0x27B56E"},
+                    {"intensity": 2, "hex": "0x00B164"},
+                    {"intensity": 3, "hex": "0x00AB59"}
+                ],
+                "lighten": [
+                    {"intensity": 1, "hex": "0x5EBE82"},
+                    {"intensity": 2, "hex": "0x70C38C"},
+                    {"intensity": 3, "hex": "0x87CB99"},
+                    {"intensity": 4, "hex": "0x9EE09E"}
+                ]
+            },
+            "dark_green": {
+                "hex": "0x0B361D",
+                "darken": [
+                    {"intensity": 1, "hex": "0x002913"},
+                    {"intensity": 2, "hex": "0x001C05"},
+                    {"intensity": 3, "hex": "0x000400"}
+                ],
+                "lighten": [
+                    {"intensity": 1, "hex": "0x194428"},
+                    {"intensity": 2, "hex": "0x235233"},
+                    {"intensity": 3, "hex": "0x316741"}
+                ]
+            },
+            "dark_blue": {
+                "hex": "0x163056",
+                "darken": [
+                    {"intensity": 1, "hex": "0x172749"},
+                    {"intensity": 2, "hex": "0x151F3D"},
+                    {"intensity": 3, "hex": "0x12112E"}
+                ],
+                "lighten": [
+                    {"intensity": 1, "hex": "0x143A65"},
+                    {"intensity": 2, "hex": "0x0E4375"},
+                    {"intensity": 3, "hex": "0x004F8A"}
+                ]
+            },
+            "purple": {
+                "hex": "0x614C9F",
+                "darken": [
+                    {"intensity": 1, "hex": "0x57459C"},
+                    {"intensity": 2, "hex": "0x4D3E98"},
+                    {"intensity": 3, "hex": "0x3E3594"}
+                ],
+                "lighten": [
+                    {"intensity": 1, "hex": "0x6C54A3"},
+                    {"intensity": 2, "hex": "0x755BA7"},
+                    {"intensity": 3, "hex": "0x8365AC"},
+                    {"intensity": 4, "hex": "0xCC99C9"}
+                ]
+            }
+        }
+    }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "gsabot",
+  "version": "0.1.0",
+  "description": "Discord bot for the Gender and Sexuality Alliance.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "initialize": "node deploy-commands.js",
+    "reset": "node delete-commands.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "canvas": "^2.11.2",
+    "cron": "^2.4.0",
+    "discord.js": "^14.12.1",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mongodb": "^5.7.0",
+    "require-dir": "^1.2.0"
+  }
+}
