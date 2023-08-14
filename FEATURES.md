@@ -54,9 +54,6 @@ Removes and deletes the user's current role color, if one exists. If the user do
 `safe_space [channel]`
 - Sends the safe space rules/agreement messages in the specified channel
 
-`vc [channel]`
-- Sends the vc information message in the specified channel
-
 ---
 
 ## New Member Welcome Message
