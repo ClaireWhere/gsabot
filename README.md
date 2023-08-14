@@ -22,7 +22,7 @@ Discord bot for the Gender and Sexuality Alliance.
 
 
 ## Config
-
+To be added
 
 ## Environmental Variables
 Ensure all environmental variables are spelled exactly as below and can be found in `.env` in the `root` and `/client` directory before running the application.
