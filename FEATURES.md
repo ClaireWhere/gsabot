@@ -1,6 +1,5 @@
 # GSA Bot - List of all Features
 
-
 ## Commands
 ### /color [set/view/remove] [hex]
 `set [hex]`
@@ -50,6 +49,9 @@ Removes and deletes the user's current role color, if one exists. If the user do
 
 `safe_space [channel]`
 - Sends the safe space rules/agreement messages in the specified channel
+
+`vc [channel]`
+- Sends the vc instruction information in the specified channel
 
 ---
 
