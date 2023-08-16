@@ -1,5 +1,5 @@
 const { config } = require('../../client/config.json');
-const { ButtonStyle, ActionRowBuilder, EmbedBuilder, ButtonBuilder } = require('discord.js');
+const { ButtonStyle, ActionRowBuilder, ButtonBuilder } = require('discord.js');
 
 module.exports = { 
     async execute(interaction) {
