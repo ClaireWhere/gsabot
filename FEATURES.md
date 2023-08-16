@@ -45,9 +45,6 @@ Removes and deletes the user's current role color, if one exists. If the user do
 `welcome [channel]`
 - Sends the initial server welcome message in the specified channel
 
-`button [channel]`
-- button
-
 `politics [channel]`
 - Sends the politics rules/agreement messages in the specified channel
 

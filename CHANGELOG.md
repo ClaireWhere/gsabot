@@ -21,8 +21,6 @@
         + *[channel]*
     + welcome 
         + *[channel]*
-    + button 
-        + *[channel]*
     + politics 
         + *[channel]*
     + safe_space 
