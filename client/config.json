@@ -42,7 +42,7 @@
                 "neo": {"id": "pronouns:neo", "name": "Neopronouns", "color": "0x8365AC", "exclusion": []}
             },
             "identity": {
-                "straight": {"id": "identity:straight", "name": "Straight", "color": "0xF27275", "exclusion": ["lesbian", "gay"]},
+                "straight": {"id": "identity:straight", "name": "Straight", "color": "0xF27275", "exclusion": ["lesbian", "gay", "bi", "pan"]},
                 "questioning": {"id": "identity:questioning", "name": "Questioning", "color": "0xF27275", "exclusion": []},
                 "queer": {"id": "identity:queer", "name": "Queer", "color": "0xF27275", "exclusion": []},
                 "lesbian": {"id": "identity:lesbian", "name": "Lesbian", "color": "0xF27275", "exclusion": ["straight"]},
