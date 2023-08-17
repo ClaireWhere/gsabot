@@ -62,6 +62,9 @@ Sends embed-formatted informational/functional server messages
 
 ---
 
+## New Member Rules Agreement
+When a new user joins the Discord server, they should have access to only two channels: The "welcome" channel, and the "agreement" channel. The welcome channel directs users to the agreement channel where they must press a button after reading the rules to agree to the rules of the server. Upon agreeing to the rules by interacting with the button, the `GSA Member` role is assigned to the user, giving access to the general server channels.
+
 ## New Member Welcome Message
 Whenever a new member passes the verification, a message is sent in the `#welcome` channel welcoming them to the server. The color of the embed is randomly chosen from a set of rainbow colors (specified in config)
 
