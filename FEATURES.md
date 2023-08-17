@@ -70,6 +70,9 @@ Whenever a new member passes the verification, a message is sent in the `#welcom
 
 ## Safe Space Agreement
 the `#safe-space` channel is not accessible to members unless they have the `Safe Space` role. However, the `#safe-space-agreement` is accessible to all members, and lays out the rules of `#safe-space`. A member may opt-in to `#safe-space` by agreeing to the rules, which will assign the `Safe Space` role and allow access. The `Safe Space` role may be removed at any time by clicking on the agreement button a second time and access to `#safe-space` will be revoked.
+
+## Politics Agreement
+the `#politics` channel is not accessible to members unless they have the `Politics` role. However, the `#politics-agreement` is accessible to all members, and lays out the rules of `#politics`. A member may opt-in to `#politics` by agreeing to the rules, which will assign the `Politics` role and allow access. The `Politics` role may be removed at any time by clicking on the agreement button a second time and access to `#politics` will be revoked.
 ## Deleted Message Logger
 When a message is deleted, information about the message is logged in the system message channel. This information includes the author, channel, created timestamp, and ids. The message content is also preserved in a format similar to the original Discord message. 
 
