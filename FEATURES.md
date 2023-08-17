@@ -68,6 +68,8 @@ When a new user joins the Discord server, they should have access to only two ch
 ## New Member Welcome Message
 Whenever a new member passes the verification, a message is sent in the `#welcome` channel welcoming them to the server. The color of the embed is randomly chosen from a set of rainbow colors (specified in `config.js`)
 
+## Safe Space Agreement
+the `#safe-space` channel is not accessible to members unless they have the `Safe Space` role. However, the `#safe-space-agreement` is accessible to all members, and lays out the rules of `#safe-space`. A member may opt-in to `#safe-space` by agreeing to the rules, which will assign the `Safe Space` role and allow access. The `Safe Space` role may be removed at any time by clicking on the agreement button a second time and access to `#safe-space` will be revoked.
 ## Deleted Message Logger
 When a message is deleted, information about the message is logged in the system message channel. This information includes the author, channel, created timestamp, and ids. The message content is also preserved in a format similar to the original Discord message. 
 
