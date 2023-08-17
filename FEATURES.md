@@ -73,6 +73,97 @@ the `#safe-space` channel is not accessible to members unless they have the `Saf
 
 ## Politics Agreement
 the `#politics` channel is not accessible to members unless they have the `Politics` role. However, the `#politics-agreement` is accessible to all members, and lays out the rules of `#politics`. A member may opt-in to `#politics` by agreeing to the rules, which will assign the `Politics` role and allow access. The `Politics` role may be removed at any time by clicking on the agreement button a second time and access to `#politics` will be revoked.
+
+## Role Compatibility
+Certain roles are not able to be assigned at the same time. The rules for the compatibility of roles are defined in `config.js` and are summarized here:
+
+<details>
+<summary>Role Compatibility Rules</summary>
+
+
+> The following categories are used in the rules below to make the role compatibility easier to follow
+>
+>1. **Globally Compatible**: 
+>    - Each role listed is compatible with all other roles with no restrictions
+>2. **Mutually Compatible**: 
+>    - Each role listed is compatible with any of the other roles in the same row, and each of those roles is compatible with the leftmost role
+>    - A user may have the leftmost role and any one of the other roles in the same row at the same time
+>3. **Mutually Incompatible**: 
+>    - Each role listed is explicitly incompatible with any of the roles in the same row, and each of those roles are explicitly incompatible with the leftmost role. 
+>    - A user is not allowed to have the leftmost role and any one of the other roles in the same row at the same time
+>4. **Globally Incompatible**: 
+>    - Each role listed is incompatible with all other roles in the same category (other than globally compatible roles)
+>    - Any given user is only allowed to have one of these roles at any given time
+
+
+- <details>
+    <summary>Pronoun Roles</summary>
+
+    ---
+
+    | **Globally<br/>Compatible** |
+    | :-------------------------: |
+    | Neopronouns                 |
+
+
+    | **Mutually<br/>Compatible** |     |          |     |            |
+    | :-------------------------: | :-: | :------: | :-: | :--------: | 
+    | She/Her                     | <=> | He/Him   | <=> |  They/Them |
+    | She/They                    | <=> | He/They  |
+    | She/They                    | <=> | She/He   |
+    | They/She                    | <=> | He/She   |
+    | They/He                     | <=> | She/He   |
+    | They/He                     | <=> | They/She |
+
+    | **Globally Incompatible** |
+    | :-----------------------: |
+    | She/He/They               |
+    | She/They/He               |
+    | He/She/They               |
+    | He/They/She               |
+    | They/She/He               |
+    | They/He/She               |
+    | Any Pronouns              |
+
+    </details>
+
+- <details>
+    <summary>Year Roles</summary>
+
+    ---
+
+    |  **Globally Incompatible**  |
+    | :-------------------------: |
+    | Year 1                      |
+    | Year 2                      |
+    | Year 3                      |
+    | Year 4+                     |
+    | Alumni                      |
+    | Grad Student                |
+
+    </details>
+
+- <details>
+    <summary>Identity Roles</summary>
+
+    ---
+    
+    | **Globally Compatible** |
+    | :---------------------: |
+    | Queer                   |
+    | Questioning             |
+    | Asexual                 |
+    | Aromantic               |
+
+    | **Mutually<br/>Incompatible** |       |           |     |          |           |
+    | :---------------------------: | :---: | :-------: | :-: | :------: | :-------: |
+    | Straight                      | <=/=> | Lesbian   | Gay | Bisexual | Pansexual |
+    | Bisexual                      | <=/=> | Pansexual |
+
+    </details>
+
+</details>
+
 ## Deleted Message Logger
 When a message is deleted, information about the message is logged in the system message channel. This information includes the author, channel, created timestamp, and ids. The message content is also preserved in a format similar to the original Discord message. 
 
