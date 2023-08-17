@@ -46,3 +46,27 @@ Ensure all environmental variables are spelled exactly as below and can be found
 - `DOMAIN` - the domain name of the application
     - does not include any subdomains (www)
 - `MINECRAFT_SUBDOMAIN` - the subdomain used to connect to the Minecraft server
+
+
+## Additional setup, maintenance, and configuration information
+Button id's follow the format: `category`:`subcategory`:`id`
+
+> Note: `id` is always the last element of the group and is the most specific descriptor of the purpose of the button. `category` and `subcategory` are both optional to add additional description to the purpose. This is especially helpful if there are many buttons that require similar response actions that can be filtered out with a single `category` descriptor. `subcategory` can similarly offer a second level of description. There is technically no limit to how many subcategories there are, but it is recommended to try to keep them as concise as possible while offering a balance between readable simplicity and code efficiency.
+
+### Current Button categories:
+- `role` - specifies a role that should be applied or removed from the source user
+    - `{id}` - the id of a role that has no subcategory
+    - `pronouns`
+        - `{id}`
+    - `identity`
+        - `{id}`
+    - `year`
+        - `{id}`
+- `color`
+    - `no` - indicates the color interaction should be canceled
+    - `{hex}` - the hex code representing a color. Should have the format xxxxxx, where x is [0-9] or [a-f] all lowercase
+- `{id}` - the id of a specific action with no other similar buttons
+
+> Note: to add a new reaction role, simply specify its information in `config.json` in the `roles` section. When a button is pressed with the same id as the `id` property specified, that role will be handled by the bot. No other configuration is necessary. Just ensure the information in `config.json` lines up with the roles in the Discord server.
+
+Adding new functionality must be specified in `events/buttonEvent.js`
