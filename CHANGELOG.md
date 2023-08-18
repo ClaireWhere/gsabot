@@ -27,13 +27,17 @@
         + *[channel]*
     + vc 
         + *[channel]*
++ Added **new member welcome agreement**
++ Added **new member welcome message**
++ Added **safe space agreement**
++ Added **politics agreement**
++ Added **role compatibility rules**
 + Added **deleted message logger**
 + Added **dynamic deleted message display**
 + Added **deleted message retrieval**
 + Added **color role handling**
 + Added a defined **role heirarchy**
 + Added **Minecraft server tracking**
-+ Added **new member welcome message**
 
 ### Minor Feature Changes
 ---
