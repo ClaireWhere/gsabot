@@ -3,8 +3,8 @@ const { ButtonStyle, ActionRowBuilder, ButtonBuilder } = require('discord.js');
 
 module.exports = {
   async execute(interaction) {
-    const politics = await interaction.guild.channels.cache.find(channel => channel.name === 'politics');
-    const rules = await interaction.guild.channels.cache.find(channel => channel.name === 'rules');
+    const politics = await interaction.guild.channels.cache.find(channel => channel.name === 'politics') ?? `#politics`;
+    const rules = await interaction.guild.channels.cache.find(channel => channel.name === 'rules') ?? `#rules`;
 
     const row = new ActionRowBuilder()
             .addComponents(

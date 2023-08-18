@@ -11,9 +11,9 @@ module.exports = {
             .setAuthor({ name: 'Gender & Sexuality Alliance', iconURL: config.images.gsa_icon })
             .setThumbnail(config.images.rules_thmb);
 
-        const safe_space = await interaction.guild.channels.cache.find(channel => channel.name === 'safe-space');
-        const safe_space_entrance = await interaction.guild.channels.cache.find(channel => channel.name === 'safe-space-entrance');
-        const general = await interaction.guild.channels.cache.find(channel => channel.name === 'general');
+        const safe_space = await interaction.guild.channels.cache.find(channel => channel.name === 'safe-space') ?? `#safe-space`;
+        const safe_space_entrance = await interaction.guild.channels.cache.find(channel => channel.name === 'safe-space-entrance') ?? `#safe-space-entrance`;
+        const general = await interaction.guild.channels.cache.find(channel => channel.name === 'general') ?? `#general`;
 
 
         const embed_2 = new EmbedBuilder()

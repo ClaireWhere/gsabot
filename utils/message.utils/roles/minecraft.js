@@ -12,7 +12,7 @@ module.exports = {
                     .setDisabled(false)
             );
 
-        const minecraft_role = await interaction.guild.roles.cache.find(role => role.name === 'Minecraft');
+        const minecraft_role = await interaction.guild.roles.cache.find(role => role.name === 'Minecraft') ?? `@Minecraft`;
 
         const embed = {
             title: `Minecraft Role`,

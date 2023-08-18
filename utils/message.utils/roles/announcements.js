@@ -3,7 +3,7 @@ const { config } = require('../../../client/config.json');
 
 module.exports = { 
     async execute(interaction) {
-        const announcements_channel = await interaction.guild.channels.cache.find(channel => channel.name === 'announcements');
+        const announcements_channel = await interaction.guild.channels.cache.find(channel => channel.name === 'announcements') ?? `#announcements`;
 
         const row_1 = new ActionRowBuilder()
             .addComponents(

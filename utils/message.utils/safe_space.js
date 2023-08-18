@@ -3,8 +3,8 @@ const { ButtonStyle, ActionRowBuilder, ButtonBuilder } = require('discord.js');
 
 module.exports = {
   async execute(interaction) {
-    const safe_space = await interaction.guild.channels.cache.find(channel => channel.name === 'safe-space');
-    const rules = await interaction.guild.channels.cache.find(channel => channel.name === 'rules');
+    const safe_space = await interaction.guild.channels.cache.find(channel => channel.name === 'safe-space') ?? `#safe_space`;
+    const rules = await interaction.guild.channels.cache.find(channel => channel.name === 'rules') ?? `#rules`;
 
     const row = new ActionRowBuilder()
             .addComponents(
