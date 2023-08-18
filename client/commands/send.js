@@ -111,6 +111,10 @@ module.exports = {
             output = output.concat(await vc.execute(interaction));
         } else if (interaction.options.getSubcommand() === 'politics') {
             output.push(await politics.execute(interaction));
+        } else if (interaction.options.getSubcommand() === 'button') {
+            // to be implemented
+            await interaction.editReply({content: `feature coming soon...`});
+            return;
         } else if (interaction.options.getSubcommand() === 'safe_space') {
             output.push(await safe_space.execute(interaction));
         } else {
