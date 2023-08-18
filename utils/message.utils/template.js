@@ -9,14 +9,14 @@ module.exports = {
         .setName(`gsa_banner.png`)
         .setDescription(`Gender and Sexuality Alliance Banner`);
 
-    const button = new ButtonBuilder({
-        style: ButtonStyle.Primary,
-        label: ``,
-        custom_id: ``,
-        disabled: false,
-    });
-
-    const row = new ActionRowBuilder<ButtonBuilder>({components: [button]});
+    const row = new ActionRowBuilder()
+            .addComponents(
+                new ButtonBuilder()
+                    .setStyle(ButtonStyle.Primary)
+                    .setLabel(``)
+                    .setCustomId(``)
+                    .setDisabled(false)
+            );
 
     const embed = {
         title: ``,

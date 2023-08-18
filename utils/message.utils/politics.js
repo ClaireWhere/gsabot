@@ -6,14 +6,14 @@ module.exports = {
     const politics = await interaction.guild.channels.cache.find(channel => channel.name === 'politics');
     const rules = await interaction.guild.channels.cache.find(channel => channel.name === 'rules');
 
-    const button = new ButtonBuilder({
-        style: ButtonStyle.Danger,
-        label: `I agree to the politics rules`,
-        custom_id: `politics`,
-        disabled: false,
-    });
-
-    const row = new ActionRowBuilder<ButtonBuilder>({components: [button]});
+    const row = new ActionRowBuilder()
+            .addComponents(
+                new ButtonBuilder()
+                    .setStyle(ButtonStyle.Danger)
+                    .setLabel(`I agree to the politics rules`)
+                    .setCustomId(`politics`)
+                    .setDisabled(false)
+            );
 
     const embed_1 = {
         title: `‎\n❗Politics Rules❗`,
