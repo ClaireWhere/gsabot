@@ -44,11 +44,16 @@ async function cancelInteraction(interaction, message) {
 }
 
 async function getGreatestRolePosition(interaction) {
+    let maxPosition = await getBotRolePosition(interaction);
     try {
-        return await interaction.guild.roles.cache.find(role => role.position != 0 && role.color != 0 && !role.permissions.toArray().includes('Administrator')).position + 1;
+        return await interaction.guild.roles.cache.find(role => role.position === maxPosition || (role.position != 0 && role.color != 0 && role.permissions.toArray().includes('Administrator')) ).position + 1;
     } catch (error) {
-        return 1;
+        return maxPosition;
     }
+}
+async function getBotRolePosition(interaction) {
+    const botUser = await interaction.guild.members.fetch(interaction.client.user.id);
+    return interaction.guild.roles.cache.find( role => botUser.roles.cache.has(role.id) ).position-1;
 }
 
 module.exports = { color_handler }
