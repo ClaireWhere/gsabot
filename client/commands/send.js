@@ -98,14 +98,11 @@ module.exports = {
 
         if (interaction.options.getSubcommand() === 'agreement') {
             output.push(await agreement.execute(interaction));
-        }
-        if (interaction.options.getSubcommand() === 'roles') {
+        } else if (interaction.options.getSubcommand() === 'roles') {
             output = output.concat(await roles.execute(interaction));
-        }
-        if (interaction.options.getSubcommand() === 'rules') {
+        } else if (interaction.options.getSubcommand() === 'rules') {
             output.push(await rules.execute(interaction));
-        }
-        if (interaction.options.getSubcommand() === 'welcome') {
+        } else if (interaction.options.getSubcommand() === 'welcome') {
             output.push(await welcome.execute(interaction));
         }
 
