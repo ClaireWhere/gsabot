@@ -5,6 +5,7 @@ const rules = require('../../utils/message.utils/rules.js');
 const roles = require('../../utils/message.utils/roles.js');
 const agreement = require('../../utils/message.utils/agreement.js');
 const welcome = require('../../utils/message.utils/welcome.js');
+const vc = require('../../utils/message.utils/vc.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -104,6 +105,8 @@ module.exports = {
             output.push(await rules.execute(interaction));
         } else if (interaction.options.getSubcommand() === 'welcome') {
             output.push(await welcome.execute(interaction));
+        } else if (interaction.options.getSubcommand() === 'vc') {
+            output = output.concat(await vc.execute(interaction));
         } else {
             await interaction.editReply({content: `Error: invalid subcommand specified`});
             return;
