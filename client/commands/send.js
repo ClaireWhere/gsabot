@@ -104,6 +104,9 @@ module.exports = {
             output.push(await rules.execute(interaction));
         } else if (interaction.options.getSubcommand() === 'welcome') {
             output.push(await welcome.execute(interaction));
+        } else {
+            await interaction.editReply({content: `Error: invalid subcommand specified`});
+            return;
         }
 
         for (let i = 0; i < output.length; i++) {
