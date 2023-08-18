@@ -14,7 +14,7 @@ module.exports = {
 
     const vc_pc = { content: `# How to Access Voice Text on PC\n`, files: [vc_text_pc] };
     const vc_mobile = { content: `# How to Access Voice Text on Mobile\n`, files: [vc_text_mobile] };
-    const vc_info = { content: `### ❗ Please Use the Text Chat in Voice Channels Feature!! ❗\nHow to access on mobile and pc shown above :)` };
+    const vc_info = { content: `# ❗ Please Use the Text Chat in Voice Channels Feature!! ❗\nHow to access on mobile and pc shown above :)` };
     return [vc_pc, vc_mobile, vc_info];
   }
 }
