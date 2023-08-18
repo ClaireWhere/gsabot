@@ -10,6 +10,8 @@ Discord bot for the Gender and Sexuality Alliance.
 
 
 ## Dependencies
+> ⚠️ Note: these are only required for the `deleted message` features (see [FEATURES](FEATURES.md#deleted-message-logger)). No further installation is required if these features are not being utilized.
+
 1. MongoDB
     - This application uses a local MongoDB deployment which can be installed at https://www.mongodb.com/docs/manual/installation/
     - For Windows, make sure you add `C:\Program Files\MongoDB\Server\6.0\bin` as a `PATH` user environmental variable and use `mongod` in the command line to start the database (it can also be installed as a Windows service to skip the starting step)
