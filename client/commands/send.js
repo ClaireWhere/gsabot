@@ -109,12 +109,11 @@ module.exports = {
             output.push(await welcome.execute(interaction));
         }
 
-        var i = 0;
-        await output.forEach(async element => {
-            await channel.send(element)
-                .then(console.log(`Successfully sent message ${++i} of ${output.length} for ${interaction.options.getSubcommand()}`))
-                .catch(`There was an error sending message ${i} of ${output.length} for ${interaction.options.getSubcommand()} : ${console.error}`);
-        });
+        for (let i = 0; i < output.length; i++) {
+            await channel.send(output[i])
+                .then(console.log(`Successfully sent message ${i+1} of ${output.length} for ${interaction.options.getSubcommand()}`))
+                .catch(`There was an error sending message ${i+1} of ${output.length} for ${interaction.options.getSubcommand()} : ${console.error}`);
+        }
 
         await wait(1000);
         
