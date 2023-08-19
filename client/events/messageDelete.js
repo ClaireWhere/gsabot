@@ -1,12 +1,12 @@
 const { config } = require('../config.json');
 const { messageToBuffer } = require('../../utils/messageToImage');
-const { AttachmentBuilder } = require('discord.js');
+const { AttachmentBuilder, Events } = require('discord.js');
 require('dotenv').config();
 const { LoggedMessage } = require('../../models/LoggedMessage');
 const { insertMessageLog } = require('../../utils/messageLogger');
 
 module.exports = {
-    name: 'messageDelete',
+    name: Events.MessageDelete,
     async execute(message) {
         console.log(`Message deleted from ${message.channel} by ${message.author.tag}`);
 

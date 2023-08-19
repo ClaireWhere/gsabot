@@ -1,12 +1,12 @@
 'use strict';
-const { Client, GatewayIntentBits } = require('discord.js');
+const { Client, GatewayIntentBits, Events } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 const { config } = require('../config.json');
 const { color_handler } = require('../../utils/colorRoles.js');
 
 module.exports = {
-    name: 'interactionCreate',
+    name: Events.InteractionCreate,
     async execute(interaction) {
         if (!interaction.isButton()) { return false; }
         
