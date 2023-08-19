@@ -8,6 +8,17 @@ const { insertMessageLog } = require('../../utils/messageLogger');
 module.exports = {
     name: Events.MessageDelete,
     async execute(message) {
+        if (config.debug_mode) {
+            console.debug('running MessageDelete event');
+            await interaction.deferUpdate()
+                .then((res) => {
+                    console.debug('interaction deferred');
+                }).catch((err) => {
+                    console.error(err);
+                    return;
+                });
+        }
+        
         console.log(`Message deleted from ${message.channel} by ${message.author.tag}`);
 
         const author = await message.guild.members.cache.find(x => x.id === message.author.id);

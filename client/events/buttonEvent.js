@@ -10,7 +10,16 @@ module.exports = {
     async execute(interaction) {
         if (!interaction.isButton()) { return false; }
         
-        await interaction.deferUpdate();
+        if (config.debug_mode) {
+            console.debug('running button event');
+            await interaction.deferUpdate()
+                .then((res) => {
+                    console.debug('interaction deferred');
+                }).catch((err) => {
+                    console.error(err);
+                    return;
+                });
+        }
 
         if (interaction.customId == 'member') {
             if (await memberHasRole(interaction, "GSA Member")) {
