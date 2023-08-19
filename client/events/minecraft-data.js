@@ -1,6 +1,7 @@
 const cron = require('cron');
 const axios = require('axios');
 require('dotenv').config();
+const { config } = require('../config.json');
 
 var previous_status = ``;
 
