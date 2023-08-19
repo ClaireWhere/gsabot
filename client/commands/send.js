@@ -90,7 +90,6 @@ module.exports = {
         )
         ,
 	async execute(interaction) {
-        if (!interaction.isChatCommand()) { return; }
         if (interaction.commandName != 'send') { return; }
 
         await interaction.reply({content: `${interaction.guild.emojis.cache.find(emoji => emoji.name === 'loading')} please wait...`, ephemeral: true});

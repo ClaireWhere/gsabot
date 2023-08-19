@@ -26,7 +26,6 @@ module.exports = {
             .setDescription('View the current color of your name (this is only visible to you)')
         ),
         async execute(interaction) {
-            if (!interaction.isChatCommand()) { return; }
             if (interaction.commandName != 'color') { return; }
             
             await interaction.deferReply({ ephemeral: true });
