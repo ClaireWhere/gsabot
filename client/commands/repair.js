@@ -14,6 +14,9 @@ module.exports = {
             .setDescription('Repairs all the important roles for the server')
         ),
         async execute(interaction) {
+            if (!interaction.isChatCommand()) { return; }
+            if (interaction.commandName != 'repair') { return; }
+
             await interaction.deferReply({ephemeral: true});
             console.info(`Repair function started for ${interaction.options.getSubcommand()}`);
 
