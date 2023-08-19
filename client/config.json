@@ -203,6 +203,7 @@
                     {"intensity": 4, "hex": "0xCC99C9"}
                 ]
             }
-        }
+        },
+        "debug_mode": true
     }
 }
