@@ -1,5 +1,5 @@
 'use strict';
-const fs = require('node:fs');
+const fs = require('fs');
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 require('dotenv').config();
 

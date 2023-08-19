@@ -1,6 +1,6 @@
 {
   "name": "gsabot",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Discord bot for the Gender and Sexuality Alliance.",
   "main": "index.js",
   "scripts": {
