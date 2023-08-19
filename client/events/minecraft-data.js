@@ -17,9 +17,8 @@ async function checkServer() {
 
     axios.get(url)
         .then(response => {
-            // console.log(response);
-            if (response.data.hasOwnProperty('players')) {
-                if (previous_status != response.data.players.online) {
+            if (Object.hasOwn(response.data, 'players')) {
+                if (!(previous_status === response.data.players.online)) {
                     previous_status = response.data.players.online;
                     console.info(`[${getDate()}] [${ip}] ${response.data.players.online} players online`);
                 }
