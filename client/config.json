@@ -204,6 +204,10 @@
                 ]
             }
         },
-        "debug_mode": true
+        "debug_mode": true,
+        "minecraft_tracker": {
+            "disabled": true,
+            "frequency_mins": 5
+        }
     }
 }
