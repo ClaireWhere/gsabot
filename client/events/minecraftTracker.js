@@ -3,6 +3,7 @@ const axios = require('axios');
 require('dotenv').config();
 const config = require('../config.json').config.minecraft_tracker;
 var previous_status = ``;
+const { getDate } = require('../../utils/getDate');
 
 let scheduledCheck = new cron.CronJob(`00 */${config.frequency_mins} * * * *`, checkServer);
 
@@ -26,16 +27,6 @@ async function checkServer() {
         .catch(error => {
             console.error(`[${getDate()}] [${ip}] there was an error fetching the server status`);
         });
-}
-
-function getDate() {
-    var date = new Date();
-    return `${date.getFullYear()}-${pad(date.getMonth(), 2)}-${pad(date.getDay(), 2)} ${pad(date.getHours(), 2)}:${pad(date.getMinutes(), 2)}`;
-}
-function pad(num, size) {
-    num = num.toString();
-    while (num.length < size) num = "0" + num;
-    return num;
 }
 
 module.exports = {
