@@ -2,6 +2,7 @@
 const fs = require('fs');
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 require('dotenv').config();
+const { config } = require('./config.json');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMembers] });
 
@@ -41,12 +42,22 @@ client.on(Events.InteractionCreate, async interaction => {
 
     if (!command) return;
 
-    try {
-        await command.execute(interaction);
-    } catch (error) {
-        console.error(error);
-        await interaction.followUp({content: 'There was an error D:', ephemeral: true});
-    }
+    await command.execute(interaction)
+        .then((res) => {
+            if (config.debug_mode) {
+                console.debug(`command execution completed with status ${res}`);
+            }
+        }).catch(async (error) => {
+            await interaction.followUp({content: 'There was an error D:', ephemeral: true})
+                .then((res) => {
+                    if (config.debug_mode) {
+                        console.debug(`command executed with error. Application sent error message`);
+                    }
+                }).catch((err) => {
+                    console.error("command was unable to be executed. Application did not respond in time");
+                    return false;
+                });
+        });
     
 });
 
