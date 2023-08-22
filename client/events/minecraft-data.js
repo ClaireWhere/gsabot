@@ -11,7 +11,7 @@ async function checkServer() {
     const ip = `${process.env.MINECRAFT_SUBDOMAIN}.${process.env.DOMAIN}`;
     const url = `https://api.minetools.eu/ping/${ip}`;
 
-    axios.get(url)
+    await axios.get(url)
         .then(response => {
             if (Object.hasOwn(response.data, 'players')) {
                 if (!(previous_status === response.data.players.online)) {
