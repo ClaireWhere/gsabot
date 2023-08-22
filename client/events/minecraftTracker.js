@@ -33,7 +33,7 @@ module.exports = {
     name: 'ready',
     once: true,
     execute(client) {
-        if (!config.disabled) {
+        if (config.enabled) {
             scheduledCheck.start();
         }
     },
