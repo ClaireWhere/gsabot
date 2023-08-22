@@ -24,12 +24,8 @@ async function checkServer() {
             }
         })
         .catch(error => {
-            console.log(`[${getDate()}] [${ip}]`);
-            console.error(error);
+            console.error(`[${getDate()}] [${ip}] there was an error fetching the server status`);
         });
-
-
-        //console.log(`${json.data.players.online} players online`);
 }
 
 function getDate() {
