@@ -7,10 +7,7 @@ var previous_status = ``;
 let scheduledCheck = new cron.CronJob(`00 */${config.frequency_mins} * * * *`, checkServer);
 
 async function checkServer() {
-    if (config.debug_mode) {
-        console.debug('running checkServer');
-    }
-    
+
     const ip = `${process.env.MINECRAFT_SUBDOMAIN}.${process.env.DOMAIN}`;
     const url = `https://api.minetools.eu/ping/${ip}`;
 
