@@ -1,11 +1,10 @@
 const cron = require('cron');
 const axios = require('axios');
 require('dotenv').config();
-const { config } = require('../config.json');
-
+const config = require('../config.json').config.minecraft_tracker;
 var previous_status = ``;
 
-let scheduledCheck = new cron.CronJob('00 * * * * *', checkServer); // fires every minute at 00 seconds
+let scheduledCheck = new cron.CronJob(`00 */${config.frequency_mins} * * * *`, checkServer);
 
 async function checkServer() {
     if (config.debug_mode) {
@@ -50,9 +49,12 @@ module.exports = {
     name: 'ready',
     once: true,
     execute(client) {
-        scheduledCheck.start();
+        if (!config.disabled) {
+            scheduledCheck.start();
+        }
     },
     stop() {
         scheduledCheck.stop();
-    }
+    },
+    checkServer
 };
