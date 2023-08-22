@@ -11,15 +11,6 @@ module.exports = {
         if (config.debug_mode) {
             console.debug('running MessageDelete event');
         }
-        await interaction.deferUpdate()
-                .then((res) => {
-                    if (config.debug_mode) {
-                        console.debug('interaction deferred');
-                    }
-                }).catch((err) => {
-                    console.error(err);
-                    return;
-                });
         
         console.log(`Message deleted from ${message.channel} by ${message.author.tag}`);
 
