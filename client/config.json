@@ -206,7 +206,7 @@
         },
         "debug_mode": true,
         "minecraft_tracker": {
-            "disabled": true,
+            "enabled": true,
             "frequency_mins": 5
         }
     }
