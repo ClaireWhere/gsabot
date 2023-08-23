@@ -1,5 +1,5 @@
 const express = require('express');
-const { findMessageLog, verifyMessageId, test } = require('../utils/messageLogger');
+const { getMessageLog, verifyMessageId } = require('../utils/messageLogger');
 
 require('dotenv').config();
 const PORT = process.env.APP_PORT || 8080;
@@ -13,7 +13,7 @@ app.get('/logs/*', async function(req, res) {
         res.status(404).send(`no log found for ${id}.`);
         return;
     }
-    var m = (await findMessageLog(id));
+    var m = getMessageLog(id);
     console.log(`[RESPONSE] ` + (m != null ? `retrieved data for ${id}` : `no log found for ${id}`));
     res.send(m != null ? m.content : `no log found for ${id}.`);
 });
