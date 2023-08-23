@@ -208,6 +208,10 @@
         "minecraft_tracker": {
             "enabled": true,
             "frequency_mins": 5
+        },
+        "deleted_message_log": {
+            "enabled": true,
+            "use_database": true
         }
     }
 }
