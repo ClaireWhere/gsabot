@@ -19,13 +19,16 @@ async function checkServer() {
                     previous_status = response.data.players.online;
                     console.info(`[${getDate()}] [${ip}] ${response.data.players.online} players online`);
                 }
-            } else if (previous_status != 'warning') {
-                previous_status = 'warning'
+            } else if (!(previous_status === 'warning')) {
+                previous_status = 'warning';
                 console.warn(`[${getDate()}] [${ip}] could not reach server!`);
             }
         })
         .catch(error => {
-            console.error(`[${getDate()}] [${ip}] there was an error fetching the server status`);
+            if (!(previous_status === 'error')) {
+                previous_status = 'error';
+                console.error(`[${getDate()}] [${ip}] there was an error fetching the server status (${error.message})`);
+            }
         });
 }
 
