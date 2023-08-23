@@ -1,7 +1,7 @@
 const { config } = require('../config.json');
 const { messageToBuffer } = require('../../utils/messageToImage');
 const { AttachmentBuilder, Events } = require('discord.js');
-require('dotenv').config({path: `${__dirname}../../.env`});
+require('dotenv').config({path: `${__dirname}/../../.env`});
 const { LoggedMessage } = require('../../models/LoggedMessage');
 const { insertMessageLog } = require('../../utils/messageLogger');
 
