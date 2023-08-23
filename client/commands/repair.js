@@ -26,7 +26,7 @@ module.exports = {
                 roles_modified = 0;
                 roles_skipped = 0;
                 const time_started = new Date();
-                position = await getGreatestRolePosition(interaction);
+                position = getGreatestRolePosition(interaction);
 
                 await iterateRoles(interaction, config.roles);
                 console.info(`${roles_created} roles created, ${roles_modified} roles modified, ${roles_skipped} roles unchanged. Took ${(new Date() - time_started)/1000} seconds`);
@@ -54,7 +54,7 @@ async function iterateRoles(interaction, root) {
 }
 
 async function repairRole(interaction, role) {
-    const existing_role = await interaction.guild.roles.cache.find(r => r.name.toLowerCase() === role.name.toLowerCase());
+    const existing_role = interaction.guild.roles.cache.find(r => r.name.toLowerCase() === role.name.toLowerCase());
     if (existing_role === undefined || existing_role === null) {
         await interaction.guild.roles.create({ name: role.name, color: parseInt(role.color) ?? 0, permissions: getPermissionsFromArray(role.permissions), position: position });
         console.log(`role ${role.name} created`);
@@ -100,9 +100,9 @@ function getPermissionsFromArray(array) {
     return permissions;
 }
 
-async function getGreatestRolePosition(interaction) {
+function getGreatestRolePosition(interaction) {
     try {
-        const r = await interaction.guild.roles.cache.reverse().find(role => role.name === config.roles.president.name || role.name.endsWith(`'s Color`));
+        const r = interaction.guild.roles.cache.reverse().find(role => role.name === config.roles.president.name || role.name.endsWith(`'s Color`));
         return r.position; 
     } catch (error) {
         return 1;
