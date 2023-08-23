@@ -29,7 +29,7 @@ module.exports = {
 
         // categorized button id's take the form parent:child. Eg. pronouns:she_her is part of the pronouns category with the child id being she_her. See more in config.json
         const id = interaction.customId.split(':');
-        if (id.length == 0) { 
+        if (id.length === 0) { 
             console.error(`[ERROR] No button id found for the supplied button interaction`);
             await interaction.followUp({ephemeral: true, content: `There was an error! It looks like the button you clicked was invalid 🤔`});
             return false;
@@ -48,7 +48,8 @@ module.exports = {
 
         if (role_name === undefined || role_name.length === 0) { 
             console.error(`[ERROR] no role found for button: ${id.toString()}!`);
-            await interaction.followUp({ephemeral: true, content: `Something went wrong finding the role you selected D:`});
+            await interaction.followUp({ephemeral: true, content: `Something went wrong finding the role you selected D:`})
+                .catch((error) => {console.error(error.message)});
             return false;
         }
         
