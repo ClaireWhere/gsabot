@@ -11,7 +11,7 @@ db.pragma('journal_mode = WAL');
  * @param {LoggedMessage} message 
  * @returns 
  */
-function insertLog(message) {
+function insertMessageLog(message) {
     try {
         const insert_user = db.prepare('INSERT INTO user (id, name) VALUES (?, ?)');
         insert_user.run(message.author, message.author_name);
@@ -45,7 +45,7 @@ function insertLog(message) {
  * @param {number} message_id - the id property of the deleted_message record to retrieve from
  * @returns {LoggedMessage} LoggedMessage object containing the information from the deleted_message record
  */
-function getLog(message_id) {
+function getMessageLog(message_id) {
     const select_log = db.prepare(`
     SELECT 
         message.id, message.content, message.date, deleted_message.deleted_on, user.id, user.name, channel.id, channel.name, message.guild
