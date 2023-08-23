@@ -85,7 +85,7 @@ function select(query) {
     return db.prepare(query);
 }
 
-module.exports = { insertLog, getLog }
+module.exports = { insertMessageLog, getMessageLog, verifyMessageId }
 
 // async function run(cb, ...args) {
 //     try {
@@ -157,15 +157,15 @@ module.exports = { insertLog, getLog }
 //         });
 // }
 
-// /**
-//  * Filters out some invalid message id's. Does not accurately verify message id's as true all of the time.
-//  * 
-//  * @param {string} id
-//  * @returns boolean - false if the provided id is not a valid message id, true if the message is *likely* valid.
-//  */
-// function verifyMessageId(id) {
-//     return (id.match('^[0-9]*$') && id.length >= 17) ?? false;
-// }
+/**
+ * Filters out some invalid message id's. Does not accurately verify message id's as true all of the time.
+ * 
+ * @param {string} id
+ * @returns boolean - false if the provided id is not a valid message id, true if the message is *likely* valid.
+ */
+function verifyMessageId(id) {
+    return (id.match('^[0-9]*$') && id.length >= 17) ?? false;
+}
 
 // function isEmpty(obj) {
 //     if (obj === undefined) { return true; }
