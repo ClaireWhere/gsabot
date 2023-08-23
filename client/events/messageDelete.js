@@ -8,6 +8,8 @@ const { insertMessageLog } = require('../../utils/messageLogger');
 module.exports = {
     name: Events.MessageDelete,
     async execute(message) {
+        if (!config.deleted_message_log.enabled) { return; }
+        
         if (config.debug_mode) {
             console.debug('running MessageDelete event');
         }
@@ -29,8 +31,13 @@ module.exports = {
             message.createdTimestamp,
             message.guildId
         );
-        await insertMessageLog(logged);
-        const raw = `\n[Raw](https://${process.env.SERVER_SUBDOMAIN}.${process.env.DOMAIN}/logs/${message.id} 'Open raw text to copy/paste')`;
+        
+        var raw = "";
+        if (config.deleted_message_log.use_database) {
+            await insertMessageLog(logged);
+            raw = `\n[Raw](https://${process.env.SERVER_SUBDOMAIN}.${process.env.DOMAIN}/logs/${message.id} 'Open raw text to copy/paste')`;
+        }
+        
 
         const file = new AttachmentBuilder()
             .setFile(await messageToBuffer(message, nickname, displayColor))
