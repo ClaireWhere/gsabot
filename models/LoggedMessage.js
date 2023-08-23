@@ -35,6 +35,9 @@ class LoggedMessage {
 
     }
 
+    /**
+     * @returns {{content, id, author, channel, channel_name?, author_name?, date?, guild?}} the raw data of the LoggedMessage as an object
+     */
     get messageData() {
         return {
             content: this.content,
@@ -48,6 +51,9 @@ class LoggedMessage {
         }
     }
 
+    /**
+     * @returns {string?}
+     */
     get message() {
         return this.content ?? null;
     }
@@ -55,7 +61,7 @@ class LoggedMessage {
     /**
      * 
      * @param {JSON} json 
-     * @returns new LoggedMessage object created from the provided JSON object
+     * @returns {LoggedMessage?} new LoggedMessage object created from the provided JSON object
      */
     static logFromJson(json) {
         try {
@@ -70,7 +76,7 @@ class LoggedMessage {
 /**
  * 
  * @param {string|number} str 
- * @returns integer representation of `str`. null if invalid
+ * @returns {number?} integer representation of `str`. null if invalid
  */
 function toNum(str) {
     if (!IsNumeric(str)) {
