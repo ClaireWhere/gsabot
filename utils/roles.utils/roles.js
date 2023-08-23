@@ -209,4 +209,60 @@ function getPermissionsFromArray(array) {
     return permissions;
 }
 
-module.exports = { removeExclusive, memberHasRole, addRole, addRoleByName, addFormatRole, removeRole, removeRoleByName, removeFormatRole, toggleRole, findRole, getPermissionsFromArray };
+
+/**
+ * 
+ * @param {import('discord.js').Interaction} interaction 
+ * @returns 
+ */
+function getMaxNeopronounsPosition(interaction) {
+    try {
+        const r = interaction.guild.roles.cache.find(role => role.name === config.roles.pronouns.neo.name);
+        return r.rawPosition;
+    } catch (error) {
+        console.error(error);
+        return 1;
+    }
+}
+
+/**
+ * 
+ * @param {import('discord.js').Interaction} interaction 
+ * @returns 
+ */
+function getMinNeopronounsPosition(interaction) {
+    var minPos = getMaxNeopronounsPosition(interaction);
+    try {
+        interaction.guild.roles.cache.forEach((role) => {
+            //console.log(`${role.name} | ${role.color} | ${parseInt(config.roles.pronouns.neo.color)}`);
+            if (role.color === parseInt(config.roles.pronouns.neo.color) && role.position < minPos) {
+                minPos = role.position;
+            }
+        });
+        return minPos;
+        // const r = interaction.guild.roles.cache.find((role) => {
+            
+        // });
+        // console.log(r);
+        // return r.rawPosition;
+    } catch (error) {
+        console.error(error);
+        return 1;
+    }
+}
+
+/**
+ * gets the interacting member's neopronoun roles
+* @param {import('discord.js').Interaction} interaction
+ * @returns an array containing the interacting member's neopronoun roles
+ * 
+ */
+async function getNeopronounRoles(interaction) {
+    const maxPos = getMaxNeopronounsPosition(interaction);
+    const minPos = getMinNeopronounsPosition(interaction);
+    const memberRoles = await interaction.member.roles.cache;
+    const roles = interaction.guild.roles.cache.filter((role) => role.position <= maxPos && role.position >= minPos && memberRoles.some((r) => r.id === role.id ));
+    return roles.map((role) => role.name);
+}
+
+module.exports = { removeExclusive, memberHasRole, addRole, addRoleByName, addFormatRole, removeRole, removeRoleByName, removeFormatRole, toggleRole, findRole, getPermissionsFromArray, getMaxNeopronounsPosition, getMinNeopronounsPosition, getNeopronounRoles };
