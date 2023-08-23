@@ -1,6 +1,8 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { PermissionsBitField } = require('discord.js');
 const { config } = require('../config.json');
+const { getPermissionsFromArray } = require('../../utils/roles.utils/roles');
+const { isEmpty, arrayMatch } = require('../../utils/utils');
 require('dotenv').config();
 
 module.exports = {
@@ -89,16 +91,6 @@ async function repairRole(interaction, role) {
     }
 }
 
-function getPermissionsFromArray(array) {
-    if (array === undefined || array.length === 0) {
-        return [];
-    }
-    var permissions = [];
-    array.forEach(permission => {
-        permissions.push(PermissionsBitField.Flags[permission]);
-    });
-    return permissions;
-}
 
 function getGreatestRolePosition(interaction) {
     try {
@@ -107,19 +99,4 @@ function getGreatestRolePosition(interaction) {
     } catch (error) {
         return 1;
     }
-}
-
-function arrayMatch(a, b) {    
-    if (isEmpty(a) && isEmpty(b)) { return true; }
-    if (a === undefined || b === undefined || a.length != b.length ) { return false; }
-    return a.every(x => b.includes(x));
-}
-
-function isEmpty(obj) {
-    if (obj === undefined) { return true; }
-    for(var prop in obj) {
-        if(obj.hasOwnProperty(prop))
-            return false;
-    }
-    return true;
 }
