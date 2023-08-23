@@ -2,6 +2,7 @@ const { Events } = require('discord.js');
 
 const { config } = require('../config.json');
 const { color_handler } = require('../../utils/colorRoles.js');
+const { handleNeopronouns } = require('../../utils/neopronouns');
 const { toggleRole } = require('../../utils/roles.utils/roles');
 const { welcomeMember } = require('../../utils/welcomeMember');
 
@@ -13,6 +14,12 @@ module.exports = {
         if (config.debug_mode) {
             console.debug('running button event');
         }
+
+        // Handle button events that show modals here before deferUpdate since modals must be shown first
+        if (interaction.customId === 'pronouns:neo') {
+            return await handleNeopronouns(interaction);
+        }
+
         await interaction.deferUpdate()
                 .then((res) => {
                     if (config.debug_mode) {
