@@ -42,11 +42,6 @@ function isEmpty(obj) {
     return true;
 }
 
-console.log(isEmpty({})); // returns true
-console.log(isEmpty({"property": 1})); // returns false
-console.log(isEmpty(undefined)); // returns true
-console.log(isEmpty("1")); // returns true
-
 /**
  * 
  * @param {Array} arr 
