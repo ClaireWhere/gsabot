@@ -50,7 +50,7 @@ async function addNeopronouns(interaction, roles) {
 async function removeNeopronouns(interaction, roles) {
     var removedRoles = [];
     for (const element of roles) {
-        if (element.length < 4 || (!element.includes('/') && element != config.roles.pronouns.neo.name)) {
+        if (element.length < 4 || (!element.includes('/') && element.toLowerCase() != config.roles.pronouns.neo.name.toLowerCase())) {
             continue;
         }
         var role = findRole(interaction, element);
