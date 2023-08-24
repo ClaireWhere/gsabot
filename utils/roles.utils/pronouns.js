@@ -30,7 +30,7 @@ async function addNeopronouns(interaction, roles) {
                 });
         } else {
             if (await memberHasRole(interaction, role)) { 
-                console.log(`skipping neopronouns: user already has ${role.name} role`);
+                console.log(`skipping assignment of neopronouns: user already has ${role.name} role`);
                 continue;
              }
         }
