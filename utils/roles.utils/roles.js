@@ -184,10 +184,11 @@ async function removeFormatRole(interaction, role_name) {
 /**
  * 
  * @param {import("discord.js").Interaction} interaction
- * @param {string} role_name 
+ * @param {string} role_name - the name of the role to toggle
+ * @param {string} id - the role id of the role to toggle
  * @returns 
  */
-async function toggleRole(interaction, role_name) {
+async function toggleRole(interaction, role_name, id) {
     if (await memberHasRole(interaction, role_name)) {
         return await removeFormatRole(interaction, role_name);
     } else {
