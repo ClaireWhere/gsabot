@@ -10,10 +10,6 @@ module.exports = {
     name: Events.InteractionCreate,
     async execute(interaction) {
         if (!interaction.isButton()) { return false; }
-        
-        if (config.debug_mode) {
-            console.debug('running button event');
-        }
 
         // Handle button events that show modals here before deferUpdate since modals must be shown first
         if (interaction.customId === 'pronouns:neo') {
