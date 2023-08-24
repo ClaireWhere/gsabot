@@ -1,7 +1,7 @@
 
 
 async function welcomeMember(interaction) {
-    if (await memberHasRole(interaction, "GSA Member")) {
+    if (await memberHasRoleName(interaction, "GSA Member")) {
         await interaction.followUp({ephemeral: true, content: `${await interaction.guild.emojis.cache.find(emoji => emoji.name === 'rich_thinking') ?? '🤔'} There was an error. You are already a member!`});
         return false;
     } else {
