@@ -1,6 +1,6 @@
 const { addRole, findRole, getMinNeopronounsPosition, getPermissionsFromArray, removeRole, memberHasRole } = require('./roles');
 const { config } = require('../../client/config.json');
-const { formatList } = require('../utils');
+const { formatList, isEmpty } = require('../utils');
 
 /**
  * 
@@ -44,6 +44,7 @@ async function addNeopronouns(interaction, roles) {
         await addRole(interaction, neopronouns_role)
             .then((res) => { addedRoles.push(neopronouns_role) });
     }
+    if (isEmpty(addedRoles)) { return; }
 
     await interaction.followUp({ephemeral: true, content: `You now have the ${formatList(addedRoles)} role${addedRoles.length>1 ? 's' : ''}!`})
         .catch((error) => { console.error(error.message); })
