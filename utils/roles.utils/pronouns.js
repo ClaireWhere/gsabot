@@ -46,8 +46,9 @@ async function addNeopronouns(interaction, roles) {
     }
     if (isEmpty(addedRoles)) { return; }
 
-    await interaction.followUp({ephemeral: true, content: `You now have the ${formatList(addedRoles)} role${addedRoles.length>1 ? 's' : ''}!`})
-        .catch((error) => { console.error(error.message); })
+    const pluralize = addedRoles.length>1 ? 's' : '';
+    await interaction.followUp({ephemeral: true, content: `You now have the ${formatList(addedRoles)} role${pluralize}!`})
+        .catch((error) => { console.error(error.message); });
 }
 
 /**
