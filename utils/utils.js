@@ -66,4 +66,25 @@ function formatList(arr) {
     return formattedList;
 }
 
-module.exports = { arrayMatch, isEmpty, formatList }
+/**
+ * Returns an array containing all elements of 'search' that do not intersect with 'intersection'
+ * @param {Array | string} search 
+ * @param {Array | string} intersection
+ * @returns {Array}
+ */
+function removeIntersection(search, intersection) {
+    if ((typeof(search) != "object" && typeof(intersection) != "object")) {
+        return search === intersection ? [] : [search];
+    }
+
+    if (typeof(search) != "object") {
+        return intersection.includes(search) ? [] : [search];
+    }
+    if (typeof(intersection) != "object") {
+        return search.filter(e => e != intersection);
+    }
+    return search.filter(e => !intersection.includes(e));
+}
+
+
+module.exports = { arrayMatch, isEmpty, formatList, removeIntersection }
