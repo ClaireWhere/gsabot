@@ -20,7 +20,7 @@ async function handleNeopronouns(interaction) {
             .setRequired(false)
             .setPlaceholder(`Type the neopronouns you would like removed from your profile (if any) separated by commas as above`)
             .setMinLength(4)
-            .setMaxLength(45)
+            .setMaxLength(200)
         : undefined;
     
     const neopronounsInput = new TextInputBuilder()
@@ -30,7 +30,7 @@ async function handleNeopronouns(interaction) {
         .setRequired(previousRoles.length > 0 ? false : true)
         .setPlaceholder('Type the neopronouns you would like to add to your profile separated by commas. (e.g. xe/xem, ey/em)')
         .setMinLength(4)
-        .setMaxLength(45);
+        .setMaxLength(200);
 
     const firstRow = new ActionRowBuilder().addComponents(previousNeopronouns);
     const secondRow = new ActionRowBuilder().addComponents(neopronounsInput);
