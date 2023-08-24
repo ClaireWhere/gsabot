@@ -86,5 +86,13 @@ function removeIntersection(search, intersection) {
     return search.filter(e => !intersection.includes(e));
 }
 
+/**
+ * 
+ * @param {Array<string>} arr 
+ * @returns 
+ */
+function arrayToLowerCase(arr) {
+    return arr.map(e => e.toLowerCase());
+}
 
-module.exports = { arrayMatch, isEmpty, formatList, removeIntersection }
+module.exports = { arrayMatch, isEmpty, formatList, removeIntersection, arrayToLowerCase }
