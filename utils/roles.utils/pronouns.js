@@ -66,9 +66,14 @@ async function removeNeopronouns(interaction, roles) {
         if (!role) {
             continue;
         }
+        if (!(await memberHasRole(interaction, role))) { 
+            console.log(`skipping removal of neopronouns: user does not have ${role.name} role`);
+            continue;
+        }
         await removeRole(interaction, role)
             .then((res) => { removedRoles.push(role)} );
     }
+    if (isEmpty(removedRoles)) { return; }
     
     await interaction.followUp({ephemeral: true, content: `You no longer have the ${formatList(removedRoles)} role${removedRoles.length>1 ? 's' : ''}!`})
         .catch((error) => { console.error(error.message); })
