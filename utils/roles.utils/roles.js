@@ -35,7 +35,7 @@ async function removeExclusive(interaction, id) {
         return true;
     }
 
-    await exclusive.forEach(async element => {
+    for (const element of exclusive) {
         try {
             if (await memberHasRole(interaction, root_element[element].name)) {
                 await removeFormatRole(interaction, root_element[element].name);
@@ -43,7 +43,7 @@ async function removeExclusive(interaction, id) {
         } catch (error) {
             console.error(error);
         }
-    });
+    }
 }
 
 /**
