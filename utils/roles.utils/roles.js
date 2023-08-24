@@ -219,7 +219,7 @@ function getPermissionsFromArray(array) {
 function getMaxNeopronounsPosition(interaction) {
     try {
         const r = interaction.guild.roles.cache.find(role => role.name === config.roles.pronouns.neo.name);
-        return r.rawPosition;
+        return r.position;
     } catch (error) {
         console.error(error);
         return 1;
