@@ -60,7 +60,7 @@ module.exports = {
             return false;
         }
         
-        await toggleRole(interaction, role_name);
+        await toggleRole(interaction, role_name, id);
         return true;
     },
 };
