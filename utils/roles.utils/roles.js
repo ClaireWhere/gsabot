@@ -37,7 +37,7 @@ async function removeExclusive(interaction, id) {
 
     for (const element of exclusive) {
         try {
-            if (await memberHasRole(interaction, root_element[element].name)) {
+            if (await memberHasRoleName(interaction, root_element[element].name)) {
                 await removeFormatRole(interaction, root_element[element].name);
             }
         } catch (error) {
@@ -52,8 +52,18 @@ async function removeExclusive(interaction, id) {
  * @param {string} role_name 
  * @returns 
  */
-async function memberHasRole(interaction, role_name) {
+async function memberHasRoleName(interaction, role_name) {
     return await interaction.member.roles.cache.some(role => role.name === role_name);
+}
+
+/**
+ * 
+ * @param {import('discord.js').Interaction} interaction 
+ * @param {import('discord.js').Role} role 
+ * @returns 
+ */
+async function memberHasRole(interaction, role) {
+    return await interaction.member.roles.cache.some(r => r.id === role.id);
 }
 
 /**
@@ -189,7 +199,7 @@ async function removeFormatRole(interaction, role_name) {
  * @returns 
  */
 async function toggleRole(interaction, role_name, id) {
-    if (await memberHasRole(interaction, role_name)) {
+    if (await memberHasRoleName(interaction, role_name)) {
         return await removeFormatRole(interaction, role_name);
     } else {
         await addFormatRole(interaction, role_name);
@@ -266,4 +276,4 @@ async function getNeopronounRoles(interaction) {
     return roles.map((role) => role.name);
 }
 
-module.exports = { removeExclusive, memberHasRole, addRole, addRoleByName, addFormatRole, removeRole, removeRoleByName, removeFormatRole, toggleRole, findRole, getPermissionsFromArray, getMaxNeopronounsPosition, getMinNeopronounsPosition, getNeopronounRoles };
+module.exports = { removeExclusive, memberHasRoleName, memberHasRole, addRole, addRoleByName, addFormatRole, removeRole, removeRoleByName, removeFormatRole, toggleRole, findRole, getPermissionsFromArray, getMaxNeopronounsPosition, getMinNeopronounsPosition, getNeopronounRoles };
