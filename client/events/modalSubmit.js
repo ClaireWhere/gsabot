@@ -17,9 +17,13 @@ module.exports = {
         // neopronounsModal
         if (interaction.customId === 'neopronounsModal') {
             // Remove neopronouns
-            let neopronounsRemove = interaction.fields.getTextInputValue('removeNeopronouns');
-            if (neopronounsRemove) {
-                await removeNeopronouns(interaction, neopronounsRemove.split(', '));
+            try {
+                let neopronounsRemove = interaction.fields.getTextInputValue('removeNeopronouns');
+                if (neopronounsRemove) {
+                    await removeNeopronouns(interaction, neopronounsRemove.split(', '));
+                }
+            } catch (error) {
+                console.log(`no pronouns to remove`);
             }
             
             // Add neopronouns
