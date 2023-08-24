@@ -13,7 +13,7 @@ async function addNeopronouns(interaction, roles) {
     var addedRoles = [];
 
     for (const element of roles) {
-        if (element.length < 4 || !element.includes('/') || isPronounRole(element)) {
+        if (element.length > 40 || element.length < 4 || !element.includes('/') || isPronounRole(element)) {
             console.log(`skipping invalid neopronouns: ${element}`);
             continue;
         }
