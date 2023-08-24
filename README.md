@@ -4,24 +4,42 @@ Discord bot for the Gender and Sexuality Alliance.
 
 ## Installation
 1. Ensure all [dependencies](README.md#dependencies) are configured and running
+1. Clone the repository
+    - If installing from github, use `git clone https://github.com/ClaireWhere/gsabot.git`
+1. Configure the [Environmental Variables](README.md#environmental-variables)
 1. Run `npm init -y` to initialize the package
 1. Run `npm run initialize` to deploy any commands to the Discord bot. This only needs to be run whenever new commands are added to the application.
 1. Run `npm run dev` to start the application
 
 
 ## Dependencies
-> ⚠️ Note: these are only required for the `deleted message` features (see [FEATURES](FEATURES.md#deleted-message-logger)). No further installation is required if these features are not being utilized.
+1. Node js
+    - `sudo apt install nodejs`
+    - ensure it is properly installed and working with `node -v`
+2. Node Package Manager (npm)
+    - `sudo apt install npm`
+    - ensure it is properly installed and working with `npm -v`
 
-1. MongoDB
-    - This application uses a local MongoDB deployment which can be installed at https://www.mongodb.com/docs/manual/installation/
-    - For Windows, make sure you add `C:\Program Files\MongoDB\Server\6.0\bin` as a `PATH` user environmental variable and use `mongod` in the command line to start the database (it can also be installed as a Windows service to skip the starting step)
-1. A Publicly routable IP address
+> ⚠️ Note: the following dependencies are only required for the `deleted message` features (see [FEATURES](FEATURES.md#deleted-message-logger)). If these features are not being utilized, disable them in [client/config.json](./client/config.json). 
+
+3. SQLite
+    - This application uses a local SQLite deployment. 
+    - [Download](https://www.sqlite.org/download.html)
+    - Detailed [Installation instructions](https://www.sqlitetutorial.net/download-install-sqlite/)
+4. A Publicly routable IP address
     - `server.js` is configured to run on the local port specified in the `APP_PORT` environmental variable and assumes subdomain.domain specified in `SERVER_SUBDOMAIN` and `DOMAIN` environmental variables routes to the network the application is running on and to that port locally. 
     
     - Since this is a local port, there must be a way for the router to route traffic to the specific port on the network the application is running. 
 
     - One easy way to do this without exposing the network IP is to setup a [Cloudflare Access Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/). More information can be found at https://www.cloudflare.com/
 
+> Optional: to use the latest release/update from github, the following dependencies are required
+
+5. Git
+    - `sudo apt install git`
+    - ensure it is properly installed and working with `git --version`
+    - Add a username with `git config --global user.name "your-username"`
+    - Add an email address with `git config --global user.email "example@email.com"`
 
 ## Config
 To be added
