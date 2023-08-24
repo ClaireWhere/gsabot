@@ -1,4 +1,4 @@
-const { addRole, findRole, getMinNeopronounsPosition, getPermissionsFromArray, removeRole } = require('./roles');
+const { addRole, findRole, getMinNeopronounsPosition, getPermissionsFromArray, removeRole, memberHasRole } = require('./roles');
 const { config } = require('../../client/config.json');
 const { formatList } = require('../utils');
 
@@ -28,15 +28,22 @@ async function addNeopronouns(interaction, roles) {
                 .catch((error) => {
                     console.error(error.message);
                 });
+        } else {
+            if (await memberHasRole(interaction, role)) { 
+                console.log(`skipping neopronouns: user already has ${role.name} role`);
+                continue;
+             }
         }
         await addRole(interaction, role)
             .then((res) => { addedRoles.push(role) });
     }
 
     // add the 'Neopronouns' role
-    var role = findRole(interaction, config.roles.pronouns.neo.name);
-    await addRole(interaction, role)
-        .then((res) => { addedRoles.push(role) });
+    var neopronouns_role = findRole(interaction, config.roles.pronouns.neo.name);
+    if (!(await memberHasRole(interaction, neopronouns_role))) {
+        await addRole(interaction, neopronouns_role)
+            .then((res) => { addedRoles.push(neopronouns_role) });
+    }
 
     await interaction.followUp({ephemeral: true, content: `You now have the ${formatList(addedRoles)} role${addedRoles.length>1 ? 's' : ''}!`})
         .catch((error) => { console.error(error.message); })
