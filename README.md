@@ -3,7 +3,7 @@ Discord bot for the Gender and Sexuality Alliance.
 
 
 ## Installation
-1. Ensure all dependencies are configured and running
+1. Ensure all [dependencies](README.md#dependencies) are configured and running
 1. Run `npm init -y` to initialize the package
 1. Run `npm run initialize` to deploy any commands to the Discord bot. This only needs to be run whenever new commands are added to the application.
 1. Run `npm run dev` to start the application
@@ -25,9 +25,11 @@ Discord bot for the Gender and Sexuality Alliance.
 
 ## Config
 To be added
+- [client/config.json](./client/config.json)
+- [config.json](config.json)
 
 ## Environmental Variables
-Ensure all environmental variables are spelled exactly as below and can be found in `.env` in the `root` and `/client` directory before running the application.
+Ensure all environmental variables are spelled exactly as below and can be found in `.env` in the `root` ([.env](./env)) and `/client` ([client/.env](./client/.env)) directory before running the application.
 
 ### Root
 - `APP_PORT` - the local port the server application should be running on
@@ -44,7 +46,7 @@ Ensure all environmental variables are spelled exactly as below and can be found
 - `REGISTER` - the name of the registration service for the bot 
     - as in, "go to REGISTER to register for this organization"
 - `GSA_BANNER` - the banner image
-    - Since the `gsa banner` image may contain sensitive information about the name of the school, it is contained in `.env`. All other images are in `config.json` since they shouldn't contain any sensitive information.
+    - Since the `gsa banner` image may contain sensitive information about the name of the school, it is contained in [client/.env](./client/.env). All other images are in [client/config.json](./client/config.json) since they shouldn't contain any sensitive information.
 - `DOMAIN` - the domain name of the application
     - does not include any subdomains (www)
 - `MINECRAFT_SUBDOMAIN` - the subdomain used to connect to the Minecraft server
@@ -69,6 +71,6 @@ Button id's follow the format: `category`:`subcategory`:`id`
     - `{hex}` - the hex code representing a color. Should have the format xxxxxx, where x is [0-9] or [a-f] all lowercase
 - `{id}` - the id of a specific action with no other similar buttons
 
-> ⚠️ Note: to add a new reaction role, simply specify its information in `config.json` in the `roles` section. When a button is pressed with the same id as the `id` property specified, that role will be handled by the bot. No other configuration is necessary. Just ensure the information in `config.json` lines up with the roles in the Discord server.
+> ⚠️ Note: to add a new reaction role, simply specify its information in [client/config.json](./client/config.json) in the `roles` section. When a button is pressed with the same id as the `id` property specified, that role will be handled by the bot. No other configuration is necessary. Just ensure the information in [client/config.json](./client/config.json) lines up with the roles in the Discord server.
 
-Adding new functionality must be specified in `events/buttonEvent.js`
+Adding new functionality must be specified in [buttonEvent.js](./client/events/buttonEvent.js)
