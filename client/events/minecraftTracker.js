@@ -42,6 +42,7 @@ module.exports = {
     },
     stop() {
         scheduledCheck.stop();
+        console.log('shutting down minecraftTracker');
     },
     checkServer
 };

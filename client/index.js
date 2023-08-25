@@ -3,6 +3,7 @@ const fs = require('fs');
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 require('dotenv').config();
 const { config } = require('./config.json');
+const minecraftTracker = require('./events/minecraftTracker');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMembers] });
 
@@ -62,3 +63,9 @@ client.on(Events.InteractionCreate, async interaction => {
 });
 
 client.login(process.env.DISCORD_TOKEN);
+
+
+process.on('beforeExit', async () => {
+    await minecraftTracker.stop();
+    process.exit(0)
+});
