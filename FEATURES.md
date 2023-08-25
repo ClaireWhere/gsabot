@@ -62,6 +62,61 @@ Sends embed-formatted informational/functional server messages
 
 ---
 
+## Custom Neopronoun Role Manager
+Clicking the `Manage Neopronouns` button in the role selection channel opens a modal where users can input their own neopronouns
+
+<p align="center" width="100%">
+    <img src="https://i.imgur.com/FN2P0hF.png">
+    <img src="https://i.imgur.com/01z8Vry.png">
+</p>
+
+> ⚠️ Important: 
+>- Neopronoun roles must contain at least one "/" character
+>   - otherwise it will be rejected
+>- Neopronoun roles may have a maximum length of 40 characters
+>   - otherwise it will be rejected
+>- Multiple neopronoun roles must be separated by a comma AND a space
+>   - otherwise the application will consider it one neopronoun
+
+> 📝 Note:
+>- Capitalization does not matter for neopronoun input
+>   - it will be handled by the application
+>- There is no limit to how many "/" characters are included in a neopronoun, as long as it fits within the 40 character limit
+>- The 40 character limit is due to discord chopping off anything longer for display purposes
+>   - here's what a 32 character long neopronoun might look like: phey/phem/pheir/pheirs/pheirself
+>   - if you need longer a neopronoun role, you may have to split it into 2 roles
+>- You may specify as many neopronouns as can fit in the 200 character limit in any single interaction
+>   - if you need more space, press the button again
+
+
+Upon clicking submit, the roles will be assigned to the user, creating new roles if necessary. A message should be sent confirming that the roles have been assigned as well as the `Neopronouns` role that specifies the user uses neopronouns.
+
+<p align="center" width="100%">
+    <img width="50%" src="https://i.imgur.com/zAf2bA0.png">
+</p>
+
+Roles may be added, changed, or removed by clicking the `Manage Neopronouns` button another time. A modal is opened displaying the user's existing neopronouns above the top input, which is used to specify neopronouns for removal. The second input can be used the same as before to specify new neopronouns. Neopronouns may be added only, removed only, or added and removed at the same time with this interaction.
+
+> ⚠️ Important: Neopronouns must be spelled exactly the same as they are spelled above the input (capitalization does not matter) or their roles won't be removed.
+
+> 🚫 Display Issues: The neopronouns specified above the removal input are cut off after 45 characters. This is a Discord limitation, and there is no other location to display text. Once Selection Menus are implemented by Discord this should be much cleaner. If some neopronoun roles are not displayed, they can still be typed in the input and removed properly, it is a purely visual issue.
+
+> 📝 Note: The "Neopronouns" role is automatically given in every "Manage Neopronouns" interaction unless specified to be removed. If you would like to prevent receiving this role when adding new neopronouns, make sure to type "neopronouns" into the removal input to stop it from being added.
+
+<p align="center" width="100%">
+    <img src="https://i.imgur.com/fEhPHxX.png">
+    <img src="https://i.imgur.com/FCrCnkF.png">
+</p>
+
+Upon clicking submit, any neopronouns specified for removal will be removed, and any neopronouns specified for addition will be added. A message should be sent confirming any removed or added roles.
+
+<p align="center" width="100%">
+    <img width="40%" src="https://i.imgur.com/IBXshfu.png">
+    <img width="30%" src="https://i.imgur.com/1KMfFaH.png">
+</p>
+
+---
+
 ## New Member Rules Agreement
 When a new user joins the Discord server, they should have access to only two channels: The "welcome" channel, and the "agreement" channel. The welcome channel directs users to the agreement channel where they must press a button after reading the rules to agree to the rules of the server. Upon agreeing to the rules by interacting with the button, the `GSA Member` role is assigned to the user, giving access to the general server channels.
 
