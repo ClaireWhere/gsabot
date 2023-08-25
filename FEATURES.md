@@ -156,29 +156,15 @@ The following categories are used in the rules below to make the role compatibil
 
 ---
 
-| **Globally<br/>Compatible** |
-| :-------------------------: |
-| Neopronouns                 |
-
-
-| **Mutually<br/>Compatible** |     |          |     |            |
-| :-------------------------: | :-: | :------: | :-: | :--------: | 
-| She/Her                     | <=> | He/Him   | <=> |  They/Them |
-| She/They                    | <=> | He/They  |
-| She/They                    | <=> | She/He   |
-| They/She                    | <=> | He/She   |
-| They/He                     | <=> | She/He   |
-| They/He                     | <=> | They/She |
-
-| **Globally Incompatible** |
-| :-----------------------: |
-| She/He/They               |
-| She/They/He               |
-| He/She/They               |
-| He/They/She               |
-| They/She/He               |
-| They/He/She               |
-| Any Pronouns              |
+| **Globally<br/>Compatible** | │ | **Mutually<br/>Compatible** |     |          |     |            | │ | **Globally Incompatible** |
+| :-------------------------: |:-:| :-------------------------: | :-: | :------: | :-: | :--------: |:-:| :-----------------------: |
+| Neopronouns                 | │ | She/Her                     | <=> | He/Him   | <=> |  They/Them | │ | She/He/They               |
+|                             | │ | She/They                    | <=> | He/They  |     |            | │ | She/They/He               |
+|                             | │ | She/They                    | <=> | She/He   |     |            | │ | He/She/They               |
+|                             | │ | They/She                    | <=> | He/She   |     |            | │ | He/They/She               |
+|                             | │ | They/He                     | <=> | She/He   |     |            | │ | They/She/He               |
+|                             | │ | They/He                     | <=> | They/She |     |            | │ | They/He/She               |
+|                             |   |                             |     |          |     |            |   | Any Pronouns              |
 
 </details>
 
@@ -203,17 +189,12 @@ The following categories are used in the rules below to make the role compatibil
 
 ---
 
-| **Globally Compatible** |
-| :---------------------: |
-| Queer                   |
-| Questioning             |
+| **Globally Compatible** | │ | **Mutually<br/>Incompatible** |       |           |     |          |           |
+| :---------------------: |:-:| :---------------------------: | :---: | :-------: | :-: | :------: | :-------: |
+| Queer                   | │ | Straight                      | <=/=> | Lesbian   | Gay | Bisexual | Pansexual |
+| Questioning             | │ | Bisexual                      | <=/=> | Pansexual |
 | Asexual                 |
 | Aromantic               |
-
-| **Mutually<br/>Incompatible** |       |           |     |          |           |
-| :---------------------------: | :---: | :-------: | :-: | :------: | :-------: |
-| Straight                      | <=/=> | Lesbian   | Gay | Bisexual | Pansexual |
-| Bisexual                      | <=/=> | Pansexual |
 
 </details>
 
