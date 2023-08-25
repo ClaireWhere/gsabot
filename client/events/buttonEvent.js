@@ -4,7 +4,7 @@ const { config } = require('../config.json');
 const { color_handler } = require('../../utils/colorRoles.js');
 const { handleNeopronouns } = require('../../utils/neopronouns');
 const { toggleRole } = require('../../utils/roles.utils/roles');
-const { welcomeMember } = require('../../utils/welcomeMember');
+const { welcomeMember } = require('../../utils/message.utils/welcomeMember');
 
 module.exports = {
     name: Events.InteractionCreate,
