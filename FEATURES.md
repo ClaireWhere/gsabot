@@ -226,4 +226,4 @@ When a message is deleted, information about the message is logged in the system
 Deleted messages are stored in a local database for retrieval at a later date. In each deleted message log, a link to the raw content is included. Upon following this link, a page with the raw text is displayed. This requires server.js to be online.
 
 ## Minecraft Server Tracker
-Pings the Minecraft server every minute to check the player count. If the player count changes, the server can no longer be reached, or the service pinging the server cannot be reached, the status is logged.
+Pings the Minecraft server on a schedule to check the player count. If the player count changes, the server can no longer be reached, or the service pinging the server cannot be reached, the status is logged.
