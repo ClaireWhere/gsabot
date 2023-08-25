@@ -1,5 +1,7 @@
 const { Events } = require('discord.js');
 const { removeNeopronouns, addNeopronouns } = require('../../utils/roles.utils/pronouns');
+const { removeIntersection, arrayToLowerCase } = require('../../utils/utils');
+const { config } = require('../config.json');
 
 module.exports = {
     name: Events.InteractionCreate,
@@ -16,21 +18,22 @@ module.exports = {
         
         // neopronounsModal
         if (interaction.customId === 'neopronounsModal') {
+            let neopronounsRemove;
+            let neopronounsAdd;
+
             // Remove neopronouns
-            try {
-                let neopronounsRemove = interaction.fields.getTextInputValue('removeNeopronouns');
-                if (neopronounsRemove) {
-                    await removeNeopronouns(interaction, neopronounsRemove.split(', '));
-                }
-            } catch (error) {
-                console.log(`no pronouns to remove`);
+            if (interaction.fields.fields.has('removeNeopronouns')) {
+                neopronounsRemove = interaction.fields.getTextInputValue('removeNeopronouns');
             }
-            
-            // Add neopronouns
-            let neopronounsAdd = interaction.fields.getTextInputValue('neopronounsInput');
-            if (neopronounsAdd) {
-                await addNeopronouns(interaction, neopronounsAdd.split(', '));
+            if (interaction.fields.fields.has('neopronounsInput')) {
+                neopronounsAdd = interaction.fields.getTextInputValue('neopronounsInput');
             }
+
+            const removeArray = arrayToLowerCase((neopronounsRemove ?? '').split(', '));
+            const addArray = removeIntersection(arrayToLowerCase((neopronounsAdd ?? '').split(', ').concat(config.roles.pronouns.neo.name)), removeArray);
+
+            await removeNeopronouns(interaction, removeArray);
+            await addNeopronouns(interaction, addArray);
         }
     }
 }

@@ -8,12 +8,10 @@ const { formatList, isEmpty } = require('../utils');
  * @param {Array<string>} roles 
  */
 async function addNeopronouns(interaction, roles) {
-    if (roles.length === 0) { return; }
-
     var addedRoles = [];
 
     for (const element of roles) {
-        if (element.length > 40 || element.length < 4 || !element.includes('/') || isPronounRole(element)) {
+        if (element.toLowerCase() != config.roles.pronouns.neo.name.toLowerCase() && (element.length > 40 || element.length < 4 || !element.includes('/') || isPronounRole(element))) {
             console.log(`skipping invalid neopronouns: ${element}`);
             continue;
         }
@@ -38,12 +36,6 @@ async function addNeopronouns(interaction, roles) {
             .then((res) => { addedRoles.push(role) });
     }
 
-    // add the 'Neopronouns' role
-    var neopronouns_role = findRole(interaction, config.roles.pronouns.neo.name);
-    if (!(await memberHasRole(interaction, neopronouns_role))) {
-        await addRole(interaction, neopronouns_role)
-            .then((res) => { addedRoles.push(neopronouns_role) });
-    }
     if (isEmpty(addedRoles)) { return; }
 
     const pluralize = addedRoles.length>1 ? 's' : '';
