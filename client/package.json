@@ -9,8 +9,8 @@
     "reset": "node delete-commands.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": {"name": "ClaireWhere", "url": "https://github.com/ClaireWhere"},
+  "license": "LGPL-3.0-or-later",
   "dependencies": {
     
   },
