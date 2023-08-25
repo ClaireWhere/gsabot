@@ -1,4 +1,4 @@
-const { memberHasRoleName } = require("./roles.utils/roles");
+const { memberHasRoleName } = require("../roles.utils/roles");
 
 
 async function welcomeMember(interaction) {
