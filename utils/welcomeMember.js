@@ -1,3 +1,4 @@
+const { memberHasRoleName } = require("./roles.utils/roles");
 
 
 async function welcomeMember(interaction) {
