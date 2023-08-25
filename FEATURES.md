@@ -152,70 +152,70 @@ The following categories are used in the rules below to make the role compatibil
 
 
 <details>
-    <summary>Pronoun Roles</summary>
+<summary>Pronoun Roles</summary>
 
-    ---
+---
 
-    | **Globally<br/>Compatible** |
-    | :-------------------------: |
-    | Neopronouns                 |
+| **Globally<br/>Compatible** |
+| :-------------------------: |
+| Neopronouns                 |
 
 
-    | **Mutually<br/>Compatible** |     |          |     |            |
-    | :-------------------------: | :-: | :------: | :-: | :--------: | 
-    | She/Her                     | <=> | He/Him   | <=> |  They/Them |
-    | She/They                    | <=> | He/They  |
-    | She/They                    | <=> | She/He   |
-    | They/She                    | <=> | He/She   |
-    | They/He                     | <=> | She/He   |
-    | They/He                     | <=> | They/She |
+| **Mutually<br/>Compatible** |     |          |     |            |
+| :-------------------------: | :-: | :------: | :-: | :--------: | 
+| She/Her                     | <=> | He/Him   | <=> |  They/Them |
+| She/They                    | <=> | He/They  |
+| She/They                    | <=> | She/He   |
+| They/She                    | <=> | He/She   |
+| They/He                     | <=> | She/He   |
+| They/He                     | <=> | They/She |
 
-    | **Globally Incompatible** |
-    | :-----------------------: |
-    | She/He/They               |
-    | She/They/He               |
-    | He/She/They               |
-    | He/They/She               |
-    | They/She/He               |
-    | They/He/She               |
-    | Any Pronouns              |
-
-</details>
-
-<details>
-    <summary>Year Roles</summary>
-
-    ---
-
-    |  **Globally Incompatible**  |
-    | :-------------------------: |
-    | Year 1                      |
-    | Year 2                      |
-    | Year 3                      |
-    | Year 4+                     |
-    | Alumni                      |
-    | Grad Student                |
+| **Globally Incompatible** |
+| :-----------------------: |
+| She/He/They               |
+| She/They/He               |
+| He/She/They               |
+| He/They/She               |
+| They/She/He               |
+| They/He/She               |
+| Any Pronouns              |
 
 </details>
 
 <details>
-    <summary>Identity Roles</summary>
+<summary>Year Roles</summary>
 
-    ---
-    
-    | **Globally Compatible** |
-    | :---------------------: |
-    | Queer                   |
-    | Questioning             |
-    | Asexual                 |
-    | Aromantic               |
+---
 
-    | **Mutually<br/>Incompatible** |       |           |     |          |           |
-    | :---------------------------: | :---: | :-------: | :-: | :------: | :-------: |
-    | Straight                      | <=/=> | Lesbian   | Gay | Bisexual | Pansexual |
-    | Bisexual                      | <=/=> | Pansexual |
+|  **Globally Incompatible**  |
+| :-------------------------: |
+| Year 1                      |
+| Year 2                      |
+| Year 3                      |
+| Year 4+                     |
+| Alumni                      |
+| Grad Student                |
 
-    </details>
+</details>
+
+<details>
+<summary>Identity Roles</summary>
+
+---
+
+| **Globally Compatible** |
+| :---------------------: |
+| Queer                   |
+| Questioning             |
+| Asexual                 |
+| Aromantic               |
+
+| **Mutually<br/>Incompatible** |       |           |     |          |           |
+| :---------------------------: | :---: | :-------: | :-: | :------: | :-------: |
+| Straight                      | <=/=> | Lesbian   | Gay | Bisexual | Pansexual |
+| Bisexual                      | <=/=> | Pansexual |
+
+</details>
 
 </details>
 
