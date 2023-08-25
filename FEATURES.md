@@ -136,22 +136,22 @@ Certain roles are not able to be assigned at the same time. The rules for the co
 <summary>Role Compatibility Rules</summary>
 
 
-> The following categories are used in the rules below to make the role compatibility easier to follow
->
->1. **Globally Compatible**: 
->    - Each role listed is compatible with all other roles with no restrictions
->2. **Mutually Compatible**: 
->    - Each role listed is compatible with any of the other roles in the same row, and each of those roles is compatible with the leftmost role
->    - A user may have the leftmost role and any one of the other roles in the same row at the same time
->3. **Mutually Incompatible**: 
->    - Each role listed is explicitly incompatible with any of the roles in the same row, and each of those roles are explicitly incompatible with the leftmost role. 
->    - A user is not allowed to have the leftmost role and any one of the other roles in the same row at the same time
->4. **Globally Incompatible**: 
->    - Each role listed is incompatible with all other roles in the same category (other than globally compatible roles)
->    - Any given user is only allowed to have one of these roles at any given time
+The following categories are used in the rules below to make the role compatibility easier to follow
+
+1. **Globally Compatible**: 
+    > - Each role listed is compatible with all other roles with no restrictions
+2. **Mutually Compatible**: 
+    > - Each role listed is compatible with any of the other roles in the same row, and each of those roles is compatible with the leftmost role
+    > - A user may have the leftmost role and any one of the other roles in the same row at the same time
+3. **Mutually Incompatible**: 
+    > - Each role listed is explicitly incompatible with any of the roles in the same row, and each of those roles are explicitly incompatible with the leftmost role. 
+    > - A user is not allowed to have the leftmost role and any one of the other roles in the same row at the same time
+4. **Globally Incompatible**: 
+    > - Each role listed is incompatible with all other roles in the same category (other than globally compatible roles)
+    > - Any given user is only allowed to have one of these roles at any given time
 
 
-- <details>
+<details>
     <summary>Pronoun Roles</summary>
 
     ---
@@ -180,9 +180,9 @@ Certain roles are not able to be assigned at the same time. The rules for the co
     | They/He/She               |
     | Any Pronouns              |
 
-    </details>
+</details>
 
-- <details>
+<details>
     <summary>Year Roles</summary>
 
     ---
@@ -196,9 +196,9 @@ Certain roles are not able to be assigned at the same time. The rules for the co
     | Alumni                      |
     | Grad Student                |
 
-    </details>
+</details>
 
-- <details>
+<details>
     <summary>Identity Roles</summary>
 
     ---
