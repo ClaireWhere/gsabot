@@ -5,55 +5,50 @@ const db = require('better-sqlite3')(`${config.database.name}.db`, {
 });
 db.pragma('journal_mode = WAL');
 
-const create_channel = db.prepare(`
-CREATE TABLE channel(
-    id INTEGER PRIMARY KEY NOT NULL,
-    name TEXT
-)
-`);
-const create_user = db.prepare(`
-CREATE TABLE user(
-    id INTEGER PRIMARY KEY NOT NULL,
-    name TEXT
-)
-`);
-const create_message = db.prepare(`
-CREATE TABLE message(
-    id INTEGER PRIMARY KEY NOT NULL,
-    content TEXT NOT NULL,
-    author INTEGER NOT NULL,
-    channel INTEGER NOT NULL,
-    date DATETIME,
-    guild INTEGER,
-    FOREIGN KEY(author) REFERENCES user(id),
-    FOREIGN KEY(channel) REFERENCES channel(id)
-)
-`);
-const create_deleted_message = db.prepare(`
-CREATE TABLE deleted_message(
-    message_id INTEGER PRIMARY KEY NOT NULL,
-    deleted_on DATETIME,
-    FOREIGN KEY(message_id) REFERENCES message(id)
-)
-`);
-
 try {
-    create_channel.run();
+    db.prepare(`
+        CREATE TABLE channel(
+            id INTEGER PRIMARY KEY NOT NULL,
+            name TEXT
+        )
+    `).run();
 } catch (error) {
     console.error(error.message);
 }
 try {
-    create_user.run();
+    db.prepare(`
+        CREATE TABLE user(
+            id INTEGER PRIMARY KEY NOT NULL,
+            name TEXT
+        )
+    `).run();
 } catch (error) {
     console.error(error.message);
 }
 try {
-    create_message.run();
+    db.prepare(`
+        CREATE TABLE message(
+            id INTEGER PRIMARY KEY NOT NULL,
+            content TEXT NOT NULL,
+            author INTEGER NOT NULL,
+            channel INTEGER NOT NULL,
+            date DATETIME,
+            guild INTEGER,
+            FOREIGN KEY(author) REFERENCES user(id),
+            FOREIGN KEY(channel) REFERENCES channel(id)
+        )
+    `).run();
 } catch (error) {
     console.error(error.message);
 }
 try {
-    create_deleted_message.run();
+    db.prepare(`
+        CREATE TABLE deleted_message(
+            message_id INTEGER PRIMARY KEY NOT NULL,
+            deleted_on DATETIME,
+            FOREIGN KEY(message_id) REFERENCES message(id)
+        )
+    `).run();
 } catch (error) {
     console.error(error.message);
 }
