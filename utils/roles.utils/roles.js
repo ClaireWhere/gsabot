@@ -245,17 +245,11 @@ function getMinNeopronounsPosition(interaction) {
     var minPos = getMaxNeopronounsPosition(interaction);
     try {
         interaction.guild.roles.cache.forEach((role) => {
-            //console.log(`${role.name} | ${role.color} | ${parseInt(config.roles.pronouns.neo.color)}`);
             if (role.color === parseInt(config.roles.pronouns.neo.color) && role.position < minPos) {
                 minPos = role.position;
             }
         });
         return minPos;
-        // const r = interaction.guild.roles.cache.find((role) => {
-            
-        // });
-        // console.log(r);
-        // return r.rawPosition;
     } catch (error) {
         console.error(error);
         return 1;
