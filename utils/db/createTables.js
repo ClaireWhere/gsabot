@@ -12,6 +12,7 @@ try {
             name TEXT
         )
     `).run();
+    console.log('[SQLite] channel table created');
 } catch (error) {
     console.error(error.message);
 }
@@ -22,6 +23,7 @@ try {
             name TEXT
         )
     `).run();
+    console.log('[SQLite] user table created');
 } catch (error) {
     console.error(error.message);
 }
@@ -38,6 +40,7 @@ try {
             FOREIGN KEY(channel) REFERENCES channel(id)
         )
     `).run();
+    console.log('[SQLite] message table created');
 } catch (error) {
     console.error(error.message);
 }
@@ -49,6 +52,7 @@ try {
             FOREIGN KEY(message_id) REFERENCES message(id)
         )
     `).run();
+    console.log('[SQLite] deleted_message table created');
 } catch (error) {
     console.error(error.message);
 }
