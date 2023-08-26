@@ -99,7 +99,6 @@ module.exports = {
 
         var output = [];
 
-        console.log(`subcommand ${interaction.options.getSubcommand()}`);
         if (interaction.options.getSubcommand() === 'agreement') {
             output.push(await agreement.execute(interaction));
         } else if (interaction.options.getSubcommand() === 'roles') {
@@ -125,8 +124,11 @@ module.exports = {
 
         for (let i = 0; i < output.length; i++) {
             await channel.send(output[i])
-                .then(console.log(`Successfully sent message ${i+1} of ${output.length} for ${interaction.options.getSubcommand()}`))
-                .catch(`There was an error sending message ${i+1} of ${output.length} for ${interaction.options.getSubcommand()} : ${console.error}`);
+                .then((res) => {
+                    debug(`Successfully sent message ${i+1} of ${output.length} for ${interaction.options.getSubcommand()}`);
+                }).catch((error) => {
+                    debug(`There was an error sending message ${i+1} of ${output.length} for ${interaction.options.getSubcommand()}`, error);
+                });
         }
 
         await wait(1000);
