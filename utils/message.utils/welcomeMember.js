@@ -1,4 +1,5 @@
 const { memberHasRoleName } = require("../roles.utils/roles");
+const { debug } = require('../debugger');
 
 
 async function welcomeMember(interaction) {
@@ -14,8 +15,11 @@ async function welcomeMember(interaction) {
         await welcome.send({ content: `${interaction.member}`, embeds: [{title: ``, description: `# Welcome to the GSA Discord Server!\nEveryone say hi to ${interaction.member}! Feel free to introduce yourself in ${introductions} and choose your ${roles}`, color: parseInt(color)}] })
             .then(message => {
                 message.react('👋');
+                debug(`Successfully sent welcome message for ${interaction.member}`);
             })
-            .catch(`There was an error sending message welcome message : ${console.error}`);
+            .catch((error) => {
+                debug(`There was an error sending message welcome message`, error);
+            });
         
     }
     return true;
