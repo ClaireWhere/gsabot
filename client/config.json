@@ -1,5 +1,13 @@
 {
     "config": {
+        "minecraft_tracker": {
+            "enabled": true,
+            "frequency_mins": 5
+        },
+        "deleted_message_log": {
+            "enabled": true,
+            "use_database": true
+        },
         "images": {
             "gsa_icon": "https://i.imgur.com/ikQzGjP.png",
             "rules_thmb": "https://i.imgur.com/zCeCcY8.png",
@@ -203,14 +211,6 @@
                     {"intensity": 4, "hex": "0xCC99C9"}
                 ]
             }
-        },
-        "minecraft_tracker": {
-            "enabled": true,
-            "frequency_mins": 5
-        },
-        "deleted_message_log": {
-            "enabled": true,
-            "use_database": true
         }
     }
 }
