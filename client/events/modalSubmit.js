@@ -2,6 +2,7 @@ const { Events } = require('discord.js');
 const { removeNeopronouns, addNeopronouns } = require('../../utils/roles.utils/pronouns');
 const { removeIntersection, arrayToLowerCase } = require('../../utils/utils');
 const { config } = require('../config.json');
+const { debug } = require('../../utils/debugger');
 
 module.exports = {
     name: Events.InteractionCreate,
@@ -12,7 +13,7 @@ module.exports = {
         if (!interaction.isModalSubmit()) { return false; }
         await interaction.deferUpdate()
             .catch((error) => {
-                console.error(error.message);
+                debug(`Unable to defer modal submit interaction from ${interaction.member.user.username}`, error);
                 return;
             });
         

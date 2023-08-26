@@ -28,7 +28,7 @@ async function checkServer() {
         .catch(error => {
             if (!(previous_status === 'error')) {
                 previous_status = 'error';
-                console.error(`[${getDate()}] [${ip}] there was an error fetching the server status (${error.message})`);
+                console.error(`[${getDate()}] [${ip}] there was an error fetching the server status (${error})`);
             }
         });
 }

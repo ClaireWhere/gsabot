@@ -51,7 +51,7 @@ module.exports = {
         if (role_name === undefined || role_name.length === 0) { 
             debug(`[ERROR] no role found for button: ${id.toString()}!`);
             await interaction.followUp({ephemeral: true, content: `Something went wrong finding the role you selected D:`})
-                .catch((error) => {debug(`could not follow up on add role for ${interaction.customId}}`, error)});
+                .catch((error) => {debug(`could not follow up on add role from ${interaction.member.user.username} for ${interaction.customId}}`, error)});
             return false;
         }
         

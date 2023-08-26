@@ -25,11 +25,11 @@ async function addNeopronouns(interaction, roles) {
                     debug(`${element} role created at position ${pos}`)
                 })
                 .catch((error) => {
-                    console.error(error.message);
+                    debug(`Could not create role ${element} at position ${pos}`, error);
                 });
         } else {
             if (await memberHasRole(interaction, role)) { 
-                debug(`skipping assignment of neopronouns: user already has ${role.name} role`);
+                debug(`skipping assignment of neopronouns: user ${interaction.member.user.username} already has ${role.name} role`);
                 continue;
              }
         }
@@ -41,7 +41,7 @@ async function addNeopronouns(interaction, roles) {
 
     const pluralize = addedRoles.length>1 ? 's' : '';
     await interaction.followUp({ephemeral: true, content: `You now have the ${formatList(addedRoles)} role${pluralize}!`})
-        .catch((error) => { debug(`unable to followup for added neopronouns`, error); });
+        .catch((error) => { debug(`Unable to followup from ${interaction.member.user.username} for added neopronouns`, error); });
 }
 
 /**
@@ -60,7 +60,7 @@ async function removeNeopronouns(interaction, roles) {
             continue;
         }
         if (!(await memberHasRole(interaction, role))) { 
-            debug(`skipping removal of neopronouns: user does not have ${role.name} role`);
+            debug(`Skipping removal of neopronouns: user ${interaction.member.user.username} does not have ${role.name} role`);
             continue;
         }
         await removeRole(interaction, role)
@@ -69,7 +69,7 @@ async function removeNeopronouns(interaction, roles) {
     if (isEmpty(removedRoles)) { return; }
     
     await interaction.followUp({ephemeral: true, content: `You no longer have the ${formatList(removedRoles)} role${removedRoles.length>1 ? 's' : ''}!`})
-        .catch((error) => { debug(`unable to send followup for removed neopronouns`, error); })
+        .catch((error) => { debug(`Unable to send followup from ${interaction.member.user.username} for removed neopronouns`, error); })
 }
 
 
