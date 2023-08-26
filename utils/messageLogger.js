@@ -1,5 +1,6 @@
 const { LoggedMessage } = require('../models/LoggedMessage');
 const { config } = require('../config.json');
+const { debug } = require('../utils/debugger');
 
 const db = require('better-sqlite3')(`${config.database.name}.db`, {
     timeout: 2000
@@ -15,26 +16,30 @@ function insertMessageLog(message) {
     try {
         const insert_user = db.prepare('INSERT INTO user (id, name) VALUES (?, ?)');
         insert_user.run(message.author, message.author_name);
+        debug('[SQLite] inserted into user');
     } catch (error) {
-        console.log('did not insert into user');
+        debug('[SQLite] did not insert into user', error);
     }
     try {
         const insert_channel = db.prepare(`INSERT INTO channel (id, name) VALUES (?, ?)`);
         insert_channel.run(message.channel, message.channel_name);
+        debug('[SQLite] inserted into channel');
     } catch (error) {
-        console.log('did not insert into channel');
+        debug('[SQLite] did not insert into channel', error);
     }
     try {
         const insert_message = db.prepare(`INSERT INTO message (id, content, author, channel, date, guild) VALUES (?, ?, ?, ?, ?, ?)`);
         insert_message.run(message.id, message.content, message.author, message.channel, message.date, message.guild);
+        debug('[SQLite] inserted into message');
     } catch (error) {
-        console.log('did not insert into message');
+        debug('[SQLite] did not insert into message', error);
     }
     try {
         const insert_deleted = db.prepare(`INSERT INTO deleted_message (id, deleted_on) VALUES (?, ?)`);
         insert_deleted.run(message.id, new Date());
+        debug('[SQLite] inserted into deleted_message');
     } catch (error) {
-        console.error(error.message);
+        debug('[SQLite] did not insert into deleted_message', error);
         return false;
     }
     return true;

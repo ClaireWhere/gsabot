@@ -8,6 +8,7 @@ const welcome = require('../../utils/message.utils/welcome.js');
 const vc = require('../../utils/message.utils/vc.js');
 const politics = require('../../utils/message.utils/politics.js');
 const safe_space = require('../../utils/message.utils/safe_space.js');
+const { debug } = require('../../utils/debugger.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -99,7 +100,6 @@ module.exports = {
         var output = [];
 
         console.log(`subcommand ${interaction.options.getSubcommand()}`);
-
         if (interaction.options.getSubcommand() === 'agreement') {
             output.push(await agreement.execute(interaction));
         } else if (interaction.options.getSubcommand() === 'roles') {

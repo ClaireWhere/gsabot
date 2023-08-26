@@ -1,6 +1,7 @@
 const { addRole, findRole, getMinNeopronounsPosition, getPermissionsFromArray, removeRole, memberHasRole } = require('./roles');
 const { config } = require('../../client/config.json');
 const { formatList, isEmpty } = require('../utils');
+const { debug } = require('../debugger');
 
 /**
  * 
@@ -12,7 +13,7 @@ async function addNeopronouns(interaction, roles) {
 
     for (const element of roles) {
         if (element.toLowerCase() != config.roles.pronouns.neo.name.toLowerCase() && (element.length > 40 || element.length < 4 || !element.includes('/') || isPronounRole(element))) {
-            console.log(`skipping invalid neopronouns: ${element}`);
+            debug(`skipping invalid neopronouns: ${element}`)
             continue;
         }
         var role = findRole(interaction, element);
@@ -21,14 +22,14 @@ async function addNeopronouns(interaction, roles) {
             await interaction.guild.roles.create({ name: formatPronouns(element), color: parseInt(config.roles.pronouns.neo.color) ?? 0, permissions: getPermissionsFromArray(config.roles.pronouns.neo.permissions), position: pos })
                 .then((res) => {
                     role = res;
-                    console.log(`${element} role created at position ${pos}`);
+                    debug(`${element} role created at position ${pos}`)
                 })
                 .catch((error) => {
                     console.error(error.message);
                 });
         } else {
             if (await memberHasRole(interaction, role)) { 
-                console.log(`skipping assignment of neopronouns: user already has ${role.name} role`);
+                debug(`skipping assignment of neopronouns: user already has ${role.name} role`);
                 continue;
              }
         }
@@ -40,7 +41,7 @@ async function addNeopronouns(interaction, roles) {
 
     const pluralize = addedRoles.length>1 ? 's' : '';
     await interaction.followUp({ephemeral: true, content: `You now have the ${formatList(addedRoles)} role${pluralize}!`})
-        .catch((error) => { console.error(error.message); });
+        .catch((error) => { debug(`unable to followup for added neopronouns`, error); });
 }
 
 /**
@@ -59,7 +60,7 @@ async function removeNeopronouns(interaction, roles) {
             continue;
         }
         if (!(await memberHasRole(interaction, role))) { 
-            console.log(`skipping removal of neopronouns: user does not have ${role.name} role`);
+            debug(`skipping removal of neopronouns: user does not have ${role.name} role`);
             continue;
         }
         await removeRole(interaction, role)
@@ -68,7 +69,7 @@ async function removeNeopronouns(interaction, roles) {
     if (isEmpty(removedRoles)) { return; }
     
     await interaction.followUp({ephemeral: true, content: `You no longer have the ${formatList(removedRoles)} role${removedRoles.length>1 ? 's' : ''}!`})
-        .catch((error) => { console.error(error.message); })
+        .catch((error) => { debug(`unable to send followup for removed neopronouns`, error); })
 }
 
 

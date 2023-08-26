@@ -3,6 +3,7 @@ const { PermissionsBitField } = require('discord.js');
 const { config } = require('../config.json');
 const { getPermissionsFromArray } = require('../../utils/roles.utils/roles');
 const { isEmpty, arrayMatch } = require('../../utils/utils');
+const { debug } = require('../../utils/debugger');
 require('dotenv').config();
 
 module.exports = {
@@ -59,7 +60,7 @@ async function repairRole(interaction, role) {
     const existing_role = interaction.guild.roles.cache.find(r => r.name.toLowerCase() === role.name.toLowerCase());
     if (existing_role === undefined || existing_role === null) {
         await interaction.guild.roles.create({ name: role.name, color: parseInt(role.color) ?? 0, permissions: getPermissionsFromArray(role.permissions), position: position });
-        console.log(`role ${role.name} created`);
+        debug(`role ${role.name} created`)
         roles_created++;
         return true;
     } else {
@@ -71,7 +72,6 @@ async function repairRole(interaction, role) {
             modify.color = parseInt(role.color);
         }
         if (existing_role.position != position) {
-            console.log(`${existing_role.position} | ${position}`);
             modify.position = position;
         }
         if (!arrayMatch(existing_role.permissions.toArray(), role.permissions ?? [])) {
@@ -81,12 +81,11 @@ async function repairRole(interaction, role) {
         position <= existing_role.position ? position-- : position; // we do not want to change position if the role was moved from above the location it is going to (causing the positions of everything below to remain the same)
 
         if (isEmpty(modify)) {
-            //console.log(`role ${role.name} skipped, no changes necessary`);
             roles_skipped++;
             return true;
         }
         await existing_role.edit(modify);
-        console.log(`role ${role.name} updated`);
+        debug(`role ${role.name} updated`)
         roles_modified++;
     }
 }
