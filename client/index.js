@@ -61,6 +61,6 @@ client.login(process.env.DISCORD_TOKEN);
 
 
 process.on('beforeExit', async () => {
-    await minecraftTracker.stop();
+    minecraftTracker.stop();
     process.exit(0)
 });
