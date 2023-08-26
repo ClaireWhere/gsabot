@@ -9,7 +9,7 @@ const config = require('../config.json').config.debug;
  */
 function debug(message, error) {
     if (!config.enabled) { return; }
-    console.log(`[${name}@${version} DEBUG] ${config.include_datetime ? `[${getDate()}] ` : ''}${message}${Object.hasOwn(error ?? {}, 'message') ? ` : ${error.message}` : ''}`);
+    console.log(`[${name}@${version}] ${config.include_datetime ? `[${getDate()}] ` : ''}${message}${Object.hasOwn(error ?? {}, 'message') ? ` : ${error.message}` : ''}`);
 }
 
 module.exports = { debug }
