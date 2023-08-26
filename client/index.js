@@ -2,8 +2,8 @@
 const fs = require('fs');
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 require('dotenv').config();
-const { config } = require('./config.json');
 const minecraftTracker = require('./events/minecraftTracker');
+const { debug } = require('../utils/debugger');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMembers] });
 
@@ -28,10 +28,9 @@ const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('
 for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
     try {
-        client.commands.set(command.data.name, command);
-        console.log(`initialized command ${command.data.name}`);
+        debug(`initialized command ${command.data.name}`);
     } catch (error) {
-        console.error(`ERROR: could not load command from file ${file} (${error})`);
+        debug(`ERROR: could not load command from file ${file}`, error);
     }
 }
 
@@ -45,17 +44,13 @@ client.on(Events.InteractionCreate, async interaction => {
 
     await command.execute(interaction)
         .then((res) => {
-            if (config.debug_mode) {
-                console.debug(`command execution completed with status ${res}`);
-            }
+            debug(`command execution completed with status ${res}`);
         }).catch(async (error) => {
             await interaction.followUp({content: 'There was an error D:', ephemeral: true})
                 .then((res) => {
-                    if (config.debug_mode) {
-                        console.debug(`command executed with error. Application sent error message`);
-                    }
+                    debug(`command executed with error. Application successfully sent error message`);
                 }).catch((err) => {
-                    console.error("command was unable to be executed. Application did not respond in time");
+                    debug("command was unable to be executed. Application did not respond in time", error);
                     return false;
                 });
         });

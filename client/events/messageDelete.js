@@ -10,10 +10,6 @@ module.exports = {
     async execute(message) {
         if (!config.deleted_message_log.enabled) { return; }
         
-        if (config.debug_mode) {
-            console.debug('running MessageDelete event');
-        }
-        
         console.log(`Message deleted from ${message.channel} by ${message.author.tag}`);
 
         const author = await message.guild.members.cache.find(x => x.id === message.author.id);

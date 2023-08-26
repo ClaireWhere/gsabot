@@ -5,6 +5,7 @@ const { color_handler } = require('../../utils/colorRoles.js');
 const { handleNeopronouns } = require('../../utils/neopronouns');
 const { toggleRole } = require('../../utils/roles.utils/roles');
 const { welcomeMember } = require('../../utils/message.utils/welcomeMember');
+const { debug } = require('../../utils/debugger');
 
 module.exports = {
     name: Events.InteractionCreate,
@@ -18,11 +19,9 @@ module.exports = {
 
         await interaction.deferUpdate()
                 .then((res) => {
-                    if (config.debug_mode) {
-                        console.debug('interaction deferred');
-                    }
+                    debug(`${interaction.customId} interaction deferred`);
                 }).catch((err) => {
-                    console.error(err);
+                    debug(`${interaction.customId} could not be deferred`, err);
                     return;
                 });
 
@@ -33,7 +32,7 @@ module.exports = {
         // categorized button id's take the form parent:child. Eg. pronouns:she_her is part of the pronouns category with the child id being she_her. See more in config.json
         const id = interaction.customId.split(':');
         if (id.length === 0) { 
-            console.error(`[ERROR] No button id found for the supplied button interaction`);
+            debug(`[ERROR] No button id found for the supplied button interaction`);
             await interaction.followUp({ephemeral: true, content: `There was an error! It looks like the button you clicked was invalid 🤔`});
             return false;
         }
@@ -50,9 +49,9 @@ module.exports = {
         }
 
         if (role_name === undefined || role_name.length === 0) { 
-            console.error(`[ERROR] no role found for button: ${id.toString()}!`);
+            debug(`[ERROR] no role found for button: ${id.toString()}!`);
             await interaction.followUp({ephemeral: true, content: `Something went wrong finding the role you selected D:`})
-                .catch((error) => {console.error(error.message)});
+                .catch((error) => {debug(`could not follow up on add role for ${interaction.customId}}`, error)});
             return false;
         }
         

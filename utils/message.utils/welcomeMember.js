@@ -14,7 +14,6 @@ async function welcomeMember(interaction) {
         await welcome.send({ content: `${interaction.member}`, embeds: [{title: ``, description: `# Welcome to the GSA Discord Server!\nEveryone say hi to ${interaction.member}! Feel free to introduce yourself in ${introductions} and choose your ${roles}`, color: parseInt(color)}] })
             .then(message => {
                 message.react('👋');
-                console.log(`Successfully sent welcome message`);
             })
             .catch(`There was an error sending message welcome message : ${console.error}`);
         

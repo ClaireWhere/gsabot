@@ -4,6 +4,7 @@ require('dotenv').config();
 const config = require('../config.json').config.minecraft_tracker;
 var previous_status = ``;
 const { getDate } = require('../../utils/getDate');
+const { debug } = require('../../utils/debugger');
 
 let scheduledCheck = new cron.CronJob(`00 */${config.frequency_mins} * * * *`, checkServer);
 
@@ -42,7 +43,7 @@ module.exports = {
     },
     stop() {
         scheduledCheck.stop();
-        console.log('shutting down minecraftTracker');
+        debug(`shutting down minecraftTracker`);
     },
     checkServer
 };
