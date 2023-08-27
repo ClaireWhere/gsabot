@@ -95,4 +95,24 @@ function arrayToLowerCase(arr) {
     return arr.map(e => e.toLowerCase());
 }
 
-module.exports = { arrayMatch, isEmpty, formatList, removeIntersection, arrayToLowerCase }
+/**
+ * 
+ * @param {string|number} str 
+ * @returns {number?} integer representation of `str`. null if invalid
+ */
+function toNum(str) {
+    if (!isNumeric(str)) {
+        return null;
+    }
+    if (typeof(str) === typeof(0)) { 
+        return str;
+    }
+    return parseInt(str, 10);
+}
+
+function isNumeric(input){
+    var RE = /^-{0,1}\d*\.{0,1}\d+$/;
+    return (RE.test(input));
+}
+
+module.exports = { arrayMatch, isEmpty, formatList, removeIntersection, arrayToLowerCase, toNum, isNumeric }

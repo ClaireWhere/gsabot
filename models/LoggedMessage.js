@@ -1,3 +1,4 @@
+const { toNum } = require("../utils/utils");
 
 /**
  * The **LoggedMessage** class is a class that represents a Discord message for logging purposes. 
@@ -70,33 +71,9 @@ class LoggedMessage {
             return null;
         }
         
-    }
-}
-
-/**
- * 
- * @param {string|number} str 
- * @returns {number?} integer representation of `str`. null if invalid
- */
-function toNum(str) {
-    if (!IsNumeric(str)) {
-        return null;
-    }
-    if (typeof(str) === typeof(0)) { 
-        return str;
-    }
-    // const valid = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-    // return str === undefined || str === null ? null : !str.match('^[0-9]*$') ? null : parseInt(str, 10);
-    // !str.split('').every(e => valid.includes(e)) ;
-    // if (str === undefined || str === null || !str.split('').every(e => valid.includes(e))) {
-    //     return null;
     // }
-    return parseInt(str, 10);
 }
 
-function IsNumeric(input){
-    var RE = /^-{0,1}\d*\.{0,1}\d+$/;
-    return (RE.test(input));
-}
+
 
 exports.LoggedMessage = LoggedMessage;
