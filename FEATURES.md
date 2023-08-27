@@ -2,9 +2,6 @@
 
 ## Commands
 
-<details>
-<summary>Click to expand commands list</summary>
-
 ### /color
 
 **`set [hex]` subcommand**
@@ -24,41 +21,6 @@ Displays the user's current role color and hex, if one exists. If the user does 
 **`remove` subcommand**
 
 Removes and deletes the user's current role color, if one exists. If the user does not have a role color, they will be prompted to set it with /color set. A new color can be set at any time with /color set.
-
-### /repair
-Creates and repairs important server resources
-
-**`roles` subcommand**
-- creates and repairs server roles
-- role data specified in config
-- Roles included:       
-    > `GSA President`, `GSA Technology Manager`, `GSA Vice President`, `GSA Treasurer`, `GSA Secretary`, `Eboard`, `GSA Member`, `She/Her`, `She/They`, `She/He`, `She/He/They`, `She/They/He`, `He/Him`, `He/They`, `He/She`, `He/She/They`, `He/They/She`, `They/Them`, `They/She`, `They/He`, `They/She/He`, `They/He/She`, `Any Pronouns`, `Neopronouns`, `Straight`, `Questioning`, `Queer`, `Lesbian`, `Gay`, `Bisexual`, `Pansexual`, `Asexual`, `Aromantic`, `Year 1`, `Year 2`, `Year 3`, `Year 4+`, `Alumni`, `Graduate Student`, `Announcements`, `Safe Space`, `Politics`, `Minecraft` 
-
-### /send
-Sends embed-formatted informational/functional server messages
-
-**`agreement [channel]` subcommand**
-- Sends the server agreement messages in the specified channel
-
-**`roles [channel]` subcommand**
-- Sends the user role messages in the specified channel
-
-**`rules [channel]` subcommand**
-- Sends the rules message in the specified channel
-
-**`welcome [channel]` subcommand**
-- Sends the initial server welcome message in the specified channel
-
-**`politics [channel]` subcommand**
-- Sends the politics rules/agreement messages in the specified channel
-
-**`safe_space [channel]` subcommand**
-- Sends the safe space rules/agreement messages in the specified channel
-
-**`vc [channel]` subcommand**
-- Sends the vc instruction information in the specified channel
-
-</details>
 
 ---
 
@@ -128,6 +90,50 @@ the `#safe-space` channel is not accessible to members unless they have the `Saf
 
 ## Politics Agreement
 the `#politics` channel is not accessible to members unless they have the `Politics` role. However, the `#politics-agreement` is accessible to all members, and lays out the rules of `#politics`. A member may opt-in to `#politics` by agreeing to the rules, which will assign the `Politics` role and allow access. The `Politics` role may be removed at any time by clicking on the agreement button a second time and access to `#politics` will be revoked.
+
+<br><br>
+
+# Development Features
+
+> ⚠️ The following features are for developers only. Most users will not see or need these features, but if you're interested to see behind the scenes feel free to read!
+
+
+## Commands
+
+### /repair
+Creates and repairs important server resources
+
+**`roles` subcommand**
+- creates and repairs server roles
+- role data specified in config
+- Roles included:       
+    > `GSA President`, `GSA Technology Manager`, `GSA Vice President`, `GSA Treasurer`, `GSA Secretary`, `Eboard`, `GSA Member`, `She/Her`, `She/They`, `She/He`, `She/He/They`, `She/They/He`, `He/Him`, `He/They`, `He/She`, `He/She/They`, `He/They/She`, `They/Them`, `They/She`, `They/He`, `They/She/He`, `They/He/She`, `Any Pronouns`, `Neopronouns`, `Straight`, `Questioning`, `Queer`, `Lesbian`, `Gay`, `Bisexual`, `Pansexual`, `Asexual`, `Aromantic`, `Year 1`, `Year 2`, `Year 3`, `Year 4+`, `Alumni`, `Graduate Student`, `Announcements`, `Safe Space`, `Politics`, `Minecraft` 
+
+### /send
+Sends embed-formatted informational/functional server messages
+
+**`agreement [channel]` subcommand**
+- Sends the server agreement messages in the specified channel
+
+**`roles [channel]` subcommand**
+- Sends the user role messages in the specified channel
+
+**`rules [channel]` subcommand**
+- Sends the rules message in the specified channel
+
+**`welcome [channel]` subcommand**
+- Sends the initial server welcome message in the specified channel
+
+**`politics [channel]` subcommand**
+- Sends the politics rules/agreement messages in the specified channel
+
+**`safe_space [channel]` subcommand**
+- Sends the safe space rules/agreement messages in the specified channel
+
+**`vc [channel]` subcommand**
+- Sends the vc instruction information in the specified channel
+
+---
 
 ## Role Compatibility
 Certain roles are not able to be assigned at the same time. The rules for the compatibility of roles are defined in `config.js` and are summarized here:
