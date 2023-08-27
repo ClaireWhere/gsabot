@@ -28,6 +28,7 @@ const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('
 for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
     try {
+        client.commands.set(command.data.name, command);
         debug(`initialized command ${command.data.name}`);
     } catch (error) {
         debug(`ERROR: could not load command from file ${file}`, error);
