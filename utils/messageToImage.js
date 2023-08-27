@@ -18,11 +18,8 @@ const fontSize = 24;
     If you somehow have it downloaded, great! the messages will look wonderful. 
     Otherwise, use whitney, it looks pretty close 
 */
-const font = 'gg sans'
-const title_font = 'gg sans'
-
-//const font = 'whitney book';
-//const title_font = 'whitney';
+const font = 'gg sans, whitney book, sans'
+const title_font = 'gg sans, whitney, sans'
 
 async function messageToBuffer(message, nickname, authorColor) {
     return await messageToImage(message, nickname, authorColor).then(canvas => {
