@@ -12,29 +12,34 @@
 
 ### Minor Feature Changes
 ---
-* Changed internal name of Minecraft Server Tracker
++ Added custom bot status
+    + Added custom bot status configuration
 + Added configuration for Minecraft Server Tracker
-    * Enable/disable
-    * Configurable frequency
+    + Enable/disable
+    + Configurable frequency
 + Added configuration for Deleted Message Logger
-    * Enable/disable
-    * Enable/disable database storage
-* Improved Minecraft Server Tracker error message
-+ Added debug mode
+    + Enable/disable
+    + Enable/disable database storage
++ Improved Minecraft Server Tracker error message
++ Added debug mode and configuration
 + Added internal utilities
-* Organized internal files and functions
++ Changed internal name of Minecraft Server Tracker
++ Organized internal files and functions
++ Improved code readability and organization
 + Added tests for Minecraft Server Tracker
-* Improved code readability and organization
 + Added root config
-* Improved file and function names for clarity
+    + For "global" configuration that applies the entire application
++ Improved file and function names for clarity
 
 ### Bug Fixes
 ---
-+ Added validity checks to commands
+* Added validity checks to commands
 * Fixed Minecraft Server Tracker status logger logging the same error status multiple times in a row
 * Fixed Deleted Message Logger to use the correct root .env configuration instead of client .env
-* Fixed role exclusivity rules configuration to no longer include themselves
-* Application No longer tries to respond to Message Delete events
+* Fixed some role exclusivity rules configured to include themselves
+* Fixed some role exclusivity rules configured to include roles that should not be included
+* Fixed some role exclusivity rules that weren't even configured
+* Application no longer tries to respond to Message Delete events
 
 ### Removed
 ---
