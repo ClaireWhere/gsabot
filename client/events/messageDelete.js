@@ -7,6 +7,11 @@ const { insertMessageLog } = require('../../utils/messageLogger');
 
 module.exports = {
     name: Events.MessageDelete,
+    /**
+     * 
+     * @param {import('discord.js').Message} message 
+     * @returns 
+     */
     async execute(message) {
         if (!config.deleted_message_log.enabled) { return; }
         
@@ -18,14 +23,14 @@ module.exports = {
         const channel_name = await message.guild.channels.cache.find(c => c.id === message.channelId).name;
 
         const logged = new LoggedMessage(
-            message.content,
             message.id,
+            message.content,
             message.author.id,
+            message.author.username,
             message.channelId,
             channel_name,
-            message.author.username,
-            message.createdTimestamp,
-            message.guildId
+            message.guildId,
+            message.createdTimestamp
         );
         
         var raw = "";
