@@ -99,7 +99,7 @@ module.exports = {
                     .setDisabled(false),
                 new ButtonBuilder()
                     .setStyle(ButtonStyle.Danger)
-                    .setLabel(`Request Neopronouns Role`)
+                    .setLabel(`Manage Neopronouns`)
                     .setCustomId(`pronouns:neo`)
                     .setDisabled(false)
             );
