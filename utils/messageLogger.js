@@ -67,27 +67,11 @@ function getMessageLog(message_id) {
     return new LoggedMessage(result.message.content, result.message.id, result.user.id, result.channel.id, result.channel.name, result.user.name, result.message.date, result.message.guild);
 }
 
-/**
- * 
- * @param {*} table - the table to select from
- * @param {*} query - the SQL query
- * @param {*} property - the property to search for
- * @returns the value of the property found in the query. 
- * @returns undefined if property is null
- */
-function select(query, property) {
-    if (!property) { return undefined; }
-    return select(query).get(property);
 }
 
 /**
  * 
- * @param {*} table - the table to select from
- * @param {*} query - the SQL query
- * @returns the element found from the query.
  */
-function select(query) {
-    return db.prepare(query);
 }
 
 module.exports = { insertMessageLog, getMessageLog, verifyMessageId }
