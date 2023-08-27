@@ -7,48 +7,54 @@ const { toNum } = require("../utils/utils");
  * @example
  * ```js
  * // initialize a sample LoggedMessage
- * const message = new LoggedMessage('Hello world.', 123456789012345678, 000000000000000000, 111111111111111111, 'general', 'discord', 31536000);
+ * const message = new LoggedMessage(123456789012345678, 'Hello world.', 000000000000000000, 'discord', 111111111111111111, 'general', 31536000, new Date());
  * ```
  */
 class LoggedMessage {
-        
+
     /**
      * 
-     * @param {string} content - the content of the message
      * @param {number} id - the id of the message
-     * @param {number} author - the id of the author of the original message
-     * @param {number} channel - the channel id the message was originally sent to
-     * @param {string?} channel_name - the name of the channel the message was originally sent to
+     * @param {string} content - the content of the message
+     * @param {number} author_id - the id of the author of the original message
      * @param {string?} author_name - the username of the author of the original message
+     * @param {number} channel_id - the channel id the message was originally sent to
+     * @param {string?} channel_name - the name of the channel the message was originally sent to
+     * @param {number?} guild_id - the guild id the message was originally sent to
      * @param {Date?} date - the date the message was created
-     * @param {number?} guild - the guild id the message was originally sent to
+     * @param {Date?} deleted_on - the date the message was deleted
      * 
      */
-    constructor(content, id, author, channel, channel_name, author_name, date, guild) {
-        this.content = content;
-        this.id = id;
-        this.author = toNum(author) ?? 0;
-        this.channel = toNum(channel) ?? 0;
-        this.channel_name = channel_name ?? null;
-        this.author_name = author_name ?? null;
-        this.date = date === typeof(Date) ? date : new Date(toNum(date)) ?? null;
-        this.guild = toNum(guild);
-
+    constructor(id, content, author_id, author_name, channel_id, channel_name, guild_id, date, deleted_on) {
+        if (!id || !content || !author_id || !channel_id) {
+            return null;
+        } else {
+            this.id = id;
+            this.content = content;
+            this.author_id = toNum(author_id);
+            this.author_name = author_name ?? null;
+            this.channel_id = toNum(channel_id);
+            this.channel_name = channel_name ?? null;
+            this.guild_id = toNum(guild_id) ?? 0;
+            this.date = !date ? null : typeof(date) === 'object' ? date : new Date(toNum(date)) ?? null;
+            this.deleted_on = !deleted_on ? null : typeof(deleted_on) === 'object' ? deleted_on : new Date(toNum(deleted_on)) ?? null;
+        }
     }
 
     /**
-     * @returns {{content, id, author, channel, channel_name?, author_name?, date?, guild?}} the raw data of the LoggedMessage as an object
+     * @returns {{id, content, author_id, author_name?, channel_id, channel_name?, guild?, date?, deleted_on}} the raw data of the LoggedMessage as an object
      */
     get messageData() {
         return {
-            content: this.content,
             id: this.id,
-            author: this.author,
-            channel: this.channel,
-            channel_name: this.channel_name ?? null,
+            content: this.content,
+            author_id: this.author_id,
             author_name: this.author_name ?? null,
+            channel_id: this.channel_id,
+            channel_name: this.channel_name ?? null,
+            guild_id: this.guild_id ?? null,
             date: this.date ?? null,
-            guild: this.guild ?? null
+            deleted_on: this.deleted_on ?? null
         }
     }
 
