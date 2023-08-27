@@ -17,28 +17,28 @@ function insertMessageLog(message) {
 
     try {
         const insert_user = db.prepare('INSERT INTO user (id, name) VALUES (?, ?)');
-        insert_user.run(message.author, message.author_name);
+        insert_user.run(message.author_id, message.author_name);
         debug('[SQLite] inserted into user');
     } catch (error) {
         debug('[SQLite] did not insert into user', error);
     }
     try {
         const insert_channel = db.prepare(`INSERT INTO channel (id, name) VALUES (?, ?)`);
-        insert_channel.run(message.channel, message.channel_name);
+        insert_channel.run(message.channel_id, message.channel_name);
         debug('[SQLite] inserted into channel');
     } catch (error) {
         debug('[SQLite] did not insert into channel', error);
     }
     try {
         const insert_message = db.prepare(`INSERT INTO message (id, content, author, channel, date, guild) VALUES (?, ?, ?, ?, ?, ?)`);
-        insert_message.run(message.id, message.content, message.author, message.channel, message.date, message.guild);
+        insert_message.run(message.id, message.content, message.author_id, message.channel_id, !message.date ? null : message.date.getTime(), message.guild_id);
         debug('[SQLite] inserted into message');
     } catch (error) {
         debug('[SQLite] did not insert into message', error);
     }
     try {
-        const insert_deleted = db.prepare(`INSERT INTO deleted_message (id, deleted_on) VALUES (?, ?)`);
-        insert_deleted.run(message.id, new Date());
+        const insert_deleted = db.prepare(`INSERT INTO deleted_message (message_id, deleted_on) VALUES (?, ?)`);
+        insert_deleted.run(message.id, new Date().getTime());
         debug('[SQLite] inserted into deleted_message');
     } catch (error) {
         debug('[SQLite] did not insert into deleted_message', error);
