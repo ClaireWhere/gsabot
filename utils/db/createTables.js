@@ -58,3 +58,5 @@ try {
 }
 
 db.close();
+
+console.log(`Successfully initialized ${config.database.name}.db database`);
