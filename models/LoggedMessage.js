@@ -65,19 +65,6 @@ class LoggedMessage {
         return this.content ?? null;
     }
 
-    /**
-     * 
-     * @param {JSON} json 
-     * @returns {LoggedMessage?} new LoggedMessage object created from the provided JSON object
-     */
-    static logFromJson(json) {
-        try {
-            return new LoggedMessage(json.content, json.id, json.author, json.channel, json.channel_name ?? null, json.author_name ?? null, json.date ?? null, json.guild ?? null);
-        } catch (e) {
-            return null;
-        }
-        
-    // }
 }
 
 
