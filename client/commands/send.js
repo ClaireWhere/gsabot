@@ -97,29 +97,17 @@ module.exports = {
 
         const channel = interaction.client.channels.cache.get(interaction.options._hoistedOptions[0].value);
 
-        var output = [];
+        var output = await getOutput(interaction);
 
-        if (interaction.options.getSubcommand() === 'agreement') {
-            output.push(await agreement.execute(interaction));
-        } else if (interaction.options.getSubcommand() === 'roles') {
-            output = output.concat(await roles.execute(interaction));
-        } else if (interaction.options.getSubcommand() === 'rules') {
-            output.push(await rules.execute(interaction));
-        } else if (interaction.options.getSubcommand() === 'welcome') {
-            output.push(await welcome.execute(interaction));
-        } else if (interaction.options.getSubcommand() === 'vc') {
-            output = output.concat(await vc.execute(interaction));
-        } else if (interaction.options.getSubcommand() === 'politics') {
-            output.push(await politics.execute(interaction));
-        } else if (interaction.options.getSubcommand() === 'button') {
-            // to be implemented
-            await interaction.editReply({content: `feature coming soon...`});
+        if (!output) {
+            await interaction.editReply({content: `Error: invalid subcommand specified`})
+                .catch((error) => {debug('', error)});
             return;
-        } else if (interaction.options.getSubcommand() === 'safe_space') {
-            output.push(await safe_space.execute(interaction));
-        } else {
-            await interaction.editReply({content: `Error: invalid subcommand specified`});
-            return;
+        }
+
+        // convert output to an array if it isn't already (due to inconsistencies in the output sometimes needing to be an array for multiple messages and not otherwise)
+        if (!output.length) {
+            output = [output];
         }
 
         for (let i = 0; i < output.length; i++) {
@@ -136,3 +124,23 @@ module.exports = {
 		await interaction.editReply({content: `${interaction.options.getSubcommand()} message successfully sent to ${channel}`, ephemeral: true});
 	},
 };
+
+/**
+ * 
+ * @param {import('discord.js').CommandInteraction} interaction 
+ * @returns 
+ */
+function getOutput(interaction) {
+    const subcommand = interaction.options.getSubcommand(false);
+    if (!subcommand) { return null; }
+
+    return subcommand === 'agreement' ? agreement.execute(interaction)
+        : subcommand === 'politics' ? politics.execute(interaction)     
+        : subcommand === 'roles' ? roles.execute(interaction)
+         : subcommand === 'rules' ? rules.execute(interaction)
+         : subcommand === 'safe_space' ? safe_space.execute(interaction)
+         : subcommand === 'vc' ? vc.execute(interaction)
+         : subcommand === 'welcome' ? welcome.execute(interaction) 
+         : subcommand === 'button' ? null
+         : null;
+}
