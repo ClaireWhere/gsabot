@@ -111,9 +111,9 @@ module.exports = {
                 .setDescription('The specific piece of vc information to edit')
                 .setRequired(true)
                 .addChoices(
-                    {name: 'pc', value: '0'},
-                    {name: 'mobile', value: '1'},
-                    {name: 'info', value: '2'}
+                    {name: 'Info', value: '2'},
+                    {name: 'Mobile', value: '1'},
+                    {name: 'PC', value: '0'}
                 ))
         )
         .addSubcommand(subcommand =>
