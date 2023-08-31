@@ -1,6 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { ChannelType } = require('discord.js');
-const wait = require('node:timers/promises').setTimeout;
 const rules = require('../../utils/message.utils/rules.js');
 const roles = require('../../utils/message.utils/roles.js');
 const agreement = require('../../utils/message.utils/agreement.js');
@@ -118,8 +117,6 @@ module.exports = {
                     debug(`There was an error sending message ${i+1} of ${output.length} for ${interaction.options.getSubcommand()}`, error);
                 });
         }
-
-        await wait(1000);
         
 		await interaction.editReply({content: `${interaction.options.getSubcommand()} message successfully sent to ${channel}`, ephemeral: true});
 	},
