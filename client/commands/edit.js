@@ -19,70 +19,29 @@ module.exports = {
 		.setDescription('Edits important server messages')
 		.setDefaultMemberPermissions(0)
 		.setDMPermission(false)
-        .addSubcommandGroup(group => 
-            group.setName('roles')
+        .addSubcommand(subcommand =>
+            subcommand.setName('roles')
             .setDescription('Edits the specified message to be the specified updated reaction roles message')
-            .addSubcommand(subcommand =>
-                subcommand.setName('announcements')
-                .setDescription('announcements')
-                .addChannelOption(option =>
-                    option.setName('channel')
-                    .setDescription('The channel to search for the message in')
-                    .setRequired(true)
-                    .addChannelTypes(ChannelType.GuildText))
-                .addIntegerOption(option =>
-                    option.setName('message')
-                    .setDescription('The message to edit')
-                    .setRequired(true)))
-            .addSubcommand(subcommand =>
-                subcommand.setName('identity')
-                .setDescription('identity')
-                .addChannelOption(option =>
-                    option.setName('channel')
-                    .setDescription('The channel to search for the message in')
-                    .setRequired(true)
-                    .addChannelTypes(ChannelType.GuildText))
-                .addIntegerOption(option =>
-                    option.setName('message')
-                    .setDescription('The message to edit')
-                    .setRequired(true)))
-            .addSubcommand(subcommand =>
-                subcommand.setName('minecraft')
-                .setDescription('minecraft')
-                .addChannelOption(option =>
-                    option.setName('channel')
-                    .setDescription('The channel to search for the message in')
-                    .setRequired(true)
-                    .addChannelTypes(ChannelType.GuildText))
-                .addIntegerOption(option =>
-                    option.setName('message')
-                    .setDescription('The message to edit')
-                    .setRequired(true)))
-            .addSubcommand(subcommand =>
-                subcommand.setName('pronouns')
-                .setDescription('pronouns')
-                .addChannelOption(option =>
-                    option.setName('channel')
-                    .setDescription('The channel to search for the message in')
-                    .setRequired(true)
-                    .addChannelTypes(ChannelType.GuildText))
-                .addIntegerOption(option =>
-                    option.setName('message')
-                    .setDescription('The message to edit')
-                    .setRequired(true)))
-            .addSubcommand(subcommand =>
-                subcommand.setName('year')
-                .setDescription('year')
-                .addChannelOption(option =>
-                    option.setName('channel')
-                    .setDescription('The channel to search for the message in')
-                    .setRequired(true)
-                    .addChannelTypes(ChannelType.GuildText))
-                .addIntegerOption(option =>
-                    option.setName('message')
-                    .setDescription('The message to edit')
-                    .setRequired(true)))
-        )
+            .addStringOption(option =>
+                option.setName('type')
+                .setDescription('The specific roles message to edit')
+                .setRequired(true)
+                .addChoices(
+                    {name: 'Announcements', value: 'announcements'},
+                    {name: 'Identity', value: 'identity'},
+                    {name: 'Minecraft', value: 'minecraft'},
+                    {name: 'Pronouns', value: 'pronouns'},
+                    {name: 'Year', value: 'year'},
+                ))
+            .addChannelOption(option =>
+                option.setName('channel')
+                .setDescription('The channel to search for the message in')
+                .setRequired(true)
+                .addChannelTypes(ChannelType.GuildText))
+            .addStringOption(option =>
+                option.setName('message')
+                .setDescription('The message to edit')
+                .setRequired(true)))
         .addSubcommand(subcommand =>
             subcommand.setName('rules')
             .setDescription('Edits the specified message to be the updated rules message')
