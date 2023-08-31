@@ -134,7 +134,33 @@ Sends embed-formatted informational/functional server messages
 - Sends the initial server welcome message in the specified channel
 
 
+### /edit [subcommand] ([type]) [channel] [message_id]
+Edits embed-formatted information/functional server messages to the most updated template
 
+**[`agreement`]**
+- Edits the specified message in the specified channel to be the most updated server agreement message
+
+**[`politics`]**
+- Edits the specified message in the specified channel to be the most updated politics rules/agreement message
+
+**[`roles`]**
+- Edits the specified message in the specified channel to be the most updated role message of the type specified
+
+    **[`type`]**: Announcements, Identity, Minecraft, Pronouns, Year
+
+**[`rules`]**
+- Edits the specified message in the specified channel to be the most updated rules message
+
+**[`safe_space`]**
+- Edits the specified message in the specified channel to be the most updated safe space agreement message
+
+**[`vc`]**
+- Edits the specified message in the specified channel to be the most updated vc information message of the specified type
+
+    **[`type`]**: Info, Mobile, PC
+
+**[`welcome`]**
+- Edits the specified message in the specified channel to be the most updated welcome message
 
 ---
 
