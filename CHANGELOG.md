@@ -4,13 +4,13 @@
 
 ### Major Feature Changes
 ---
-+ Added Custom Neopronoun Role Manager
++ Added **Custom Neopronoun Role Manager**
     + Changed "Request Neopronouns Role" button to "Manage Neopronouns"
 + Added fallbacks for application taking too long to respond
     + Protects against Discord API latency issues
 + Changed database system to SQLite
     + Added table initialization
-+ Added /edit [subcommand] ([type]) [channel] [message_id]
++ Added **/edit** [subcommand] ([type]) [channel] [message_id]
     + agreement
     + politics
     + roles
