@@ -156,6 +156,18 @@ module.exports = {
 
         const message_id = interaction.options.get('message').value;
 
+        const message = await channel.messages.fetch({cache: false, around: message_id, limit: 1})
+            .then((m) => { 
+                debug(`found message for /${interaction.commandName} interaction`);
+                return m.first();
+            }).catch(async (error) => {
+                debug(`message not found for /${interaction.commandName} interaction`, error);
+                await interaction.editReply({content: `⚠️ Error: A message with the specified id \`${message_id}\` was not able to be found in the channel ${channel}`})
+                    .catch((error) => {debug('', error)});
+            });
+
+        if (!message) { return; }
+
         const output = await getOutput(interaction);
         if (!output) {
             await interaction.editReply({content: `⚠️ Error: invalid subcommand specified`})
@@ -163,15 +175,20 @@ module.exports = {
             return;
         }
 
-        await messages.at(0).edit(output)
-            .then((res) => {
-                
-            })
-            .catch((error) => {
-
-            });
+        return await message.edit(output)
+            .then(async (res) => {
+                debug(`${interaction.options.getSubcommand()} message successfully edited`);
         
-		await interaction.editReply({content: `${interaction.options.getSubcommand()} message successfully sent to ${channel}`, ephemeral: true});
+		        await interaction.editReply({content: `The \`${interaction.options.getSubcommand()}\` message in ${channel} has been successfully updated!`, ephemeral: true})
+                    .catch((error) => {debug('', error)});
+                return true;
+            }).catch(async (error) => {
+                debug(`unable to edit ${interaction.options.getSubcommand()} message`, error);
+
+                await interaction.editReply({content: `⚠️ Error: The message with id \`${message_id}\` was not able to be edited. Double check the original message was sent by this bot and try again.`})
+                    .catch((error) => {debug('', error)});
+                return false;
+            });
 	},
 };
 
