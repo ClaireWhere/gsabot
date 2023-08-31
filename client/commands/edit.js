@@ -106,6 +106,15 @@ module.exports = {
                 option.setName('message')
                 .setDescription('The message to edit')
                 .setRequired(true))
+            .addStringOption(option => 
+                option.setName('type')
+                .setDescription('The specific piece of vc information to edit')
+                .setRequired(true)
+                .addChoices(
+                    {name: 'pc', value: '0'},
+                    {name: 'mobile', value: '1'},
+                    {name: 'info', value: '2'}
+                ))
         )
         .addSubcommand(subcommand =>
             subcommand.setName('politics')
