@@ -109,29 +109,32 @@ Creates and repairs important server resources
 - Roles included:       
     > `GSA President`, `GSA Technology Manager`, `GSA Vice President`, `GSA Treasurer`, `GSA Secretary`, `Eboard`, `GSA Member`, `She/Her`, `She/They`, `She/He`, `She/He/They`, `She/They/He`, `He/Him`, `He/They`, `He/She`, `He/She/They`, `He/They/She`, `They/Them`, `They/She`, `They/He`, `They/She/He`, `They/He/She`, `Any Pronouns`, `Neopronouns`, `Straight`, `Questioning`, `Queer`, `Lesbian`, `Gay`, `Bisexual`, `Pansexual`, `Asexual`, `Aromantic`, `Year 1`, `Year 2`, `Year 3`, `Year 4+`, `Alumni`, `Graduate Student`, `Announcements`, `Safe Space`, `Politics`, `Minecraft` 
 
-### /send
+### /send [subcommand] [channel]
 Sends embed-formatted informational/functional server messages
 
-**`agreement [channel]` subcommand**
+**[`agreement`]**
 - Sends the server agreement messages in the specified channel
 
-**`roles [channel]` subcommand**
-- Sends the user role messages in the specified channel
-
-**`rules [channel]` subcommand**
-- Sends the rules message in the specified channel
-
-**`welcome [channel]` subcommand**
-- Sends the initial server welcome message in the specified channel
-
-**`politics [channel]` subcommand**
+**[`politics`]**
 - Sends the politics rules/agreement messages in the specified channel
 
-**`safe_space [channel]` subcommand**
+**[`roles`]**
+- Sends the user role messages in the specified channel
+
+**[`rules`]**
+- Sends the rules message in the specified channel
+
+**[`safe_space`]**
 - Sends the safe space rules/agreement messages in the specified channel
 
-**`vc [channel]` subcommand**
+**[`vc`]**
 - Sends the vc instruction information in the specified channel
+
+**[`welcome`]**
+- Sends the initial server welcome message in the specified channel
+
+
+
 
 ---
 
