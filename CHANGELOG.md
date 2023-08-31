@@ -10,6 +10,16 @@
     + Protects against Discord API latency issues
 + Changed database system to SQLite
     + Added table initialization
++ Added /edit [subcommand] ([type]) [channel] [message_id]
+    + agreement
+    + politics
+    + roles
+        + [type]: Announcements, Identity, Minecraft, Pronouns, Year
+    + rules
+    + safe_space
+    + vc
+        + [type]: Info, Mobile, PC
+    + welcome
 
 ### Minor Feature Changes
 ---
@@ -31,6 +41,14 @@
 + Added root config
     + For "global" configuration that applies the entire application
 + Improved file and function names for clarity
++ Alt text for images should actually exist now
++ Added npm initialization for database
++ Reformatted LoggedMessage 
+    + Improved the order fields show up
+    + Improved the detail of field names
+    + Now includes deleted_on field
++ Deleted message timestamps are now stored
++ Various performance improvements
 
 ### Bug Fixes
 ---
@@ -41,6 +59,7 @@
 * Fixed some role exclusivity rules configured to include roles that should not be included
 * Fixed some role exclusivity rules that weren't even configured
 * Application no longer tries to respond to Message Delete events
++ Added fallback fonts for Deleted Message Logger to avoid missing font issues
 
 ### Removed
 ---
