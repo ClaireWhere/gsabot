@@ -39,8 +39,8 @@ module.exports = {
                 .setRequired(true)
                 .addChannelTypes(ChannelType.GuildText))
             .addStringOption(option =>
-                option.setName('message')
-                .setDescription('The message to edit')
+                option.setName('message_id')
+                .setDescription('The id/snowflake of the message to edit')
                 .setRequired(true)))
         .addSubcommand(subcommand =>
             subcommand.setName('rules')
@@ -51,8 +51,8 @@ module.exports = {
                 .setRequired(true)
                 .addChannelTypes(ChannelType.GuildText))
             .addStringOption(option =>
-                option.setName('message')
-                .setDescription('The message to edit')
+                option.setName('message_id')
+                .setDescription('The id/snowflake of the message to edit')
                 .setRequired(true))
         )
         .addSubcommand(subcommand =>
@@ -64,8 +64,8 @@ module.exports = {
                 .setRequired(true)
                 .addChannelTypes(ChannelType.GuildText))
             .addStringOption(option =>
-                option.setName('message')
-                .setDescription('The message to edit')
+                option.setName('message_id')
+                .setDescription('The id/snowflake of the message to edit')
                 .setRequired(true))
         )
         .addSubcommand(subcommand =>
@@ -77,8 +77,8 @@ module.exports = {
                 .setRequired(true)
                 .addChannelTypes(ChannelType.GuildText))
             .addStringOption(option =>
-                option.setName('message')
-                .setDescription('The message to edit')
+                option.setName('message_id')
+                .setDescription('The id/snowflake of the message to edit')
                 .setRequired(true))
         )
         .addSubcommand(subcommand =>
@@ -90,8 +90,8 @@ module.exports = {
                 .setRequired(true)
                 .addChannelTypes(ChannelType.GuildText))
             .addStringOption(option =>
-                option.setName('message')
-                .setDescription('The message to edit')
+                option.setName('message_id')
+                .setDescription('The id/snowflake of the message to edit')
                 .setRequired(true))
         )
         .addSubcommand(subcommand =>
@@ -112,8 +112,8 @@ module.exports = {
                 .setRequired(true)
                 .addChannelTypes(ChannelType.GuildText))
             .addStringOption(option =>
-                option.setName('message')
-                .setDescription('The message to edit')
+                option.setName('message_id')
+                .setDescription('The id/snowflake of the message to edit')
                 .setRequired(true))
         )
         .addSubcommand(subcommand =>
@@ -125,8 +125,8 @@ module.exports = {
                 .setRequired(true)
                 .addChannelTypes(ChannelType.GuildText))
             .addStringOption(option =>
-                option.setName('message')
-                .setDescription('The message to edit')
+                option.setName('message_id')
+                .setDescription('The id/snowflake of the message to edit')
                 .setRequired(true))
         )
         .addSubcommand(subcommand =>
@@ -138,7 +138,7 @@ module.exports = {
                 .setRequired(true)
                 .addChannelTypes(ChannelType.GuildText))
             .addStringOption(option =>
-                option.setName('message')
+                option.setName('message_id')
                 .setDescription('button.')
                 .setRequired(true))
         ),
@@ -154,7 +154,7 @@ module.exports = {
 
         const channel = interaction.client.channels.cache.get(interaction.options.get('channel').value);
 
-        const message_id = interaction.options.get('message').value;
+        const message_id = interaction.options.get('message_id').value;
 
         const message = await channel.messages.fetch({cache: false, around: message_id, limit: 1})
             .then((m) => { 
