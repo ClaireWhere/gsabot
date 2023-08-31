@@ -7,11 +7,11 @@ const vc = require('../../utils/message.utils/vc.js');
 const politics = require('../../utils/message.utils/politics.js');
 const safe_space = require('../../utils/message.utils/safe_space.js');
 const { debug } = require('../../utils/debugger.js');
-const announcements = require('../../utils/message.utils/roles/announcements.js')
-const identity = require('../../utils/message.utils/roles/identity.js')
-const minecraft = require('../../utils/message.utils/roles/minecraft.js')
-const pronouns = require('../../utils/message.utils/roles/pronouns.js')
-const year = require('../../utils/message.utils/roles/year.js')
+const announcements = require('../../utils/message.utils/roles/announcements.js');
+const identity = require('../../utils/message.utils/roles/identity.js');
+const minecraft = require('../../utils/message.utils/roles/minecraft.js');
+const pronouns = require('../../utils/message.utils/roles/pronouns.js');
+const year = require('../../utils/message.utils/roles/year.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
