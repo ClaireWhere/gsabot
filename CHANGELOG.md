@@ -25,30 +25,29 @@
 ---
 + Added custom bot status
     + Added custom bot status configuration
++ Changed internal name of Minecraft Server Tracker
++ Improved Minecraft Server Tracker error message
++ Added tests for Minecraft Server Tracker
 + Added configuration for Minecraft Server Tracker
     + Enable/disable
     + Configurable frequency
-+ Added configuration for Deleted Message Logger
-    + Enable/disable
-    + Enable/disable database storage
-+ Improved Minecraft Server Tracker error message
-+ Added debug mode and configuration
-+ Added internal utilities
-+ Changed internal name of Minecraft Server Tracker
-+ Organized internal files and functions
-+ Improved code readability and organization
-+ Added tests for Minecraft Server Tracker
-+ Added root config
-    + For "global" configuration that applies the entire application
-+ Improved file and function names for clarity
-+ Alt text for images should actually exist now
-+ Added npm initialization for database
 + Reformatted LoggedMessage 
     + Improved the order fields show up
     + Improved the detail of field names
     + Now includes deleted_on field
 + Deleted message timestamps are now stored
++ Added configuration for Deleted Message Logger
+    + Enable/disable
+    + Enable/disable database storage
++ Added npm initialization for database
++ Added root config
+    + For "global" configuration that applies the entire application
++ Added **debug mode** and configuration
 + Various performance improvements
++ Added internal utilities
++ Organized internal files and functions
++ Improved code readability and organization
++ Improved file and function names for clarity
 
 ### Bug Fixes
 ---
