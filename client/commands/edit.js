@@ -97,15 +97,6 @@ module.exports = {
         .addSubcommand(subcommand =>
             subcommand.setName('vc')
             .setDescription('Edits the specified message to be the updated vc text guide message')
-            .addChannelOption(option =>
-                option.setName('channel')
-                .setDescription('The channel to search for the message in')
-                .setRequired(true)
-                .addChannelTypes(ChannelType.GuildText))
-            .addStringOption(option =>
-                option.setName('message')
-                .setDescription('The message to edit')
-                .setRequired(true))
             .addStringOption(option => 
                 option.setName('type')
                 .setDescription('The specific piece of vc information to edit')
@@ -115,6 +106,15 @@ module.exports = {
                     {name: 'Mobile', value: '1'},
                     {name: 'PC', value: '0'}
                 ))
+            .addChannelOption(option =>
+                option.setName('channel')
+                .setDescription('The channel to search for the message in')
+                .setRequired(true)
+                .addChannelTypes(ChannelType.GuildText))
+            .addStringOption(option =>
+                option.setName('message')
+                .setDescription('The message to edit')
+                .setRequired(true))
         )
         .addSubcommand(subcommand =>
             subcommand.setName('politics')
