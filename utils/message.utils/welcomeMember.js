@@ -1,5 +1,6 @@
-const { memberHasRoleName } = require("../roles.utils/roles");
+const { memberHasRoleName, addFormatRole } = require("../roles.utils/roles");
 const { debug } = require('../debugger');
+const { config } = require('../../client/config.json');
 
 
 async function welcomeMember(interaction) {
