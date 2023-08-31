@@ -108,7 +108,10 @@
 
 ### Minor Feature Changes
 ---
-- None
++ Alt text for images should actually exist now
++ Formatted a lot of text to use headers
+    + VC Text
+
 
 ### Bug Fixes
 ---
