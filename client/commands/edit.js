@@ -91,7 +91,7 @@ module.exports = {
                 .setDescription('The channel to search for the message in')
                 .setRequired(true)
                 .addChannelTypes(ChannelType.GuildText))
-            .addIntegerOption(option =>
+            .addStringOption(option =>
                 option.setName('message')
                 .setDescription('The message to edit')
                 .setRequired(true))
@@ -104,7 +104,7 @@ module.exports = {
                 .setDescription('The channel to search for the message in')
                 .setRequired(true)
                 .addChannelTypes(ChannelType.GuildText))
-            .addIntegerOption(option =>
+            .addStringOption(option =>
                 option.setName('message')
                 .setDescription('The message to edit')
                 .setRequired(true))
@@ -117,7 +117,7 @@ module.exports = {
                 .setDescription('The channel to search for the message in')
                 .setRequired(true)
                 .addChannelTypes(ChannelType.GuildText))
-            .addIntegerOption(option =>
+            .addStringOption(option =>
                 option.setName('message')
                 .setDescription('The message to edit')
                 .setRequired(true))
@@ -130,7 +130,7 @@ module.exports = {
                 .setDescription('The channel to search for the message in')
                 .setRequired(true)
                 .addChannelTypes(ChannelType.GuildText))
-            .addIntegerOption(option =>
+            .addStringOption(option =>
                 option.setName('message')
                 .setDescription('The message to edit')
                 .setRequired(true))
@@ -143,7 +143,7 @@ module.exports = {
                 .setDescription('The channel to search for the message in')
                 .setRequired(true)
                 .addChannelTypes(ChannelType.GuildText))
-            .addIntegerOption(option =>
+            .addStringOption(option =>
                 option.setName('message')
                 .setDescription('The message to edit')
                 .setRequired(true))
@@ -156,7 +156,7 @@ module.exports = {
                 .setDescription('The channel to search for the message in')
                 .setRequired(true)
                 .addChannelTypes(ChannelType.GuildText))
-            .addIntegerOption(option =>
+            .addStringOption(option =>
                 option.setName('message')
                 .setDescription('The message to edit')
                 .setRequired(true))
@@ -169,7 +169,7 @@ module.exports = {
                 .setDescription('button?')
                 .setRequired(true)
                 .addChannelTypes(ChannelType.GuildText))
-            .addIntegerOption(option =>
+            .addStringOption(option =>
                 option.setName('message')
                 .setDescription('button.')
                 .setRequired(true))
