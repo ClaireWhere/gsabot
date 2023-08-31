@@ -152,15 +152,9 @@ module.exports = {
 
         await interaction.reply({content: `${interaction.guild.emojis.cache.find(emoji => emoji.name === 'loading')} please wait...`, ephemeral: true});
 
-        const channel = interaction.client.channels.cache.get(interaction.options._hoistedOptions[0].value);
-        const filter = m => m.id === interaction.options._hoistedOptions[1].value;
-        /**
-         * @param {Collection<Snowflake, import('discord.js').Message>} messages
-         */
-        const messages = await channel.awaitMessages({ filter, max: 10, time: 10_000, errors: ['time']})
-            .then(collected => { return collected })
-            .catch(collected => console.log(`Message not found`));
-        console.log(collected);
+        const channel = interaction.client.channels.cache.get(interaction.options.get('channel').value);
+
+        const message_id = interaction.options.get('message').value;
 
         const output = await getOutput(interaction);
         if (!output) {
