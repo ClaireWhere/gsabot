@@ -161,38 +161,11 @@ module.exports = {
             .then(collected => { return collected })
             .catch(collected => console.log(`Message not found`));
         console.log(collected);
-        var output;
 
-        if (interaction.options.getSubcommand(false) === 'agreement') {
-            output = await agreement.execute(interaction);
-        } else if (interaction.options.getSubcommandGroup(false) === 'roles') {
-            if (interaction.options.getSubcommand() === 'announcements') {
-                output = await announcements.execute(interaction);
-            } else if (interaction.options.getSubcommand() === 'identity') {
-                output = await identity.execute(interaction);
-            } else if (interaction.options.getSubcommand() === 'minecraft') {
-                output = await minecraft.execute(interaction);
-            } else if (interaction.options.getSubcommand() === 'pronouns') {
-                output = await pronouns.identity.execute(interaction);
-            } else if (interaction.options.getSubcommand() === 'year') {
-                output = await year.execute(interaction);
-            }
-        } else if (interaction.options.getSubcommand(false) === 'rules') {
-            output = await rules.execute(interaction);
-        } else if (interaction.options.getSubcommand(false) === 'welcome') {
-            output = await welcome.execute(interaction);
-        } else if (interaction.options.getSubcommand(false) === 'vc') {
-            //output = output.concat(await vc.execute(interaction));
-        } else if (interaction.options.getSubcommand(false) === 'politics') {
-            output = await politics.execute(interaction);
-        } else if (interaction.options.getSubcommand(false) === 'button') {
-            // to be implemented
-            await interaction.editReply({content: `feature coming soon...`}).catch((error) => {console.log(error.message)});
-            return;
-        } else if (interaction.options.getSubcommand(false) === 'safe_space') {
-            output = await safe_space.execute(interaction);
-        } else {
-            await interaction.editReply({content: `Error: invalid subcommand specified`}).catch((error) => {console.log(error.message)});
+        const output = await getOutput(interaction);
+        if (!output) {
+            await interaction.editReply({content: `⚠️ Error: invalid subcommand specified`})
+                .catch((error) => {debug('', error)});
             return;
         }
 
@@ -207,3 +180,48 @@ module.exports = {
 		await interaction.editReply({content: `${interaction.options.getSubcommand()} message successfully sent to ${channel}`, ephemeral: true});
 	},
 };
+
+/**
+ * 
+ * @param {import('discord.js').CommandInteraction} interaction 
+ * @returns 
+ */
+function getOutput(interaction) {
+    const subcommand = interaction.options.getSubcommand(false);
+    if (!subcommand) { return null; }
+
+    return subcommand === 'agreement' ? agreement.execute(interaction)
+         : subcommand === 'politics' ? politics.execute(interaction)
+         : subcommand === 'roles' ? getRoleOutput(interaction)
+         : subcommand === 'rules' ? rules.execute(interaction)
+         : subcommand === 'safe_space' ? safe_space.execute(interaction)
+         : subcommand === 'vc' ? getVcOutput(interaction)
+         : subcommand === 'welcome' ? welcome.execute(interaction)
+         : subcommand === 'button' ? null
+         : null;
+}
+
+/**
+ * 
+ * @param {import('discord.js').CommandInteraction} interaction 
+ * @returns 
+ */
+function getRoleOutput(interaction) {
+    const type = interaction.options.get('type').value;
+    console.log(`type: ${type}`);
+    return type === 'announcements' ? announcements.execute(interaction)
+         : type === 'identity' ? identity.execute(interaction)
+         : type === 'minecraft' ? minecraft.execute(interaction)
+         : type === 'pronouns' ? pronouns.execute(interaction)
+         : type === 'year' ? year.execute(interaction)
+         : null;
+}
+
+/**
+ * 
+ * @param {import('discord.js').CommandInteraction} interaction 
+ * @returns 
+ */
+async function getVcOutput(interaction) {
+    return new Promise((res) => res(vc.execute(interaction).then((res) => res[parseInt(interaction.options.get('type').value)])));
+}
