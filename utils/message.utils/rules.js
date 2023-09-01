@@ -1,6 +1,6 @@
 const { EmbedBuilder, AttachmentBuilder } = require('discord.js');
 const { config } = require('../../client/config.json');
-require('dotenv').config()
+require('dotenv').config();
 
 module.exports = {
     async execute(interaction) {
