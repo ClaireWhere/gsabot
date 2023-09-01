@@ -1,14 +1,14 @@
-const { REST } = require('@discordjs/rest');
-const { Routes } = require('discord-api-types/v9');
+const { REST, Routes } = require('discord.js');
 require('dotenv').config();
 
-const rest = new REST({ version: '9' }).setToken(process.env.DISCORD_TOKEN);
-rest.get(Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.GUILD_ID))
-    .then(data => {
-        const promises = [];
-        for (const command of data) {
-            const deleteUrl = `${Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.GUILD_ID)}/${command.id}`;
-            promises.push(rest.delete(deleteUrl));
-        }
-        return Promise.all(promises);
-    });
+const rest = new REST().setToken(process.env.DISCORD_TOKEN);
+
+// for guild-based commands
+rest.put(Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.GUILD_ID), { body: [] })
+	.then(() => console.log('Successfully deleted all guild commands.'))
+	.catch(console.error);
+
+// for global commands
+rest.put(Routes.applicationCommands(process.env.CLIENT_ID), { body: [] })
+	.then(() => console.log('Successfully deleted all application commands.'))
+	.catch(console.error);
