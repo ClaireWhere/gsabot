@@ -2,8 +2,9 @@
     "config": {
         "custom_status": {
             "enabled": true,
-            "status": "Back and better than ever!",
-            "name": "Set your name color with /color"
+            "state": "Back and better than ever!",
+            "name": "Set your name color with /color",
+            "status": "online"
         },
         "minecraft_tracker": {
             "enabled": true,
