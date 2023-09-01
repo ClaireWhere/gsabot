@@ -168,9 +168,11 @@ module.exports = {
 
         if (!message) { return; }
 
-        const output = await getOutput(interaction);
+        const output = await getOutput(interaction).catch(async (error) => {
+            return;
+        });
         if (!output) {
-            await interaction.editReply({content: `⚠️ Error: invalid subcommand specified`})
+            await interaction.editReply({content: `⚠️ Error: either an invalid subcommand was specified or the contents for the message could not be found`})
                 .catch((error) => {debug('', error)});
             return;
         }
