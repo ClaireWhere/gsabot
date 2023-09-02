@@ -22,6 +22,13 @@ const fontSize = 24;
 const font = 'gg sans, whitney book, sans'
 const title_font = 'gg sans, whitney, sans'
 
+/**
+ * 
+ * @param {import('discord.js').Message} message 
+ * @param {string} nickname the nickname to use for the author
+ * @param {string} authorColor the color of the author's name in the format #FFFFFF 
+ * @returns {Promise<Buffer> | null} a buffer of an image representing the provided message
+ */
 async function messageToBuffer(message, nickname, authorColor) {
     return await messageToImage(message, nickname, authorColor).then(canvas => {
         return canvas.toBuffer();
@@ -30,6 +37,14 @@ async function messageToBuffer(message, nickname, authorColor) {
         return undefined;
     });
 }
+
+/**
+ * 
+ * @param {import('discord.js').Message} message 
+ * @param {string} nickname the nickname to use for the author
+ * @param {string} authorColor the color of the author's name in the format #FFFFFF
+ * @returns {Promise<string>} the url of an image representing the provided message
+ */
 async function messageToUrl(message, nickname, authorColor) {
     return await messageToImage(message, nickname, authorColor).then(canvas => {
         return canvas.toDataURL();
@@ -38,6 +53,13 @@ async function messageToUrl(message, nickname, authorColor) {
     });
 }
 
+/**
+ * 
+ * @param {import('discord.js').Message} message 
+ * @param {string} nickname the nickname to use for the author
+ * @param {string} authorColor the color of the author's name in the format #FFFFFF
+ * @returns {Promise<import('canvas').Canvas>} the resulting canvas with everything provided written to it
+ */
 async function messageToImage(message, nickname, authorColor) {
     // Initialize Message Content & Canvas Height
     const c = createCanvas(0, 0).getContext('2d');
@@ -94,6 +116,13 @@ async function messageToImage(message, nickname, authorColor) {
     return canvas;
 }
 
+/**
+ * 
+ * @param {CanvasRenderingContext2D} ctx 
+ * @param {string} text 
+ * @param {number} maxWidth the maximum x-position text should be written on each line
+ * @returns {[string] | [[string]]}
+ */
 function fitText(ctx, text, maxWidth) {
     if (text.split('\n').length > 1) {
         var lines = [];
@@ -106,7 +135,13 @@ function fitText(ctx, text, maxWidth) {
     }
 }
 
-// takes in a string and returns an array of strings that will fit in the provided width
+/**
+ * Takes a string as input and returns an array of strings that will each fit within the provided maxWidth
+ * @param {CanvasRenderingContext2D} ctx 
+ * @param {string} string
+ * @param {number} maxWidth the maximum x-position text should be written on each line
+ * @returns {[[string]]}
+ */
 function fit(ctx, string, maxWidth) {
     if (ctx.measureText(string).width <= maxWidth) {
         return [[string]];
@@ -143,6 +178,14 @@ function fit(ctx, string, maxWidth) {
     }
 }
 
+/**
+ * 
+ * @param {CanvasRenderingContext2D} ctx 
+ * @param {string} string the text to write to fit to each line
+ * @param {number} maxWidth the maximum x-position text should be written on each line
+ * @param {number} initWidth the initial x-position (width) of the first line before text has been written
+ * @returns {[[string]]} an array (lines) of arrays of words that will each fit within the provided width without going over
+ */
 function splitWord(ctx, string, maxWidth, initWidth) {
     // if the word will fit on the 'current' line, just return it
     if (initWidth+ctx.measureText(string).width+padding <= maxWidth) {
@@ -161,6 +204,14 @@ function splitWord(ctx, string, maxWidth, initWidth) {
     return lines;
 }
 
+/**
+ * 
+ * @param {CanvasRenderingContext2D} ctx 
+ * @param {[[string]]} array the lines of words to fill to the canvas
+ * @param {number} x the starting x position
+ * @param {number} y the starting y/line position
+ * @returns {number} the ending y/line position
+ */
 function fillFromArray(ctx, array, x, y) {
     array.forEach(line => {
         ctx.fillText(line.join(' '), x, y);
@@ -169,6 +220,11 @@ function fillFromArray(ctx, array, x, y) {
     return y;
 }
 
+/**
+ * Calculates the absolute minimum width of the canvas (for if the message text is smaller than the header)
+ * @param {string} nickname the message author's nickname
+ * @returns {number}
+ */
 function calcMinWidth(nickname) {
     const c = createCanvas(0, 0).getContext('2d');
     c.font = `bold ${fontSize}px ${title_font}`;
@@ -178,6 +234,12 @@ function calcMinWidth(nickname) {
     return minWidth;
 }
 
+/**
+ * Calculates the width the canvas should have given the size of the message
+ * @param {string} message 
+ * @param {string} nickname the message author's nickname
+ * @returns {number}
+ */
 function calcCanvasWidth(message, nickname) {
     const c = createCanvas(0, 0).getContext('2d')
     c.font = `${fontSize}px ${font}`;
