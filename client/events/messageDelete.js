@@ -39,10 +39,8 @@ module.exports = {
             raw = `\n[Raw](https://${process.env.SERVER_SUBDOMAIN}.${process.env.DOMAIN}/logs/${message.id} 'Open raw text to copy/paste')`;
         }
         
-
-        const file = new AttachmentBuilder()
-            .setFile(await messageToBuffer(message, nickname, displayColor))
-            .setName(`message.png`);
+        const buffer = await messageToBuffer(message, nickname, displayColor);
+        const file = !buffer ? null : new AttachmentBuilder().setFile(buffer).setName('message.png');
 
         const embed = {
             title: "**MESSAGE DELETED**",
@@ -72,6 +70,10 @@ module.exports = {
         
         let delchannel = message.guild.systemChannel;
         // let delchannel = await message.guild.channels.cache.find(x => x.name === 'moderator-only');
-        await delchannel.send({embeds: [embed], files: [file]});
+        if (!file) {
+            await delchannel.send({embeds: [embed]});
+        } else {
+            await delchannel.send({embeds: [embed], files: [file]});
+        }
     }
 }
