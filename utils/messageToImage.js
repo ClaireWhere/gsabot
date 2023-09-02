@@ -1,4 +1,5 @@
 const { createCanvas, loadImage } = require('canvas');
+const { isEmpty } = require('./utils');
 const text_color = '#DBDEE1'
 const timestamp_color = '#949BA4'
 const background_color = '#313338'
@@ -176,14 +177,6 @@ function fillFromArray(ctx, array, x, y) {
     return y;
 }
 
-function isEmpty(obj) {
-    if (obj === undefined) { return true; }
-    for(var prop in obj) {
-        if(obj.hasOwnProperty(prop))
-            return false;
-    }
-    return true;
-}
 function calcMinWidth(nickname) {
     const c = createCanvas(0, 0).getContext('2d');
     c.font = `bold ${fontSize}px ${title_font}`;
