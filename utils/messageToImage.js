@@ -161,14 +161,6 @@ function splitWord(ctx, string, maxWidth, initWidth) {
     return lines;
 }
 
-function fillLines(ctx, string, maxWidth, x, y) {
-    fitText(ctx, string, maxWidth).forEach(line => {
-        ctx.fillText(line.join(' '), x, y);
-        y += 30;
-    })
-    return y;
-}
-
 function fillFromArray(ctx, array, x, y) {
     array.forEach(line => {
         ctx.fillText(line.join(' '), x, y);
