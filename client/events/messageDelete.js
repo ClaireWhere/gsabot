@@ -17,10 +17,10 @@ module.exports = {
         
         console.log(`Message deleted from ${message.channel} by ${message.author.tag}`);
 
-        const author = await message.guild.members.cache.find(x => x.id === message.author.id);
+        const author = message.guild.members.cache.find(x => x.id === message.author.id);
         const nickname = author.nickname ?? author.globalName ?? author.username;
         const displayColor = author.displayHexColor;
-        const channel_name = await message.guild.channels.cache.find(c => c.id === message.channelId).name;
+        const channel_name = message.guild.channels.cache.find(c => c.id === message.channelId).name;
 
         const logged = new LoggedMessage(
             message.id,
@@ -70,7 +70,7 @@ module.exports = {
         }
 
         
-        let delchannel = await message.guild.systemChannel;
+        let delchannel = message.guild.systemChannel;
         // let delchannel = await message.guild.channels.cache.find(x => x.name === 'moderator-only');
         await delchannel.send({embeds: [embed], files: [file]});
     }
