@@ -83,7 +83,7 @@ async function messageToImage(message, nickname, authorColor) {
     ctx.arc(initX+avatarRadius, initY+avatarRadius, avatarRadius, 0, Math.PI * 2, true)
     ctx.closePath()
     ctx.clip()
-    await loadImage('https://cdn.discordapp.com/avatars/309092766749818880/fba5350e48913cd23d8b277bada2ce14.png')
+    await loadImage(message.author.displayAvatarURL().replace('.webp', '.png'))
         .then((image) => {
             ctx.drawImage(image, initX, initY, avatarRadius*2, avatarRadius*2);
         });
