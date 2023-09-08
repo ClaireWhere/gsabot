@@ -12,6 +12,7 @@ const identity = require('../../utils/message.utils/roles/identity.js');
 const minecraft = require('../../utils/message.utils/roles/minecraft.js');
 const pronouns = require('../../utils/message.utils/roles/pronouns.js');
 const year = require('../../utils/message.utils/roles/year.js');
+const { getChannelParentName } = require('../../utils/utils.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -168,7 +169,7 @@ module.exports = {
 
         if (!message) { return; }
 
-        const output = await getOutput(interaction).catch(async (error) => {
+        const output = await getOutput(interaction, channel).catch(async (error) => {
             return;
         });
         if (!output) {
@@ -199,14 +200,14 @@ module.exports = {
  * @param {import('discord.js').CommandInteraction} interaction 
  * @returns 
  */
-function getOutput(interaction) {
+function getOutput(interaction, channel) {
     const subcommand = interaction.options.getSubcommand(false);
     if (!subcommand) { return null; }
 
     return subcommand === 'agreement' ? agreement.execute(interaction)
          : subcommand === 'politics' ? politics.execute(interaction)
          : subcommand === 'roles' ? getRoleOutput(interaction)
-         : subcommand === 'rules' ? rules.execute(interaction)
+         : subcommand === 'rules' ? getRulesOutput(interaction, channel)
          : subcommand === 'safe_space' ? safe_space.execute(interaction)
          : subcommand === 'vc' ? getVcOutput(interaction)
          : subcommand === 'welcome' ? welcome.execute(interaction)
@@ -237,4 +238,11 @@ function getRoleOutput(interaction) {
  */
 async function getVcOutput(interaction) {
     return new Promise((res) => res(vc.execute(interaction).then((res) => res[parseInt(interaction.options.get('type').value)])));
+}
+
+function getRulesOutput(interaction, channel) {
+    if (getChannelParentName(channel) === '━━ verification') {
+        return rules.execute(interaction, true)
+    }
+    return rules.execute(interaction, false);
 }

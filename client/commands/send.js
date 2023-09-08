@@ -8,6 +8,7 @@ const vc = require('../../utils/message.utils/vc.js');
 const politics = require('../../utils/message.utils/politics.js');
 const safe_space = require('../../utils/message.utils/safe_space.js');
 const { debug } = require('../../utils/debugger.js');
+const { getChannelParentName } = require('../../utils/utils.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -96,7 +97,7 @@ module.exports = {
 
         const channel = interaction.client.channels.cache.get(interaction.options._hoistedOptions[0].value);
 
-        var output = await getOutput(interaction);
+        var output = await getOutput(interaction, channel);
 
         if (!output) {
             await interaction.editReply({content: `Error: invalid subcommand specified`})
@@ -127,17 +128,24 @@ module.exports = {
  * @param {import('discord.js').CommandInteraction} interaction 
  * @returns 
  */
-function getOutput(interaction) {
+function getOutput(interaction, channel) {
     const subcommand = interaction.options.getSubcommand(false);
     if (!subcommand) { return null; }
 
     return subcommand === 'agreement' ? agreement.execute(interaction)
         : subcommand === 'politics' ? politics.execute(interaction)     
         : subcommand === 'roles' ? roles.execute(interaction)
-         : subcommand === 'rules' ? rules.execute(interaction)
+         : subcommand === 'rules' ? getRulesOutput(interaction, channel)
          : subcommand === 'safe_space' ? safe_space.execute(interaction)
          : subcommand === 'vc' ? vc.execute(interaction)
          : subcommand === 'welcome' ? welcome.execute(interaction) 
          : subcommand === 'button' ? null
          : null;
+}
+
+function getRulesOutput(interaction, channel) {
+    if (getChannelParentName(channel) === '━━ verification') {
+        return rules.execute(interaction, true)
+    }
+    return rules.execute(interaction, false);
 }
