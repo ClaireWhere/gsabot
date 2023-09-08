@@ -115,4 +115,10 @@ function isNumeric(input){
     return (RE.test(input));
 }
 
-module.exports = { arrayMatch, isEmpty, formatList, removeIntersection, arrayToLowerCase, toNum, isNumeric }
+function getChannelParentName(channel) {
+    if (!channel['parent']) { return undefined; }
+    if (!channel.parent['name']) { return undefined; }
+    return channel.parent.name.toLowerCase();
+}
+
+module.exports = { arrayMatch, isEmpty, formatList, removeIntersection, arrayToLowerCase, toNum, isNumeric, getChannelParentName }
