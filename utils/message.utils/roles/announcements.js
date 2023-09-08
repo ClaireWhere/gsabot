@@ -1,9 +1,10 @@
 const { ButtonBuilder, ButtonStyle, ActionRowBuilder } = require("discord.js");
 const { config } = require('../../../client/config.json');
+const { getChannelParentName } = require("../../utils");
 
 module.exports = { 
     async execute(interaction) {
-        const announcements_channel = await interaction.guild.channels.cache.find(channel => channel.name === 'announcements') ?? `#announcements`;
+        const announcements_channel = await interaction.guild.channels.cache.find(channel => channel.name === 'announcements' && getChannelParentName(channel) != 'archive') ?? `\`#announcements\``;
 
         const row_1 = new ActionRowBuilder()
             .addComponents(
