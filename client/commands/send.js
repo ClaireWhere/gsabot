@@ -95,7 +95,7 @@ module.exports = {
 
         await interaction.reply({content: `${interaction.guild.emojis.cache.find(emoji => emoji.name === 'loading')} please wait...`, ephemeral: true});
 
-        const channel = interaction.client.channels.cache.get(interaction.options._hoistedOptions[0].value);
+        const channel = interaction.client.channels.cache.get(interaction.options.get('channel').value);
 
         var output = await getOutput(interaction, channel);
 
