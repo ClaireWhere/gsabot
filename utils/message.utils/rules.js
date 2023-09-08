@@ -1,9 +1,10 @@
 const { EmbedBuilder, AttachmentBuilder } = require('discord.js');
 const { config } = require('../../client/config.json');
+const { getChannelParentName } = require('../utils');
 require('dotenv').config();
 
 module.exports = {
-    async execute(interaction) {
+    async execute(interaction, isVerification) {
         const embed_1 = new EmbedBuilder()
             .setTitle(`‎\n📣 REMEMBER THIS IS A SAFE AND POSITIVE SPACE FOR THE LGBTQ+ COMMUNITY AT ${process.env.SCHOOL.toUpperCase()}, AND THE POSTS MADE IN THIS DISCORD ARE REPRESENTATIVE OF OUR ORGANIZATION AS A WHOLE.`)
             .setDescription('‎\nThere is **ABSOLUTELY NO TOLERANCE** for homophobia, transphobia, sexism, racism, or any type of hate speech. If you are unfamiliar with a certain topic that comes up in conversation, ask and be open and respectful.')
@@ -11,10 +12,9 @@ module.exports = {
             .setAuthor({ name: 'Gender & Sexuality Alliance', iconURL: config.images.gsa_icon })
             .setThumbnail(config.images.rules_thmb);
 
-        const safe_space = await interaction.guild.channels.cache.find(channel => channel.name === 'safe-space') ?? `#safe-space`;
-        const safe_space_entrance = await interaction.guild.channels.cache.find(channel => channel.name === 'safe-space-entrance') ?? `#safe-space-entrance`;
-        const general = await interaction.guild.channels.cache.find(channel => channel.name === 'general') ?? `#general`;
-
+        const safe_space = isVerification ? '\`#safe_space\`' : await interaction.guild.channels.cache.find(channel => channel.name === 'safe-space' && getChannelParentName(channel) != 'archive') ?? `\`#safe-space\``;
+        const safe_space_entrance = isVerification ? '\`#safe_space_entrance\`': await interaction.guild.channels.cache.find(channel => channel.name === 'safe-space-entrance' && getChannelParentName(channel) != 'archive') ?? `\`#safe-space-entrance\``;
+        const general = isVerification ? '\`#general\`': await interaction.guild.channels.cache.find(channel => channel.name === 'general' && getChannelParentName(channel) != 'archive') ?? `\`#general\``;
 
         const embed_2 = new EmbedBuilder()
             .setColor(parseInt(config.colors.black.hex))
@@ -42,7 +42,7 @@ module.exports = {
                     "value": `We do not want sexual or otherwise explicit content here. Feel free to talk about sexuality, but refrain from being explicit. Many people have different comfort levels when it comes to talking about sex so please be mindful and use spoiler tags and warnings when necessary.`
                 },
                 {
-                    "name": `‎\n4️⃣ Don’t disrupt the peace.`,
+                    "name": `‎\n4️⃣ Don't disrupt the peace.`,
                     "value": `Please use your manners, and don't (rudely) interrupt conversations or spam the chats or spam ping users.`
                 },
                 {
