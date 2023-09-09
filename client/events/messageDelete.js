@@ -17,8 +17,8 @@ module.exports = {
         
         console.log(`Message deleted from ${message.channel} by ${message.author.tag}`);
 
-        const author = message.guild.members.cache.find(x => x.id === message.author.id);
-        const nickname = author.nickname ?? author.globalName ?? author.username;
+        const author = message.guild.members.cache.find(user => user.id === message.author.id);
+        const nickname = author.nickname ?? message.author.globalName ?? message.author.username;
         const displayColor = author.displayHexColor;
         const channel_name = message.guild.channels.cache.find(c => c.id === message.channelId).name;
 
