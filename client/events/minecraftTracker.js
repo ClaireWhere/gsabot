@@ -1,27 +1,30 @@
 const cron = require('cron');
 const axios = require('axios');
 require('dotenv').config();
-const config = require('../config.json').config.minecraft_tracker;
+const config = (require('../config.json')).config.minecraft_tracker;
 var previous_status = ``;
-const { getDate } = require('../../utils/getDate');
+const { getDate } = require('../../utils/utils.js');
 const { debug } = require('../../utils/debugger');
+const { getChannelParentName } = require('../../utils/utils');
 
-let scheduledCheck = new cron.CronJob(`00 */${config.frequency_mins} * * * *`, checkServer);
+var scheduledCheck;
 
-async function checkServer() {
+async function checkServer(client) {
 
     const ip = `${process.env.MINECRAFT_SUBDOMAIN}.${process.env.DOMAIN}`;
     const url = `https://api.minetools.eu/ping/${ip}`;
 
     await axios.get(url)
-        .then(response => {
+        .then(async response => {
             if (Object.hasOwn(response.data, 'players')) {
                 if (!(previous_status === response.data.players.online)) {
                     previous_status = response.data.players.online;
+                    await setStatusChannel(client, `${response.data.players.online} Players Online`).catch(error => debug(`[${ip}] there was an error fetching the server status channel`, error));
                     console.info(`[${getDate()}] [${ip}] ${response.data.players.online} players online`);
                 }
             } else if (!(previous_status === 'warning')) {
                 previous_status = 'warning';
+                await setStatusChannel(client, `Server Offline :(`).catch(error => debug(`[${ip}] there was an error fetching the server status channel`, error));
                 console.warn(`[${getDate()}] [${ip}] could not reach server!`);
             }
         })
@@ -33,12 +36,26 @@ async function checkServer() {
         });
 }
 
+function start(client) {
+    scheduledCheck = new cron.CronJob(`00 */${config.frequency_mins} * * * *`, checkServer(client));
+    scheduledCheck.start();
+}
+
+/**
+ * 
+ * @param {import('discord.js').Client} client 
+ */
+async function setStatusChannel(client, status) {
+    const channel = client.channels.cache.find(channel => getChannelParentName(channel).includes('minecraft server') && !channel.name.toLowerCase().includes('ip:'))
+    channel.setName(status);
+}
+
 module.exports = {
     name: 'ready',
     once: true,
     execute(client) {
         if (config.enabled) {
-            scheduledCheck.start();
+            start(client)
         }
     },
     stop() {
