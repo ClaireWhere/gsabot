@@ -4,8 +4,8 @@ const { getChannelParentName } = require('../utils');
 
 module.exports = {
     async execute(interaction) {
-        const safe_space = await interaction.guild.channels.cache.find(channel => channel.name === 'safe-space' && getChannelParentName(channel) != 'archive') ?? `\`#safe_space\``;
-        const rules = await interaction.guild.channels.cache.find(channel => channel.name === 'rules' && getChannelParentName(channel) != 'archive') ?? `\`#rules\``;
+        const safe_space = await interaction.guild.channels.cache.find(channel => channel.name === 'safe-space' && !getChannelParentName(channel).includes('archive')) ?? `\`#safe_space\``;
+        const rules = await interaction.guild.channels.cache.find(channel => channel.name === 'rules' && !getChannelParentName(channel).includes('archive')) ?? `\`#rules\``;
 
         const row = new ActionRowBuilder()
                 .addComponents(

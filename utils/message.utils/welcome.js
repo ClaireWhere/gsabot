@@ -6,7 +6,7 @@ require('dotenv').config();
 module.exports = {
     async execute(interaction) {
         const guild_owner = interaction.client.guilds.cache.get(process.env.GUILD_ID).fetchOwner();
-        const rules = interaction.guild.channels.cache.find(channel => channel.name === 'rules' && getChannelParentName(channel) === '━━ verification') ?? `\`#rules\``;
+        const rules = interaction.guild.channels.cache.find(channel => channel.name === 'rules' && getChannelParentName(channel).includes('verification')) ?? `\`#rules\``;
 
         const content = `If you have ANY questions or concerns about rules, what we're all about, or anything like that, please message ${guild_owner} <-- you can click my name here and message\n‎`
 

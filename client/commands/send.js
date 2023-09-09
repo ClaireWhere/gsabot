@@ -144,7 +144,7 @@ function getOutput(interaction, channel) {
 }
 
 function getRulesOutput(interaction, channel) {
-    if (getChannelParentName(channel) === '━━ verification') {
+    if (getChannelParentName(channel).includes('verification')) {
         return rules.execute(interaction, true)
     }
     return rules.execute(interaction, false);
