@@ -1,5 +1,6 @@
 const { createCanvas, loadImage } = require('canvas');
 const { isEmpty } = require('./utils');
+const { logger } = require('./logger');
 const text_color = '#DBDEE1'
 const timestamp_color = '#949BA4'
 const background_color = '#313338'
@@ -33,8 +34,8 @@ async function messageToBuffer(message, nickname, authorColor) {
     return await messageToImage(message, nickname, authorColor).then(canvas => {
         return canvas.toBuffer();
     }).catch(err => {
-        console.error(err);
-        return undefined;
+        logger.error(err);
+        return null;
     });
 }
 
@@ -49,7 +50,7 @@ async function messageToUrl(message, nickname, authorColor) {
     return await messageToImage(message, nickname, authorColor).then(canvas => {
         return canvas.toDataURL();
     }).catch(err => {
-        console.error(err);
+        logger.error(err);
     });
 }
 
@@ -110,7 +111,6 @@ async function messageToImage(message, nickname, authorColor) {
         .then((image) => {
             ctx.drawImage(image, initX, initY, avatarRadius*2, avatarRadius*2);
         });
-
     
 
     return canvas;

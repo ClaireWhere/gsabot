@@ -7,8 +7,8 @@ const welcome = require('../../utils/message.utils/welcome.js');
 const vc = require('../../utils/message.utils/vc.js');
 const politics = require('../../utils/message.utils/politics.js');
 const safe_space = require('../../utils/message.utils/safe_space.js');
-const { debug } = require('../../utils/debugger.js');
 const { getChannelParentName } = require('../../utils/utils.js');
+const { logger } = require('../../utils/logger.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -93,15 +93,20 @@ module.exports = {
 	async execute(interaction) {
         if (interaction.commandName != 'send') { return; }
 
-        await interaction.reply({content: `${interaction.guild.emojis.cache.find(emoji => emoji.name === 'loading')} please wait...`, ephemeral: true});
+        await interaction.reply({content: `${interaction.guild.emojis.cache.find(emoji => emoji.name === 'loading')} please wait...`, ephemeral: true})
+        .catch((error) => {
+            logger.warn(`could not send initial respond for ${interaction.command.name} interaction (${error})`);
+        });
 
         const channel = interaction.client.channels.cache.get(interaction.options.get('channel').value);
 
-        var output = await getOutput(interaction, channel);
+        var output = await getOutput(interaction, channel).catch((error) => {
+            logger.warn(`error in retrieving output for ${interaction.command.name} ${interaction.options.getSubcommand()} interaction (${error})`);
+        });
 
         if (!output) {
             await interaction.editReply({content: `Error: invalid subcommand specified`})
-                .catch((error) => {debug('', error)});
+                .catch((error) => {logger.error(`invalid subcommand specified (${error})`)});
             return;
         }
 
@@ -113,13 +118,19 @@ module.exports = {
         for (let i = 0; i < output.length; i++) {
             await channel.send(output[i])
                 .then((res) => {
-                    debug(`Successfully sent message ${i+1} of ${output.length} for ${interaction.options.getSubcommand()}`);
+                    logger.info(`Successfully sent message ${i+1} of ${output.length} for ${interaction.options.getSubcommand()}`);
                 }).catch((error) => {
-                    debug(`There was an error sending message ${i+1} of ${output.length} for ${interaction.options.getSubcommand()}`, error);
+                    logger.warn(`There was an error sending message ${i+1} of ${output.length} for ${interaction.options.getSubcommand()} (${error})`);
                 });
         }
         
-		await interaction.editReply({content: `${interaction.options.getSubcommand()} message successfully sent to ${channel}`, ephemeral: true});
+		return await interaction.editReply({content: `${interaction.options.getSubcommand()} message successfully sent to ${channel}`, ephemeral: true})
+        .then(res => {
+            return true;
+        }).catch((error) => {
+            logger.warn(`could not respond to ${interaction.command.name} interaction (${error})`);
+            return false;
+        });
 	},
 };
 

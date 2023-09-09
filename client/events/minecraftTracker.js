@@ -3,9 +3,8 @@ const axios = require('axios');
 require('dotenv').config();
 const config = (require('../config.json')).config.minecraft_tracker;
 var previous_status = ``;
-const { getDate } = require('../../utils/utils.js');
-const { debug } = require('../../utils/debugger');
 const { getChannelParentName } = require('../../utils/utils');
+const { logger } = require('../../utils/logger');
 
 var scheduledCheck;
 
@@ -19,19 +18,19 @@ async function checkServer(client) {
             if (Object.hasOwn(response.data, 'players')) {
                 if (!(previous_status === response.data.players.online)) {
                     previous_status = response.data.players.online;
-                    await setStatusChannel(client, `${response.data.players.online} Players Online`).catch(error => debug(`[${ip}] there was an error fetching the server status channel`, error));
-                    console.info(`[${getDate()}] [${ip}] ${response.data.players.online} players online`);
+                    await setStatusChannel(client, `${response.data.players.online} Players Online`).catch(error => logger.warn(`[${ip}] there was an error fetching the server status channel (${error})`));
+                    logger.info(`[${ip}] ${response.data.players.online} players online`)
                 }
             } else if (!(previous_status === 'warning')) {
                 previous_status = 'warning';
-                await setStatusChannel(client, `Server Offline :(`).catch(error => debug(`[${ip}] there was an error fetching the server status channel`, error));
-                console.warn(`[${getDate()}] [${ip}] could not reach server!`);
+                await setStatusChannel(client, `Server Offline :(`).catch(error => logger.warn(`[${ip}] there was an error fetching the server status channel (${error})`));
+                logger.warn(`[${ip}] could not reach server!`);
             }
         })
         .catch(error => {
             if (!(previous_status === 'error')) {
                 previous_status = 'error';
-                console.error(`[${getDate()}] [${ip}] there was an error fetching the server status (${error})`);
+                logger.error(`[${ip}] there was an error fetching the server status (${error})`);
             }
         });
 }
@@ -60,7 +59,7 @@ module.exports = {
     },
     stop() {
         scheduledCheck.stop();
-        debug(`shutting down minecraftTracker`);
+        logger.info(`shutting down minecraftTracker`);
     },
     checkServer
 };

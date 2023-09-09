@@ -1,5 +1,4 @@
-const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const { logger } = require('../logger');
 
 async function colorHandler(interaction, id) {
     if (id.length === 0) { 
@@ -24,16 +23,16 @@ async function colorHandler(interaction, id) {
                     await interaction.editReply({content: `#${id.toUpperCase()}`, embeds: [{title: 'Your color has been set!', description: `${role} is your color\nUse \`/color set\` again to change it`, color: hex}], components: []});
                 })
             .catch(async error => {
-                console.error(error);
+                logger.error(error);
                 return await error(interaction, '. There was an error creating your role. Try again and if the issue persists, please contact a moderator');
             });
         return true;
     }
     
     await member_role.setName(role_name)
-        .catch(console.error);
+        .catch(logger.error);
     await member_role.setColor(hex)
-        .catch(console.error);
+        .catch(logger.error);
     await interaction.editReply({content: `#${id.toUpperCase()}`, embeds: [{title: 'Your color has been updated!', description: `${member_role} is now your color`, color: hex}], components: []});
     return true;
 }

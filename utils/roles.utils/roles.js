@@ -1,5 +1,5 @@
 const { config } = require('../../client/config.json');
-const { debug } = require('../debugger');
+const { logger } = require('../logger');
 
 /**
  * 
@@ -42,7 +42,7 @@ async function removeExclusive(interaction, id) {
                 await removeFormatRole(interaction, root_element[element].name);
             }
         } catch (error) {
-            debug(`error while removing exclusive roles for ${id} at ${element}`, error);
+            logger.error(`error while removing exclusive roles for ${id} at ${element} (${error})`);
         }
     }
 }
@@ -79,12 +79,12 @@ async function addRole(interaction, role) {
             return true;
         })
         .catch(async (error) => {
-            debug(`Unable not add role ${role ?? ''}`, error);
+            logger.error(`Unable not add role ${role ?? ''} (${error})`);
             await interaction.followUp({
                 ephemeral: true,
                 content: `Something went wrong adding your ${role ?? ''} role!` 
             }).catch((error) => {
-                debug(`Unable to respond to add role interaction from ${interaction.member.user.username} for ${role ?? ''}`, error); 
+                logger.error(`Unable to respond to add role interaction from ${interaction.member.user.username} for ${role ?? ''} (${error})`); 
             });
             return false;
         });
@@ -103,7 +103,7 @@ async function addRoleByName(interaction, role_name) {
             ephemeral: true,
             content: `Something went wrong adding your ${role_name} role!`
         }).catch((error) => {
-            debug(`Unable to respond to add role by name interaction from ${interaction.member.user.username} for ${role_name}`, error);
+            logger.error(`Unable to respond to add role by name interaction from ${interaction.member.user.username} for ${role_name} (${error})`);
         });
         return false; 
     }
@@ -126,14 +126,14 @@ async function addFormatRole(interaction, role_name) {
         return await interaction.followUp({ephemeral: true, content: `🥳🥳 You are now a officially a part of the GSA Discord server!`})
             .then((res) => { return true; })
             .catch((error) => {
-                debug(`Unable to respond to Welcome Agreement interaction for ${interaction.member.user.username}`, error); 
+                logger.error(`Unable to respond to Welcome Agreement interaction for ${interaction.member.user.username} (${error})`); 
                 return false;
             });
     } else {
         return await interaction.followUp({ephemeral: true, content: `You now have the ${role} role!`})
             .then((res) => { return true; })
             .catch((error) => {
-                debug(`Unable to respond to add role interaction from ${interaction.member.user.username} for ${role}`, error); 
+                logger.error(`Unable to respond to add role interaction from ${interaction.member.user.username} for ${role} (${error})`);
                 return false;
             });
     }
@@ -149,9 +149,9 @@ async function removeRole(interaction, role) {
     return await interaction.member.roles.remove(role)
         .then((res) => { return true; })    
         .catch(async (error) => {
-            debug(`Unable to remove role ${role.name} from ${interaction.member.user.username}`, error);
+            logger.error(`Unable to remove role ${role.name} from ${interaction.member.user.username} (${error})`);
             await interaction.followUp({ephemeral: true, content: `Something went wrong removing your ${role ?? ''} role!`})
-                .catch((error) => { debug(`Unable to respond to remove role interaction`, error); });
+                .catch((error) => { logger.error(`Unable to respond to remove role interaction ${error}`); });
             return false;
         })
 }
@@ -170,7 +170,7 @@ async function removeRoleByName(interaction, role_name) {
             ephemeral: true,
             content: `Something went wrong removing your ${role_name} role!`
         }).catch((error) => {
-            debug(`Unable to respond to remove role by name interaction`, error);
+            logger.error(`Unable to respond to remove role by name interaction (${error})`);
         });
         return false; 
     }
@@ -185,7 +185,7 @@ async function removeFormatRole(interaction, role_name) {
     return await interaction.followUp({ephemeral: true, content: `You no longer have the ${role} role!`})
         .then((res) => { return true; })
         .catch((error) => {
-            debug(`Unable to respond to remove role interaction`, error); 
+            logger.error(`Unable to respond to remove role interaction (${error})`);
             return false;
         });
 }
@@ -232,7 +232,7 @@ function getMaxNeopronounsPosition(interaction) {
         const r = interaction.guild.roles.cache.find(role => role.name === config.roles.pronouns.neo.name);
         return r.position;
     } catch (error) {
-        debug(``, error);
+        logger.error(error);
         return 1;
     }
 }
@@ -252,7 +252,7 @@ function getMinNeopronounsPosition(interaction) {
         });
         return minPos;
     } catch (error) {
-        debug(``, error);
+        logger.error(error);
         return 1;
     }
 }

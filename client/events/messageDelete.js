@@ -4,6 +4,7 @@ const { AttachmentBuilder, Events } = require('discord.js');
 require('dotenv').config({path: `${__dirname}/../../.env`});
 const { LoggedMessage } = require('../../models/LoggedMessage');
 const { insertMessageLog } = require('../../utils/db.utils/messageLogger');
+const { logger } = require('../../utils/logger');
 
 module.exports = {
     name: Events.MessageDelete,
@@ -15,7 +16,7 @@ module.exports = {
     async execute(message) {
         if (!config.deleted_message_log.enabled) { return; }
         
-        console.log(`Message deleted from ${message.channel} by ${message.author.tag}`);
+        logger.info(`received ${interaction.type} interaction from channel: ${message.channel} by ${message.author.username}`);
 
         const author = message.guild.members.cache.find(user => user.id === message.author.id);
         const nickname = author.nickname ?? message.author.globalName ?? message.author.username;

@@ -1,5 +1,5 @@
-const { Client, ActivityType } = require("discord.js");
-const { config } = require('../config.json');
+const { Client } = require("discord.js");
+const { logger } = require("../../utils/logger");
 
 module.exports = {
     name: 'ready',
@@ -9,6 +9,6 @@ module.exports = {
      * @param {Client} client 
      */
     execute(client) {
-        console.log(`Ready! Logged in as ${client.user.tag}`);
+        logger.info(`Ready! Logged in as ${client.user.tag}`);
     },
 };

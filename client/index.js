@@ -1,10 +1,11 @@
-'use strict';
 const fs = require('fs');
 const { Client, Collection, Events, GatewayIntentBits, ActivityType } = require('discord.js');
 require('dotenv').config();
 const minecraftTracker = require('./events/minecraftTracker');
-const { debug } = require('../utils/debugger');
 const { config } = require('./config.json');
+const { logger } = require('../utils/logger');
+
+logger.info(`Starting client...`);
 
 const presence = config.custom_status.enabled ? {activities: [{name: config.custom_status.name, type: ActivityType.Custom, state: config.custom_status.state}], state: config.custom_status.state} : {}
 const client = new Client({ 
@@ -23,6 +24,7 @@ for (const file of eventFiles) {
     } else {
         client.on(event.name, (...args) => event.execute(...args));
     }
+    logger.info(`registered event: ${event.name} from ${file}`)
 }
 
 
@@ -34,9 +36,9 @@ for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
     try {
         client.commands.set(command.data.name, command);
-        debug(`initialized command ${command.data.name}`);
+        logger.info(`initialized command: ${command.data.name}`);
     } catch (error) {
-        debug(`ERROR: could not load command from file ${file}`, error);
+        logger.error(`could not load command from file ${file}: ${error}`);
     }
 }
 
@@ -44,19 +46,21 @@ for (const file of commandFiles) {
 client.on(Events.InteractionCreate, async interaction => {
     if (!interaction.isChatInputCommand()) return;
 
+    logger.info(`received ${interaction.type} interaction with name ${interaction.command.name} and options ${interaction.options} from ${interaction.member.user.username}`);
+
     const command = client.commands.get(interaction.commandName);
 
     if (!command) return;
 
     await command.execute(interaction)
         .then((res) => {
-            debug(`command execution completed with status ${res}`);
+            logger.info(`${interaction.command.name} command execution completed with status ${res}`)
         }).catch(async (error) => {
             await interaction.followUp({content: 'There was an error D:', ephemeral: true})
                 .then((res) => {
-                    debug(`command executed with error. Application successfully sent error message`);
+                    logger.warn(`${interaction.command.name} command executed with error. Application successfully sent error message`)
                 }).catch((err) => {
-                    debug("command was unable to be executed. Application did not respond in time", error);
+                    logger.error(`${interaction.command.name} command was unable to be executed. Application did not respond in time: ${error}`);
                     return false;
                 });
         });
