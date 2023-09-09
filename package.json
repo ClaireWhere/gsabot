@@ -18,7 +18,7 @@
     "server": "nodemon --quiet server",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "initialize": "concurrently \"node utils/db/createTables.js\" \"npm run initialize --prefix client\"",
+    "initialize": "concurrently \"node utils/db.utils/createTables.js\" \"npm run initialize --prefix client\"",
     "reset": "npm reset --prefix client"
   },
   "keywords": [],
