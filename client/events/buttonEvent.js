@@ -5,12 +5,19 @@ const { colorHandler } = require('../../utils/roles.utils/colorRoles.js');
 const { handleNeopronouns } = require('../../utils/roles.utils/neopronouns');
 const { toggleRole } = require('../../utils/roles.utils/roles');
 const { welcomeMember } = require('../../utils/message.utils/welcomeMember');
-const { debug } = require('../../utils/debugger');
+const { logger } = require('../../utils/logger');
 
 module.exports = {
     name: Events.InteractionCreate,
+    /**
+     * 
+     * @param {import('discord.js').Interaction} interaction 
+     * @returns 
+     */
     async execute(interaction) {
         if (!interaction.isButton()) { return false; }
+
+        logger.info(`received ${interaction.type} interaction with id ${interaction.customId} from ${interaction.member.user.username}`);
 
         // Handle button events that show modals here before deferUpdate since modals must be shown first
         if (interaction.customId === 'pronouns:neo') {
@@ -19,9 +26,9 @@ module.exports = {
 
         await interaction.deferUpdate()
                 .then((res) => {
-                    debug(`${interaction.customId} interaction deferred`);
-                }).catch((err) => {
-                    debug(`${interaction.customId} could not be deferred`, err);
+                    logger.info(`${interaction.customId} interaction deferred`);
+                }).catch((error) => {
+                    logger.warn(`${interaction.customId} could not be deferred (${error})`);
                     return;
                 });
 
@@ -32,7 +39,7 @@ module.exports = {
         // categorized button id's take the form parent:child. Eg. pronouns:she_her is part of the pronouns category with the child id being she_her. See more in config.json
         const id = interaction.customId.split(':');
         if (id.length === 0) { 
-            debug(`[ERROR] No button id found for the supplied button interaction`);
+            logger.warn(`No button id found for the supplied button interaction`);
             await interaction.followUp({ephemeral: true, content: `There was an error! It looks like the button you clicked was invalid 🤔`});
             return false;
         }
@@ -49,9 +56,9 @@ module.exports = {
         }
 
         if (role_name === undefined || role_name.length === 0) { 
-            debug(`[ERROR] no role found for button: ${id.toString()}!`);
+            logger.warn(`no role found for button: ${id.toString()}!`);
             await interaction.followUp({ephemeral: true, content: `Something went wrong finding the role you selected D:`})
-                .catch((error) => {debug(`could not follow up on add role from ${interaction.member.user.username} for ${interaction.customId}}`, error)});
+                .catch((error) => {logger.error(`could not follow up on add role from ${interaction.member.user.username} for ${interaction.customId} (${error})`)});
             return false;
         }
         

@@ -6,13 +6,13 @@ const welcome = require('../../utils/message.utils/welcome.js');
 const vc = require('../../utils/message.utils/vc.js');
 const politics = require('../../utils/message.utils/politics.js');
 const safe_space = require('../../utils/message.utils/safe_space.js');
-const { debug } = require('../../utils/debugger.js');
 const announcements = require('../../utils/message.utils/roles/announcements.js');
 const identity = require('../../utils/message.utils/roles/identity.js');
 const minecraft = require('../../utils/message.utils/roles/minecraft.js');
 const pronouns = require('../../utils/message.utils/roles/pronouns.js');
 const year = require('../../utils/message.utils/roles/year.js');
 const { getChannelParentName } = require('../../utils/utils.js');
+const { logger } = require('../../utils/logger.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -151,7 +151,11 @@ module.exports = {
 	async execute(interaction) {
         if (interaction.commandName != 'edit') { return; }
 
-        await interaction.reply({content: `${interaction.guild.emojis.cache.find(emoji => emoji.name === 'loading')} please wait...`, ephemeral: true});
+        await interaction.reply({content: `${interaction.guild.emojis.cache.find(emoji => emoji.name === 'loading')} please wait...`, ephemeral: true})
+            .then(res => {
+            }).catch((error) => {
+                logger.warn(`could not respond to ${interaction.command.name} interaction (${error})`);
+            });
 
         const channel = interaction.client.channels.cache.get(interaction.options.get('channel').value);
 
@@ -159,12 +163,12 @@ module.exports = {
 
         const message = await channel.messages.fetch({cache: false, around: message_id, limit: 1})
             .then((m) => { 
-                debug(`found message for /${interaction.commandName} interaction`);
+                logger.info(`found message with id ${message_id} for /${interaction.commandName} interaction`);
                 return m.first();
             }).catch(async (error) => {
-                debug(`message not found for /${interaction.commandName} interaction`, error);
+                logger.warn(`message with id ${message_id} not found in the channel ${channel} for /${interaction.commandName} interaction (${error})`);
                 await interaction.editReply({content: `⚠️ Error: A message with the specified id \`${message_id}\` was not able to be found in the channel ${channel}`})
-                    .catch((error) => {debug('', error)});
+                    .catch((error) => {logger.error(error)});
             });
 
         if (!message) { return; }
@@ -174,22 +178,22 @@ module.exports = {
         });
         if (!output) {
             await interaction.editReply({content: `⚠️ Error: either an invalid subcommand was specified or the contents for the message could not be found`})
-                .catch((error) => {debug('', error)});
+                .catch((error) => {logger.error(error)});
             return;
         }
 
         return await message.edit(output)
             .then(async (res) => {
-                debug(`${interaction.options.getSubcommand()} message successfully edited`);
+                logger.info(`${interaction.options.getSubcommand()} message successfully edited`);
         
 		        await interaction.editReply({content: `The \`${interaction.options.getSubcommand()}\` message in ${channel} has been successfully updated!`, ephemeral: true})
-                    .catch((error) => {debug('', error)});
+                    .catch((error) => {logger.error(error)});
                 return true;
             }).catch(async (error) => {
-                debug(`unable to edit ${interaction.options.getSubcommand()} message`, error);
+                logger.warn(`unable to edit ${interaction.options.getSubcommand()} message (${error})`);
 
                 await interaction.editReply({content: `⚠️ Error: The message with id \`${message_id}\` was not able to be edited. Double check the original message was sent by this bot and try again.`})
-                    .catch((error) => {debug('', error)});
+                    .catch((error) => {logger.error(error)});
                 return false;
             });
 	},

@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { ButtonStyle, ActionRowBuilder, ButtonBuilder } = require('discord.js');
 const { config } = require('../config.json');
+const { logger } = require('../../utils/logger');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -28,7 +29,7 @@ module.exports = {
         async execute(interaction) {
             if (interaction.commandName != 'color') { return; }
             
-            await interaction.deferReply({ ephemeral: true });
+            await interaction.deferReply({ ephemeral: true }).catch(error => logger.warn(`could not defer ${interaction.command.name} interaction (${error})`));
 
             if (interaction.options.getSubcommand() === 'set') {
                 return await set(interaction);
@@ -71,43 +72,85 @@ async function set(interaction) {
                     .setDisabled(false)
             );
 
-    await interaction.editReply({embeds: [{title: `#${hex.toUpperCase()}`, description: 'Is this the color you would like?', color: color, image: {url: `https://color-hex.org/colors/${hex}.png`}}], components: [row]});
-    return true;
+    return await interaction.editReply({embeds: [{title: `#${hex.toUpperCase()}`, description: 'Is this the color you would like?', color: color, image: {url: `https://color-hex.org/colors/${hex}.png`}}], components: [row]})
+        .then((res) => {
+            return true;
+        }).catch((error) => {
+            logger.info(`could not respond to ${interaction.command.name} interaction (${error})`);
+            return false;
+        })
 }
 
 async function remove(interaction) {
     const role = await interaction.member.roles.cache.find(role => role.name.endsWith(`'s Color`));
     if (role === undefined) {
-        await interaction.editReply({embeds: [{title: 'You have no color to remove!', description: `use \`/color set\` to set your color!`, color: parseInt(config.colors.red.darken[2].hex)}]});
-        return true;
+        logger.info(`${interaction.member.user.username} has no color to remove`);
+        return await interaction.editReply({embeds: [{title: 'You have no color to remove!', description: `use \`/color set\` to set your color!`, color: parseInt(config.colors.red.darken[2].hex)}]})
+            .then((res) => {
+                return true;
+            }).catch((error) => {
+                logger.warn(`could not respond to ${interaction.command.name} interaction (${error})`);
+                return false;
+            });
     }
 
-    await role.delete();
-    await interaction.editReply({embeds: [{title: 'Your color role has been removed!', description: `use \`/color set\` to set a new color!`, color: parseInt(config.colors.red.darken[2].hex)}]});
+    logger.info(`deleting ${interaction.member.user.username}'s color`);
+    return await role.delete()
+    .catch((error) => {
+        logger.error(`could not delete ${interaction.member.user.username}'s color for ${interaction.command.name} interaction (${error})`);
+        return false;
+    }).then(async (res) => {
+        logger.info(`deleted ${interaction.member.user.username}'s color`);
+        return await interaction.editReply({embeds: [{title: 'Your color role has been removed!', description: `use \`/color set\` to set a new color!`, color: parseInt(config.colors.red.darken[2].hex)}]})
+            .then(res => {
+                return true;
+            }).catch((error) => {
+                logger.warn(`could not respond to ${interaction.command.name} interaction (${error})`);
+                return false;
+            });
+    });
 }
 
 async function view(interaction) {
     const role = await interaction.member.roles.cache.find(role => role.name.endsWith(`'s Color`));
     if (role === undefined) {
-        await interaction.editReply({embeds: [{title: 'You have no color to view!', description: `use \`/color set\` to set your color!`, color: parseInt(config.colors.red.darken[2].hex)}]});
-        return true;
+        logger.info(`${interaction.member.user.username} has no color to view`);
+        return await interaction.editReply({embeds: [{title: 'You have no color to view!', description: `use \`/color set\` to set your color!`, color: parseInt(config.colors.red.darken[2].hex)}]})
+            .then(res => {
+                return true;
+            }).catch((error) => {
+                logger.warn(`could not respond to ${interaction.command.name} interaction (${error})`);
+                return false;
+            });
     }
 
     const color_display = role.color === 1 ? '#000000' : role.hexColor.toUpperCase();
 
-    await interaction.editReply({content: `${color_display}`, embeds: [{title: `${color_display}`, description: `This is ${role}!\nUse \`/color set\` to change it`, color: role.color, image: {url: `https://color-hex.org/colors/${role.hexColor.slice(1)}.png`}}]})
+    logger.info(`displaying ${role.name} color ${color_display}`);
+    return await interaction.editReply({content: `${color_display}`, embeds: [{title: `${color_display}`, description: `This is ${role}!\nUse \`/color set\` to change it`, color: role.color, image: {url: `https://color-hex.org/colors/${role.hexColor.slice(1)}.png`}}]})
+        .then(res => {
+            return true;
+        }).catch((error) => {
+            logger.warn(`could not respond to ${interaction.command.name} interaction (${error})`);
+            return false;
+        });
 }
 
 
 async function error(interaction, colorString) {
-    await interaction.editReply({embeds: [
+    logger.info(`${interaction.member.user.username} provided invalid structure (${colorString}) for ${interaction.command.name} interaction`);
+    return await interaction.editReply({embeds: [
         {
           title: `The provided color is not valid structure!`,
           description: `\`\`\`${colorString}\`\`\` was your input\n\nThere should be 6 characters (0-9 and a-f)\nTry out [Google Color Picker](https://www.google.com/search?q=color+picker) and copy the HEX`,
           color: parseInt(config.colors.red.darken[2].hex),
         }
-      ]});
-      return true;
+    ]}).then(res => {
+        return true;
+    }).catch((error) => {
+        logger.warn(`could not respond to ${interaction.command.name} interaction (${error})`);
+        return false;
+    });
 }
 
 function isHex(hex) {

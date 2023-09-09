@@ -1,9 +1,8 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { PermissionsBitField } = require('discord.js');
 const { config } = require('../config.json');
 const { getPermissionsFromArray } = require('../../utils/roles.utils/roles');
 const { isEmpty, arrayMatch } = require('../../utils/utils');
-const { debug } = require('../../utils/debugger');
+const { logger } = require('../../utils/logger');
 require('dotenv').config();
 
 module.exports = {
@@ -19,10 +18,12 @@ module.exports = {
         async execute(interaction) {
             if (interaction.commandName != 'repair') { return; }
 
-            await interaction.deferReply({ephemeral: true});
+            await interaction.deferReply({ephemeral: true})
+            .catch((error) => {
+                logger.warn(`could not defer ${interaction.command.name} interaction (${error})`);
+            });
+            
             console.info(`Repair function started for ${interaction.options.getSubcommand()}`);
-
-            await interaction.guild.fetch(process.env.GUILD_ID);
 
             if (interaction.options.getSubcommand() === 'roles') {
                 roles_created = 0;
@@ -33,7 +34,10 @@ module.exports = {
 
                 await iterateRoles(interaction, config.roles);
                 console.info(`${roles_created} roles created, ${roles_modified} roles modified, ${roles_skipped} roles unchanged. Took ${(new Date() - time_started)/1000} seconds`);
-                await interaction.followUp({ephemeral: true, content: `${roles_created} roles created, ${roles_modified} roles modified, ${roles_skipped} roles unchanged. Took ${(new Date() - time_started)/1000} seconds`});
+                await interaction.followUp({ephemeral: true, content: `${roles_created} roles created, ${roles_modified} roles modified, ${roles_skipped} roles unchanged. Took ${(new Date() - time_started)/1000} seconds`})
+                .catch((error) => {
+                    logger.warn(`could not respond to ${interaction.command.name} interaction (${error})`);
+                });
             }
             
         }
@@ -58,11 +62,16 @@ async function iterateRoles(interaction, root) {
 
 async function repairRole(interaction, role) {
     const existing_role = interaction.guild.roles.cache.find(r => r.name.toLowerCase() === role.name.toLowerCase());
-    if (existing_role === undefined || existing_role === null) {
-        await interaction.guild.roles.create({ name: role.name, color: parseInt(role.color) ?? 0, permissions: getPermissionsFromArray(role.permissions), position: position });
-        debug(`role ${role.name} created`)
-        roles_created++;
-        return true;
+    if (!existing_role) {
+        return await interaction.guild.roles.create({ name: role.name, color: parseInt(role.color) ?? 0, permissions: getPermissionsFromArray(role.permissions), position: position })
+        .then((res) => {
+            logger.info(`created role ${role.name}`);
+            roles_created++;
+            return true;
+        }).catch((error) => {
+            logger.warn(`error in creating role ${role.name} (${error})`);
+            return false;
+        });
     } else {
         var modify = {}
         if (existing_role.name != role.name) {
@@ -84,9 +93,15 @@ async function repairRole(interaction, role) {
             roles_skipped++;
             return true;
         }
-        await existing_role.edit(modify);
-        debug(`role ${role.name} updated`)
-        roles_modified++;
+        return await existing_role.edit(modify)
+        .then(res => {
+            logger.info(`updated role ${role.name}`)
+            roles_modified++;
+            return true;
+        }).catch((error) => {
+            logger.warn(`error in updating role ${role.name} (${error})`);
+            return false;
+        });
     }
 }
 

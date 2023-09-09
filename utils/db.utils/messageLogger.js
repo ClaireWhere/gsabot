@@ -1,6 +1,7 @@
 const { LoggedMessage } = require('../../models/LoggedMessage');
 const { config } = require('../../config.json');
 const { debug } = require('../debugger');
+const { logger } = require('../logger');
 /**
  * 
  * @param {LoggedMessage} message 
@@ -18,30 +19,30 @@ function insertMessageLog(message) {
     try {
         const insert_user = db.prepare('INSERT INTO user (id, name) VALUES (?, ?)');
         insert_user.run(message.author_id, message.author_name);
-        debug('[SQLite] inserted into user');
+        logger.info('[SQLite] inserted into user');
     } catch (error) {
-        debug('[SQLite] did not insert into user', error);
+        logger.warn(`[SQLite] did not insert into user (${error})`);
     }
     try {
         const insert_channel = db.prepare(`INSERT INTO channel (id, name) VALUES (?, ?)`);
         insert_channel.run(message.channel_id, message.channel_name);
-        debug('[SQLite] inserted into channel');
+        logger.info('[SQLite] inserted into channel');
     } catch (error) {
-        debug('[SQLite] did not insert into channel', error);
+        logger.warn(`[SQLite] did not insert into channel (${error})`);
     }
     try {
         const insert_message = db.prepare(`INSERT INTO message (id, content, author, channel, date, guild) VALUES (?, ?, ?, ?, ?, ?)`);
         insert_message.run(message.id, message.content, message.author_id, message.channel_id, !message.date ? null : message.date.getTime(), message.guild_id);
-        debug('[SQLite] inserted into message');
+        logger.info('[SQLite] inserted into message');
     } catch (error) {
-        debug('[SQLite] did not insert into message', error);
+        logger.warn(`[SQLite] did not insert into message (${error})`);
     }
     try {
         const insert_deleted = db.prepare(`INSERT INTO deleted_message (message_id, deleted_on) VALUES (?, ?)`);
         insert_deleted.run(message.id, new Date().getTime());
-        debug('[SQLite] inserted into deleted_message');
+        logger.info('[SQLite] inserted into deleted_message');
     } catch (error) {
-        debug('[SQLite] did not insert into deleted_message', error);
+        logger.warn(`[SQLite] did not insert into deleted_message (${error})`);
         db.close();
         return false;
     }
@@ -82,7 +83,7 @@ function getMessageLog(message_id) {
         db.close();
         return new LoggedMessage(result.message.id, result.message.content, result.user.id, result.user.name, result.channel.id, result.channel.name, result.message.guild, result.message.date, result.deleted_message.deleted_on);
     } catch (error) {
-        console.error(error);
+        logger.error(error);
     }
     db.close();
     return null;
@@ -99,7 +100,7 @@ function open(options) {
         db.pragma('journal_mode = WAL');
         return db;
     } catch (error) {
-        debug(`${config.database.name}.db does not exist! Run "npm run initialize" to initialize the database`);
+        logger.warn(`${config.database.name}.db does not exist! Run "npm run initialize" to initialize the database`);
         return undefined;
     }
 }

@@ -1,5 +1,6 @@
 const { ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } = require('discord.js');
 const { getNeopronounRoles } = require('./roles');
+const { logger } = require('../logger');
 
 
 /**
@@ -42,7 +43,7 @@ async function handleNeopronouns(interaction) {
 
     await interaction.showModal(neopronounsModal)
         .catch((error) => {
-            console.error(error);
+            logger.error(error);
             return false;
         })
     return true;
