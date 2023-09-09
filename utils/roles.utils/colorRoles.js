@@ -1,7 +1,7 @@
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
-async function color_handler(interaction, id) {
+async function colorHandler(interaction, id) {
     if (id.length === 0) { 
         return await cancelInteraction(interaction, '. There was an error! It looks like the button you clicked was invalid 🤔\nTry \`/set color\` again');
     }
@@ -56,4 +56,4 @@ async function getBotRolePosition(interaction) {
     return interaction.guild.roles.cache.find( role => botUser.roles.cache.has(role.id) ).position-1;
 }
 
-module.exports = { color_handler }
+module.exports = { colorHandler }
