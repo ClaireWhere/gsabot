@@ -1,5 +1,5 @@
 const { version, name } = require('../package.json');
-const { getDate } = require('./getDate');
+const { getDate } = require('./utils');
 const config = require('../config.json').config.debug;
 
 /**
