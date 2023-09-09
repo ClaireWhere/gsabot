@@ -26,7 +26,7 @@ module.exports = {
             message.id,
             message.content,
             message.author.id,
-            message.author.username,
+            nickname,
             message.channelId,
             channel_name,
             message.guildId,
