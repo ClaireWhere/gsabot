@@ -12,9 +12,9 @@ module.exports = {
             .setAuthor({ name: 'Gender & Sexuality Alliance', iconURL: config.images.gsa_icon })
             .setThumbnail(config.images.rules_thmb);
 
-        const safe_space = isVerification ? '\`#safe_space\`' : await interaction.guild.channels.cache.find(channel => channel.name === 'safe-space' && getChannelParentName(channel) != 'archive') ?? `\`#safe-space\``;
-        const safe_space_entrance = isVerification ? '\`#safe_space_entrance\`': await interaction.guild.channels.cache.find(channel => channel.name === 'safe-space-entrance' && getChannelParentName(channel) != 'archive') ?? `\`#safe-space-entrance\``;
-        const general = isVerification ? '\`#general\`': await interaction.guild.channels.cache.find(channel => channel.name === 'general' && getChannelParentName(channel) != 'archive') ?? `\`#general\``;
+        const safe_space = isVerification ? '\`#safe_space\`' : await interaction.guild.channels.cache.find(channel => channel.name === 'safe-space' && !getChannelParentName(channel).includes('archive')) ?? `\`#safe-space\``;
+        const safe_space_entrance = isVerification ? '\`#safe_space_entrance\`': await interaction.guild.channels.cache.find(channel => channel.name === 'safe-space-entrance' && !getChannelParentName(channel).includes('archive')) ?? `\`#safe-space-entrance\``;
+        const general = isVerification ? '\`#general\`': await interaction.guild.channels.cache.find(channel => channel.name === 'general' && !getChannelParentName(channel).includes('archive')) ?? `\`#general\``;
 
         const embed_2 = new EmbedBuilder()
             .setColor(parseInt(config.colors.black.hex))
