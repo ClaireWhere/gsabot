@@ -115,9 +115,14 @@ function isNumeric(input){
     return (RE.test(input));
 }
 
+/**
+ * 
+ * @param {import('discord.js').GuildChannel} channel 
+ * @returns {string}
+ */
 function getChannelParentName(channel) {
-    if (!channel['parent']) { return undefined; }
-    if (!channel.parent['name']) { return undefined; }
+    if (!channel['parent']) { return ''; }
+    if (!channel.parent['name']) { return ''; }
     return channel.parent.name.toLowerCase();
 }
 
