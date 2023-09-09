@@ -1,7 +1,7 @@
 const { Events } = require('discord.js');
 
 const { config } = require('../config.json');
-const { color_handler } = require('../../utils/roles.utils/colorRoles.js');
+const { colorHandler } = require('../../utils/roles.utils/colorRoles.js');
 const { handleNeopronouns } = require('../../utils/roles.utils/neopronouns');
 const { toggleRole } = require('../../utils/roles.utils/roles');
 const { welcomeMember } = require('../../utils/message.utils/welcomeMember');
@@ -38,7 +38,7 @@ module.exports = {
         }
 
         if (id[0] === 'color') {
-            return await color_handler(interaction, id[1]);
+            return await colorHandler(interaction, id[1]);
         }
 
         var role_name = "";
