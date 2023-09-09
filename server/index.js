@@ -1,5 +1,5 @@
 const express = require('express');
-const { getMessageLog } = require('../utils/messageLogger');
+const { getMessageLog } = require('../utils/db.utils/messageLogger');
 const { debug } = require('../utils/debugger');
 
 require('dotenv').config();

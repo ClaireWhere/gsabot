@@ -1,6 +1,6 @@
-const { LoggedMessage } = require('../models/LoggedMessage');
-const { config } = require('../config.json');
-const { debug } = require('../utils/debugger');
+const { LoggedMessage } = require('../../models/LoggedMessage');
+const { config } = require('../../config.json');
+const { debug } = require('../debugger');
 /**
  * 
  * @param {LoggedMessage} message 
