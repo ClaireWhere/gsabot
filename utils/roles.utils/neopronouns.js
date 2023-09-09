@@ -1,5 +1,5 @@
 const { ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } = require('discord.js');
-const { getNeopronounRoles } = require('./roles.utils/roles');
+const { getNeopronounRoles } = require('./roles');
 
 
 /**

@@ -2,7 +2,7 @@ const { Events } = require('discord.js');
 
 const { config } = require('../config.json');
 const { color_handler } = require('../../utils/colorRoles.js');
-const { handleNeopronouns } = require('../../utils/neopronouns');
+const { handleNeopronouns } = require('../../utils/roles.utils/neopronouns');
 const { toggleRole } = require('../../utils/roles.utils/roles');
 const { welcomeMember } = require('../../utils/message.utils/welcomeMember');
 const { debug } = require('../../utils/debugger');
