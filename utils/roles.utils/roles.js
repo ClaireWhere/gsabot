@@ -260,7 +260,7 @@ function getMinNeopronounsPosition(interaction) {
 /**
  * gets the interacting member's neopronoun roles
 * @param {import('discord.js').Interaction} interaction
- * @returns an array containing the interacting member's neopronoun roles
+ * @returns {Promise<Collection<string, import('discord.js').Role>} an array containing the interacting member's neopronoun roles
  * 
  */
 async function getNeopronounRoles(interaction) {
@@ -271,7 +271,18 @@ async function getNeopronounRoles(interaction) {
     return roles.map((role) => role.name);
 }
 
-module.exports = { removeExclusive, memberHasRoleName, memberHasRole, addRole, addRoleByName, addFormatRole, removeRole, removeRoleByName, removeFormatRole, toggleRole, findRole, getPermissionsFromArray, getMaxNeopronounsPosition, getMinNeopronounsPosition, getNeopronounRoles }; * 
+/**
+ * gets the role position of the bot's role
+ * @param {import('discord.js').Interaction} interaction 
+ * @returns {Promise<number>}
+ */
+async function getBotRolePosition(interaction) {
+    const botUser = await interaction.guild.members.fetch(interaction.client.user.id);
+    return interaction.guild.roles.cache.find( role => botUser.roles.cache.has(role.id) ).position-1;
+}
+
+/**
+ * 
  * @param {object | undefined} root the starting root position - config.roles if unspecified
  * @param {object[] | undefined} roles the starting array of roles - empty if unspecified
  * @returns {{name: string, color: string, id: string | undefined, permissions: string[] | undefined, exclusion: string[] | undefined}[]} array of all roles specified in config.roles
