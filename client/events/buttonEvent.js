@@ -17,7 +17,7 @@ module.exports = {
     async execute(interaction) {
         if (!interaction.isButton()) { return false; }
 
-        logger.info(`received ${interaction.type} interaction with id ${interaction.customId} from ${interaction.member.user.username}`);
+        logger.info(`received ${this.name.toString()} interaction with id ${interaction.customId} from ${interaction.member.user.username}`);
 
         // Handle button events that show modals here before deferUpdate since modals must be shown first
         if (interaction.customId === 'pronouns:neo') {

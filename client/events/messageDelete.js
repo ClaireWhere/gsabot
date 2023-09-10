@@ -10,13 +10,12 @@ module.exports = {
     name: Events.MessageDelete,
     /**
      * 
-     * @param {import('discord.js').Message} message 
+     * @param {import('discord.js').Interaction} message 
      * @returns 
      */
     async execute(message) {
         if (!config.deleted_message_log.enabled) { return; }
-        
-        logger.info(`received ${interaction.type} interaction from channel: ${message.channel} by ${message.author.username}`);
+        logger.info(`received ${this.name.toString()} interaction from channel: ${message.channel} by ${message.author.username}`);
 
         const author = message.guild.members.cache.find(user => user.id === message.author.id);
         const nickname = author.nickname ?? message.author.globalName ?? message.author.username;

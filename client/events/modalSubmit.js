@@ -12,7 +12,7 @@ module.exports = {
     async execute(interaction) {
         if (!interaction.isModalSubmit()) { return false; }
         
-        logger.info(`received ${interaction.type} interaction with id ${interaction.customId} from ${interaction.member.user.username}`);
+        logger.info(`received ${this.name.toString()} interaction with id ${interaction.customId} from ${interaction.member.user.username}`);
 
         await interaction.deferUpdate()
             .catch((error) => {

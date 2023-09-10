@@ -20,10 +20,10 @@ module.exports = {
 
             await interaction.deferReply({ephemeral: true})
             .catch((error) => {
-                logger.warn(`could not defer ${interaction.command.name} interaction (${error})`);
+                logger.warn(`could not defer ${interaction.commandName} interaction (${error})`);
             });
             
-            console.info(`Repair function started for ${interaction.options.getSubcommand()}`);
+            logger.info(`Repair function started for ${interaction.options.getSubcommand()}`);
 
             if (interaction.options.getSubcommand() === 'roles') {
                 roles_created = 0;
