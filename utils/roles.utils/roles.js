@@ -243,14 +243,16 @@ function getMaxNeopronounsPosition(interaction) {
  * @returns 
  */
 function getMinNeopronounsPosition(interaction) {
-    var minPos = getMaxNeopronounsPosition(interaction);
+    var maxPos = getMaxNeopronounsPosition(interaction);
+    var minPos = 0;
+    var pronoun_roles = getConfigRoles().map(role => role.name);
     try {
         interaction.guild.roles.cache.forEach((role) => {
-            if (role.color === parseInt(config.roles.pronouns.neo.color) && role.position < minPos) {
+            if ((role.color != parseInt(config.roles.pronouns.neo.color) || pronoun_roles.includes(role.name)) && (role.position < maxPos && role.position > minPos)) {
                 minPos = role.position;
             }
         });
-        return minPos;
+        return minPos+1;
     } catch (error) {
         logger.error(error);
         return 1;
