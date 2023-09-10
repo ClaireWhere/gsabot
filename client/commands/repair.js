@@ -92,27 +92,6 @@ async function repairRoles(interaction) {
 /**
  * 
  * @param {import('discord.js').Interaction} interaction 
- */
-async function iterateRoles(interaction) {
-    if (!root) { return; }
-
-    const config_roles = getConfigRoles();
-
-    for (const role of config_roles) {
-        await repairRole(interaction, role);
-    }
-    // for (const [key, value] of Object.entries(root)) {
-    //     if (await value.name === undefined) {
-    //         await iterateRoles(interaction, value);
-    //     } else {
-    //         await repairRole(interaction, value);
-    //     }
-    // }
-}
-
-/**
- * 
- * @param {import('discord.js').Interaction} interaction 
  * @param {{name: string, color: string, permissions: 'string'[] | undefined}} role 
  * @returns {Promise<{create: number | undefined, modify: number | undefined, skip: number | undefined, error: boolean | undefined, positionChange: number | undefined}>}
  */
