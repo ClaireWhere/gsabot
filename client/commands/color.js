@@ -29,7 +29,7 @@ module.exports = {
         async execute(interaction) {
             if (interaction.commandName != 'color') { return; }
             
-            await interaction.deferReply({ ephemeral: true }).catch(error => logger.warn(`could not defer ${interaction.command.name} interaction (${error})`));
+            await interaction.deferReply({ ephemeral: true }).catch(error => logger.warn(`could not defer ${interaction.commandName} interaction (${error})`));
 
             if (interaction.options.getSubcommand() === 'set') {
                 return await set(interaction);
@@ -76,7 +76,7 @@ async function set(interaction) {
         .then((res) => {
             return true;
         }).catch((error) => {
-            logger.info(`could not respond to ${interaction.command.name} interaction (${error})`);
+            logger.info(`could not respond to ${interaction.commandName} interaction (${error})`);
             return false;
         })
 }
@@ -89,7 +89,7 @@ async function remove(interaction) {
             .then((res) => {
                 return true;
             }).catch((error) => {
-                logger.warn(`could not respond to ${interaction.command.name} interaction (${error})`);
+                logger.warn(`could not respond to ${interaction.commandName} interaction (${error})`);
                 return false;
             });
     }
@@ -97,7 +97,7 @@ async function remove(interaction) {
     logger.info(`deleting ${interaction.member.user.username}'s color`);
     return await role.delete()
     .catch((error) => {
-        logger.error(`could not delete ${interaction.member.user.username}'s color for ${interaction.command.name} interaction (${error})`);
+        logger.error(`could not delete ${interaction.member.user.username}'s color for ${interaction.commandName} interaction (${error})`);
         return false;
     }).then(async (res) => {
         logger.info(`deleted ${interaction.member.user.username}'s color`);
@@ -105,7 +105,7 @@ async function remove(interaction) {
             .then(res => {
                 return true;
             }).catch((error) => {
-                logger.warn(`could not respond to ${interaction.command.name} interaction (${error})`);
+                logger.warn(`could not respond to ${interaction.commandName} interaction (${error})`);
                 return false;
             });
     });
@@ -119,7 +119,7 @@ async function view(interaction) {
             .then(res => {
                 return true;
             }).catch((error) => {
-                logger.warn(`could not respond to ${interaction.command.name} interaction (${error})`);
+                logger.warn(`could not respond to ${interaction.commandName} interaction (${error})`);
                 return false;
             });
     }
@@ -131,14 +131,14 @@ async function view(interaction) {
         .then(res => {
             return true;
         }).catch((error) => {
-            logger.warn(`could not respond to ${interaction.command.name} interaction (${error})`);
+            logger.warn(`could not respond to ${interaction.commandName} interaction (${error})`);
             return false;
         });
 }
 
 
 async function error(interaction, colorString) {
-    logger.info(`${interaction.member.user.username} provided invalid structure (${colorString}) for ${interaction.command.name} interaction`);
+    logger.info(`${interaction.member.user.username} provided invalid structure (${colorString}) for ${interaction.commandName} interaction`);
     return await interaction.editReply({embeds: [
         {
           title: `The provided color is not valid structure!`,
@@ -148,7 +148,7 @@ async function error(interaction, colorString) {
     ]}).then(res => {
         return true;
     }).catch((error) => {
-        logger.warn(`could not respond to ${interaction.command.name} interaction (${error})`);
+        logger.warn(`could not respond to ${interaction.commandName} interaction (${error})`);
         return false;
     });
 }

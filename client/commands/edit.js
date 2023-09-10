@@ -154,7 +154,7 @@ module.exports = {
         await interaction.reply({content: `${interaction.guild.emojis.cache.find(emoji => emoji.name === 'loading')} please wait...`, ephemeral: true})
             .then(res => {
             }).catch((error) => {
-                logger.warn(`could not respond to ${interaction.command.name} interaction (${error})`);
+                logger.warn(`could not respond to ${interaction.commandName} interaction (${error})`);
             });
 
         const channel = interaction.client.channels.cache.get(interaction.options.get('channel').value);

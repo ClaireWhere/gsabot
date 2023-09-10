@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { Client, Collection, Events, GatewayIntentBits, ActivityType } = require('discord.js');
+const { Client, Collection, Events, GatewayIntentBits, ActivityType, InteractionType } = require('discord.js');
 require('dotenv').config();
 const minecraftTracker = require('./events/minecraftTracker');
 const { config } = require('./config.json');
@@ -46,7 +46,7 @@ for (const file of commandFiles) {
 client.on(Events.InteractionCreate, async interaction => {
     if (!interaction.isChatInputCommand()) return;
 
-    logger.info(`received ${interaction.type} interaction with name ${interaction.command.name} and options ${interaction.options} from ${interaction.member.user.username}`);
+    logger.info(`received ${InteractionType[interaction.type]} interaction /${interaction.commandName} from ${interaction.member.user.username}`);
 
     const command = client.commands.get(interaction.commandName);
 
@@ -54,13 +54,13 @@ client.on(Events.InteractionCreate, async interaction => {
 
     await command.execute(interaction)
         .then((res) => {
-            logger.info(`${interaction.command.name} command execution completed with status ${res}`)
+            logger.info(`${interaction.commandName} command execution completed with status ${res}`)
         }).catch(async (error) => {
             await interaction.followUp({content: 'There was an error D:', ephemeral: true})
                 .then((res) => {
-                    logger.warn(`${interaction.command.name} command executed with error. Application successfully sent error message`)
+                    logger.warn(`${interaction.commandName} command executed with error. Application successfully sent error message`)
                 }).catch((err) => {
-                    logger.error(`${interaction.command.name} command was unable to be executed. Application did not respond in time: ${error}`);
+                    logger.error(`${interaction.commandName} command was unable to be executed. Application did not respond in time: ${error}`);
                     return false;
                 });
         });
