@@ -15,6 +15,7 @@
 + Organized a lot of utilities
 + Added a bunch of docstring
 + Improved consistency of `/color` position assignment
++ Now stores author's nickname instead of username in Deleted Message Logger database
 + Added a single space in a single message somewhere :)
 
 ### Bug Fixes
