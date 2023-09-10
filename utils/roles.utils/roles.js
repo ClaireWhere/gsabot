@@ -271,4 +271,24 @@ async function getNeopronounRoles(interaction) {
     return roles.map((role) => role.name);
 }
 
-module.exports = { removeExclusive, memberHasRoleName, memberHasRole, addRole, addRoleByName, addFormatRole, removeRole, removeRoleByName, removeFormatRole, toggleRole, findRole, getPermissionsFromArray, getMaxNeopronounsPosition, getMinNeopronounsPosition, getNeopronounRoles };
+module.exports = { removeExclusive, memberHasRoleName, memberHasRole, addRole, addRoleByName, addFormatRole, removeRole, removeRoleByName, removeFormatRole, toggleRole, findRole, getPermissionsFromArray, getMaxNeopronounsPosition, getMinNeopronounsPosition, getNeopronounRoles }; * 
+ * @param {object | undefined} root the starting root position - config.roles if unspecified
+ * @param {object[] | undefined} roles the starting array of roles - empty if unspecified
+ * @returns {{name: string, color: string, id: string | undefined, permissions: string[] | undefined, exclusion: string[] | undefined}[]} array of all roles specified in config.roles
+ */
+function getConfigRoles(root, roles) {
+    if (!root) { 
+        root = require('../../client/config.json').config.roles;
+        var roles = [];
+    }
+    for (const [key, value] of Object.entries(root)) {
+        if (!value.name) {
+            getConfigRoles(value, roles);
+        } else {
+            roles.push(value);
+        }
+    }
+    return roles;
+}
+
+module.exports = { removeExclusive, memberHasRoleName, memberHasRole, addRole, addRoleByName, addFormatRole, removeRole, removeRoleByName, removeFormatRole, toggleRole, findRole, getPermissionsFromArray, getMaxNeopronounsPosition, getMinNeopronounsPosition, getNeopronounRoles, getBotRolePosition, getConfigRoles };
