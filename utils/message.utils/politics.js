@@ -18,7 +18,7 @@ module.exports = {
 
         const embed_1 = {
             title: ``,
-            description: `# ‎\n# ❗Politics Rules❗\nTo gain access to the ${politics} channel, please press the button below. This channel contains political content that may be upsetting to some, but please note that all the rules of the server still apply on top of the following.\n\n### Disclaimer:\nThe ${politics} channel is the place to talk about political issues. This is **NOT** a place to argue politics, but rather to inform and discuss with others current and historical political events/issues. Please respect the following rules for ${politics} as well as the ${rules} of the server.`,
+            description: `‎\n# ❗Politics Rules❗\nTo gain access to the ${politics} channel, please press the button below. This channel contains political content that may be upsetting to some, but please note that all the rules of the server still apply on top of the following.\n\n### Disclaimer:\nThe ${politics} channel is the place to talk about political issues. This is **NOT** a place to argue politics, but rather to inform and discuss with others current and historical political events/issues. Please respect the following rules for ${politics} as well as the ${rules} of the server.`,
             color: parseInt(config.colors.light_red.darken[0].hex),
             author: {
             name: `Gender & Sexuality Alliance`,
