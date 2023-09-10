@@ -1,4 +1,5 @@
 const { logger } = require('../logger');
+const { getBotRolePosition } = require('./roles');
 
 async function colorHandler(interaction, id) {
     if (id.length === 0) { 
@@ -42,17 +43,22 @@ async function cancelInteraction(interaction, message) {
     return false;
 }
 
+/**
+ * 
+ * @param {import('discord.js').Interaction} interaction 
+ * @returns 
+ */
 async function getGreatestRolePosition(interaction) {
     let maxPosition = await getBotRolePosition(interaction);
-    try {
-        return await interaction.guild.roles.cache.find(role => role.position === maxPosition || (role.position != 0 && role.color != 0 && role.permissions.toArray().includes('Administrator')) ).position + 1;
-    } catch (error) {
-        return maxPosition;
-    }
-}
-async function getBotRolePosition(interaction) {
-    const botUser = await interaction.guild.members.fetch(interaction.client.user.id);
-    return interaction.guild.roles.cache.find( role => botUser.roles.cache.has(role.id) ).position-1;
+    let position = 1;
+    
+    // find the highest positioned role with the 'Administrator' permissions that also has a color
+    interaction.guild.roles.cache.forEach((role) => {
+        if (role.position != 0 && role.color != 0 && role.permissions.toArray().includes('Administrator') && role.position < maxPosition && role.position+1 > position) {
+            position = role.position+1;
+        }
+    });
+    return position;
 }
 
 module.exports = { colorHandler }
