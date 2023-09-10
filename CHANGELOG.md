@@ -1,5 +1,39 @@
 # GSA Bot - Change Log
 
+## Version 0.1.2 (Not Released Yet)
+
+### Major Feature Changes
+---
++ Added **Winston Logger**
+    + Massively improved logging detail
++ Added **Online Player Display** for the Minecraft Server
++ Added **Custom Bot Status**
+
+
+### Minor Feature Changes
+---
++ Organized a lot of utilities
++ Added a bunch of docstring
++ Improved consistency of `/color` position assignment
++ Added a single space in a single message somewhere :)
+
+### Bug Fixes
+---
++ Fixed incorrect role positioning in `/repair roles`
++ Fixed inclusivity of neopronoun roles including all pronoun roles if they are found below the Neopronouns role
++ Added filters when linking channels in messages
+    + Welcome message now always shows the correct `#roles` channel
+    + All messages sent with `/send` and `/edit` now include the correct channels and the channel name only where applicable
++ Fixed undefined username on Deleted Message Logger
++ Use author avatar image for Deleted Message Logger
++ Fixed Deleted Message Logger crashing on invalid attachment
++ `delete-commands.js` actually works now
++ Added handling for many errors
+
+### Removed
+---
++ Implementation of debugger
+
 ## Version 0.1.1 (2023-08-31)
 
 ### Major Feature Changes
