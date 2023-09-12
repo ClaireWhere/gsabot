@@ -1,6 +1,6 @@
 # GSA Bot - Change Log
 
-## Version 0.1.2 (Not Released Yet)
+## Version 0.1.2 (2023-09-10)
 
 ### Major Feature Changes
 ---
