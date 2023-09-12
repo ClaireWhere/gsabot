@@ -1,5 +1,19 @@
 # GSA Bot - Change Log
 
+## Version 0.1.4 (Not Released Yet)
+
+### Major Feature Changes
+---
+
+## Minor Feature Changes
+---
++ Exclude 's' for 1 player online, otherwise x players online
++ Change default Minecraft Tracker frequency from every 5 minutes to every 2 minutes
+
+### Bug Fixes
+---
++ Fix Minecraft Tracker scheduling
+
 ## Version 0.1.3 (2023-09-10)
 
 ### Big Fixes
