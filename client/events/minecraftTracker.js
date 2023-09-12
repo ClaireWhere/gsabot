@@ -19,8 +19,8 @@ async function checkServer() {
             if (Object.hasOwn(response.data, 'players')) {
                 if (!(previous_status === response.data.players.online)) {
                     previous_status = response.data.players.online;
-                    await setStatusChannel(`${response.data.players.online} Players Online`).catch(error => logger.warn(`[${ip}] there was an error fetching the server status channel (${error})`));
-                    logger.info(`[${ip}] ${response.data.players.online} players online`)
+                    await setStatusChannel(`${response.data.players.online} Player${previous_status != 1 ? 's' : ''} Online`).catch(error => logger.warn(`[${ip}] there was an error fetching the server status channel (${error})`));
+                    logger.info(`[${ip}] ${response.data.players.online} player${previous_status != 1 ? 's' : ''} online`)
                 }
             } else if (!(previous_status === 'warning')) {
                 previous_status = 'warning';
