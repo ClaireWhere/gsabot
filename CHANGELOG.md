@@ -1,5 +1,11 @@
 # GSA Bot - Change Log
 
+## Version 0.1.3 (2023-09-10)
+
+### Big Fixes
++ Added missing filter in safe space entrance message
++ Removed space from politics entrance message
+
 ## Version 0.1.2 (2023-09-10)
 
 ### Major Feature Changes
