@@ -35,7 +35,9 @@ module.exports = {
         
         var raw = "";
         if (config.deleted_message_log.use_database) {
-            insertMessageLog(logged);
+            if (!insertMessageLog(logged)) {
+                return false;
+            }
             raw = `\n[Raw](https://${process.env.SERVER_SUBDOMAIN}.${process.env.DOMAIN}/logs/${message.id} 'Open raw text to copy/paste')`;
         }
         
