@@ -151,12 +151,6 @@ module.exports = {
 	async execute(interaction) {
         if (interaction.commandName != 'edit') { return; }
 
-        await interaction.reply({content: `${interaction.guild.emojis.cache.find(emoji => emoji.name === 'loading')} please wait...`, ephemeral: true})
-            .then(res => {
-            }).catch((error) => {
-                logger.warn(`could not respond to ${interaction.commandName} interaction (${error})`);
-            });
-
         const channel = interaction.client.channels.cache.get(interaction.options.get('channel').value);
 
         const message_id = interaction.options.get('message_id').value;

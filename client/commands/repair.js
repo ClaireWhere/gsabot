@@ -17,11 +17,6 @@ module.exports = {
         ),
         async execute(interaction) {
             if (interaction.commandName != 'repair') { return; }
-
-            await interaction.deferReply({ephemeral: true})
-            .catch((error) => {
-                logger.warn(`could not defer ${interaction.commandName} interaction (${error})`);
-            });
             
             logger.info(`Repair function started for ${interaction.options.getSubcommand()}`);
 

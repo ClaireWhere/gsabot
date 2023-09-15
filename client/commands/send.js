@@ -93,11 +93,6 @@ module.exports = {
 	async execute(interaction) {
         if (interaction.commandName != 'send') { return; }
 
-        await interaction.reply({content: `${interaction.guild.emojis.cache.find(emoji => emoji.name === 'loading')} please wait...`, ephemeral: true})
-        .catch((error) => {
-            logger.warn(`could not send initial respond for ${interaction.commandName} interaction (${error})`);
-        });
-
         const channel = interaction.client.channels.cache.get(interaction.options.get('channel').value);
 
         var output = await getOutput(interaction, channel).catch((error) => {
