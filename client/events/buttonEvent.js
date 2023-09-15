@@ -24,13 +24,17 @@ module.exports = {
             return await handleNeopronouns(interaction);
         }
 
-        await interaction.deferUpdate()
+        if (!await interaction.deferUpdate()
                 .then((res) => {
                     logger.info(`${interaction.customId} interaction deferred`);
+                    return true;
                 }).catch((error) => {
                     logger.warn(`${interaction.customId} could not be deferred (${error})`);
-                    return;
-                });
+                    return false;
+                })
+        ) {
+            return false;
+        }
 
         if (interaction.customId === 'member') {
             return await welcomeMember(interaction);

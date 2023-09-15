@@ -14,11 +14,17 @@ module.exports = {
         
         logger.info(`received ${this.name.toString()} interaction with id ${interaction.customId} from ${interaction.member.user.username}`);
 
-        await interaction.deferUpdate()
-            .catch((error) => {
-                logger.warn(`Unable to defer modal submit interaction from ${interaction.member.user.username} (${error})`);
-                return;
-            });
+        if (!await interaction.deferUpdate()
+                .then((res) => {
+                    logger.info(`${this.name.toString()} interaction deferred`);
+                    return true;
+                }).catch((error) => {
+                    logger.warn(`Unable to defer modal submit interaction from ${interaction.member.user.username} (${error})`);
+                    return false;
+                })
+        ) {
+            return false;
+        }
         
         // neopronounsModal
         if (interaction.customId === 'neopronounsModal') {
