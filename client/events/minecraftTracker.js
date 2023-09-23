@@ -21,17 +21,23 @@ async function checkServer() {
                     previous_status = response.data.players.online;
                     await setStatusChannel(`${previous_status} Player${previous_status != 1 ? 's' : ''} Online`).catch(error => logger.warn(`[${ip}] there was an error fetching the server status channel (${error})`));
                     logger.info(`[${ip}] ${previous_status} player${previous_status != 1 ? 's' : ''} online`)
+                } else {
+                    logger.debug(`[${[ip]}] no changes since last check`);
                 }
             } else if (!(previous_status === 'warning')) {
                 previous_status = 'warning';
                 await setStatusChannel(`Server Offline :(`).catch(error => logger.warn(`[${ip}] there was an error fetching the server status channel (${error})`));
                 logger.warn(`[${ip}] could not reach server!`);
+            } else {
+                logger.debug(`[${[ip]}] no changes since last check`);
             }
         })
         .catch(error => {
             if (!(previous_status === 'error')) {
                 previous_status = 'error';
                 logger.error(`[${ip}] there was an error fetching the server status (${error})`);
+            } else {
+                logger.debug(`[${[ip]}] no changes since last check`);
             }
         });
 }
