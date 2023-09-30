@@ -95,7 +95,8 @@ async function messageToImage(message, nickname, authorColor) {
     // Draw Timestamp
     ctx.fillStyle = timestamp_color;
     ctx.font = `${(fontSize*0.66)}px ${font}`;
-    ctx.fillText(`${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`, (authorWidth+initX+avatarRadius*2+margins*1.5), initY+margins*1.5);
+    const creation_date = new Date(message.createdTimestamp)
+    ctx.fillText(`${creation_date.toLocaleDateString()} ${creation_date.toLocaleTimeString()}`, (authorWidth+initX+avatarRadius*2+margins*1.5), initY+margins*1.5);
     
     // Draw message contents
     ctx.font = `${fontSize}px ${font}`;
@@ -223,20 +224,21 @@ function fillFromArray(ctx, array, x, y) {
 /**
  * Calculates the absolute minimum width of the canvas (for if the message text is smaller than the header)
  * @param {string} nickname the message author's nickname
+ * @param {Date} date the message creation date
  * @returns {number}
  */
-function calcMinWidth(nickname) {
+function calcMinWidth(nickname, date) {
     const c = createCanvas(0, 0).getContext('2d');
     c.font = `bold ${fontSize}px ${title_font}`;
     let minWidth = c.measureText(nickname).width;
     c.font = `${(fontSize*0.66)}px ${font}`;
-    minWidth += c.measureText(`${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`).width+initX+avatarRadius*2+margins*1.5+padding;
+    minWidth += c.measureText(`${date.toLocaleDateString()} ${date.toLocaleTimeString()}`).width+initX+avatarRadius*2+margins*1.5+padding;
     return minWidth;
 }
 
 /**
  * Calculates the width the canvas should have given the size of the message
- * @param {string} message 
+ * @param {import('discord.js'.Message)} message 
  * @param {string} nickname the message author's nickname
  * @returns {number}
  */
@@ -244,7 +246,7 @@ function calcCanvasWidth(message, nickname) {
     const c = createCanvas(0, 0).getContext('2d')
     c.font = `${fontSize}px ${font}`;
     const messageWidth = c.measureText(message).width;
-    const minWidth = calcMinWidth(nickname);
+    const minWidth = calcMinWidth(nickname, new Date(message.createdTimestamp));
     const singleLineWidth = initX+avatarRadius*2+padding*2+margins+messageWidth;
     //return singleLineWidth < defaultWidth ? singleLineWidth < minWidth ? minWidth : singleLineWidth : message.content.length < 500 ? defaultWidth : (defaultWidth-(500/3))+message.content.length/3;
 
