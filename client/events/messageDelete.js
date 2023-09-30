@@ -43,13 +43,14 @@ module.exports = {
         
         const buffer = await messageToBuffer(message, nickname, displayColor);
         const file = !buffer ? null : new AttachmentBuilder().setFile(buffer).setName('message.png');
+        const creation_date = new Date(message.createdTimestamp);
 
         const embed = {
             title: "**MESSAGE DELETED**",
             description: '' 
                 + `**Author: **${message.author.globalName} (${message.author.username})`
                 + `\n**Channel: **${message.channel}`
-                + `\nCreated On: ${new Date(message.createdTimestamp).toUTCString()}`
+                + `\nCreated On: ${creation_date.toLocaleDateString()} ${creation_date.toLocaleTimeString()}`
                 + raw,
             timestamp: new Date().toISOString(),
             footer: {
