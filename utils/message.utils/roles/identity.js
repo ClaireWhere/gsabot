@@ -63,7 +63,7 @@ module.exports = {
         const embed = {
             title: `Identity Roles`,
             description: `Click the buttons below that represent your identity.\n\n**Remember that these are completely optional. Only take them if you are comfortable with it being visible to anyone who clicks your profile!**\n`,
-            color: parseInt(config.colors.yellow.lighten[3].hex),
+            color: parseInt(config.colors.rainbow[1].hex),
             thumbnail: {
             url: config.images.identity_thmb,
             height: 0,

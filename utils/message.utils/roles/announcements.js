@@ -18,8 +18,8 @@ module.exports = {
 
         const embed = {
             title: `Announcements Role`,
-            color: parseInt(config.colors.light_blue.lighten[2].hex),
             description: `Would you like to be pinged with ${announcements_role} in ${announcements_channel} for important GSA announcements?\n\nClick the button below to get notifications to keep you up to date on GSA events and news (click again to remove)`,
+            color: parseInt(config.colors.rainbow[3].hex),
             thumbnail: {
                 url: config.images.announcements_thmb,
                 height: 0,
