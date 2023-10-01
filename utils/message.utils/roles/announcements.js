@@ -4,7 +4,7 @@ const { getChannelParentName } = require("../../utils");
 
 module.exports = { 
     async execute(interaction) {
-        const announcements_channel = await interaction.guild.channels.cache.find(channel => channel.name === 'announcements' && !getChannelParentName(channel).includes('archive')) ?? `\`#announcements\``;
+        const announcements_channel = interaction.guild.channels.cache.find(channel => channel.name === 'announcements' && !getChannelParentName(channel).includes('archive')) ?? `\`#announcements\``;
 
         const row_1 = new ActionRowBuilder()
             .addComponents(
