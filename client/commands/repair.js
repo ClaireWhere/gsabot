@@ -88,7 +88,7 @@ async function repairRoles(interaction) {
  * 
  * @param {import('discord.js').Interaction} interaction 
  * @param {{name: string, color: string, permissions: 'string'[] | undefined}} role 
- * @returns {Promise<{create: number | undefined, modify: number | undefined, skip: number | undefined, error: boolean | undefined, positionChange: number | undefined}>}
+ * @returns {Promise<{created: number | undefined, modify: number | undefined, skip: number | undefined, error: boolean | undefined, positionChange: number | undefined}>}
  */
 async function repairRole(interaction, role, position) {
     const existing_role = interaction.guild.roles.cache.find(r => r.name.toLowerCase() === role.name.toLowerCase());
