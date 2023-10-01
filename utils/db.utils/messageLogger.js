@@ -100,7 +100,7 @@ function open(options) {
         db.pragma('journal_mode = WAL');
         return db;
     } catch (error) {
-        logger.warn(`${config.database.name}.db does not exist! Run "npm run initialize" to initialize the database`);
+        logger.warn(`${config.database.name}.db does not exist at ${getDbDirectory()}! Run "npm run initialize" to initialize the database`);
         return undefined;
     }
 }
@@ -120,5 +120,5 @@ function verifyMessageId(id) {
 }
 
 function getDbDirectory() {
-    return __dirname.slice(0, __dirname.lastIndexOf('utils'));
+    return __dirname.slice(0, __dirname.indexOf('utils'));
 }
