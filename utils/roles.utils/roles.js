@@ -1,3 +1,4 @@
+const { PermissionsBitField } = require('discord.js');
 const { config } = require('../../client/config.json');
 const { logger } = require('../logger');
 
