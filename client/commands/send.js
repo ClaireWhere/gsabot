@@ -7,6 +7,7 @@ const welcome = require('../../utils/message.utils/welcome.js');
 const vc = require('../../utils/message.utils/vc.js');
 const politics = require('../../utils/message.utils/politics.js');
 const safe_space = require('../../utils/message.utils/safe_space.js');
+const gsc_ticket = require('../../utils/message.utils/gsc_ticket.js')
 const { getChannelParentName } = require('../../utils/utils.js');
 const { logger } = require('../../utils/logger.js');
 
@@ -89,6 +90,15 @@ module.exports = {
                 .setRequired(true)
             )
         )
+        .addSubcommand(subcommand =>
+            subcommand.setName('gsc_ticket')
+            .setDescription('Sends the gsc ticket submission button in the specified channel')
+            .addChannelOption(option =>
+                option.setName('channel')
+                .setDescription('The channel to send the gsc ticket submission button to')
+                .setRequired(true)
+            )
+        )
         ,
 	async execute(interaction) {
         if (interaction.commandName != 'send') { return; }
@@ -146,6 +156,7 @@ function getOutput(interaction, channel) {
          : subcommand === 'vc' ? vc.execute(interaction)
          : subcommand === 'welcome' ? welcome.execute(interaction) 
          : subcommand === 'button' ? null
+         : subcommand === 'gsc_ticket' ? gsc_ticket.execute(interaction)
          : null;
 }
 
