@@ -6,6 +6,7 @@ const { handleNeopronouns } = require('../../utils/roles.utils/neopronouns');
 const { toggleRole } = require('../../utils/roles.utils/roles');
 const { welcomeMember } = require('../../utils/message.utils/welcomeMember');
 const { logger } = require('../../utils/logger');
+const { ticketDisplayHandler } = require('../../utils/ticketHandler');
 
 module.exports = {
     name: Events.InteractionCreate,
@@ -32,6 +33,10 @@ module.exports = {
             if (id[1] === 'neo') {
                 return await handleNeopronouns(interaction);
             }
+        }
+
+        if (id[0] === 'ticket') {
+            return await ticketDisplayHandler(interaction, id[1]);
         }
 
         if (!await interaction.deferUpdate()
