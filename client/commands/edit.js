@@ -28,11 +28,11 @@ module.exports = {
                 .setDescription('The specific roles message to edit')
                 .setRequired(true)
                 .addChoices(
-                    {name: 'Announcements', value: 'announcements'},
-                    {name: 'Identity', value: 'identity'},
-                    {name: 'Minecraft', value: 'minecraft'},
                     {name: 'Pronouns', value: 'pronouns'},
+                    {name: 'Identity', value: 'identity'},
                     {name: 'Year', value: 'year'},
+                    {name: 'Announcements', value: 'announcements'},
+                    {name: 'Minecraft', value: 'minecraft'},
                 ))
             .addChannelOption(option =>
                 option.setName('channel')
