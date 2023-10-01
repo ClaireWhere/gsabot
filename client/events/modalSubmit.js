@@ -3,6 +3,7 @@ const { removeNeopronouns, addNeopronouns } = require('../../utils/roles.utils/p
 const { removeIntersection, arrayToLowerCase } = require('../../utils/utils');
 const { config } = require('../config.json');
 const { logger } = require('../../utils/logger');
+const { ticketSubmitHandler } = require('../../utils/ticketHandler');
 
 module.exports = {
     name: Events.InteractionCreate,
@@ -44,6 +45,10 @@ module.exports = {
 
             await removeNeopronouns(interaction, removeArray);
             await addNeopronouns(interaction, addArray);
+        }
+
+        if (interaction.customId === 'gscModal') {
+            return await ticketSubmitHandler(interaction);
         }
     }
 }
