@@ -1,0 +1,30 @@
+<%- include('partials/header') -%>
+
+<div class="my-5">
+    <div class="p-5 text-center bg-body-tertiary">
+        <div class="container py-5">
+        <h1 class="text-body-emphasis">GSA Server Logger</h1>
+        <p class="col-lg-8 mx-auto lead">
+            Find your logged message here
+        </p>
+
+        <% if (locals.logId) { %>
+            <% if (locals.logId === -1) { %>
+                <h2>No Log Found!</h2>
+                <p>We couldn't find a log with the id <code><%= locals.id %></code>. Try searching again.</p>
+            <% } else { %>
+                <p><%= loggedMessage %></p>
+            <% } %>
+        <% } %>
+            <form role="search" method="get" name="get_log_by_id" class="col-lg-4 offset-lg-4">
+                <div class="row justify-content-center">
+                    <input name="id" id="id" type="search" class="form-control" placeholder="Input a log id" aria-label="Search">
+                    <input class="d-none" type="submit"/>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer') -%>
