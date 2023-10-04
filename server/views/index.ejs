@@ -1,0 +1,20 @@
+<%- include('partials/header') -%>
+
+<div class="my-5">
+    <div class="p-5 text-center bg-body-tertiary">
+        <div class="container py-5">
+        <h1 class="text-body-emphasis">Welcome to the GSA Web Server!</h1>
+        <p class="col-lg-8 mx-auto lead">
+            This is for the Eboard of the GSA, there won't be much here for you if you're viewing this page as a member.
+        </p>
+
+        <% if (locals.isAuthenticated) { %>
+            <p>You are logged in. <a href="/profile" class="underline">View your profile</a>.</p>
+        <% } else { %>
+            <p>You are not logged in. <a href="/login" class="underline">Login</a>.</p>
+        <% } %>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer') -%>
