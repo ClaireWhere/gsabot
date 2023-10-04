@@ -2,7 +2,6 @@ const express = require('express');
 const { logger } = require('../utils/logger');
 const http = require('http');
 const path = require('path');
-const router = require('./routes/index');
 const { auth } = require('express-openid-connect');
 
 
@@ -63,7 +62,7 @@ app.use(auth(config));
 
 // Middleware to make the `user` object available for all views
 app.use(userMiddleware);
-//app.use('/', router);
+
 app.use('/', homeRouter);
 app.use('/logs', logsRouter);
 app.use('/profile', profileRouter);
