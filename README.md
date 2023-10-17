@@ -2,7 +2,7 @@
 Discord bot for the Gender and Sexuality Alliance.
 
 > **Important**
-> To see a full list of features, see [List of all Features](./FEATURES.md)
+> To see a full list of features, see [List of all Features](/FEATURES.md)
 
 ## Installation
 1. Ensure all [dependencies](README.md#dependencies) are configured and running
@@ -24,7 +24,7 @@ Discord bot for the Gender and Sexuality Alliance.
 
 
 > **Note**
-> The following dependencies are only required for the `deleted message` features (see [FEATURES](./FEATURES.md#deleted-message-logger)). If these features are not being utilized, disable them in [client/config.json](./client/config.json). 
+> The following dependencies are only required for the `deleted message` features (see [FEATURES](/FEATURES.md#deleted-message-logger)). If these features are not being utilized, disable them in [client/config.json](/client/config.json). 
 
 3. SQLite
     - This application uses a local SQLite deployment. 
@@ -48,11 +48,11 @@ Discord bot for the Gender and Sexuality Alliance.
 
 ## Config
 To be added
-- [client/config.json](./client/config.json)
-- [config.json](./config.json)
+- [client/config.json](/client/config.json)
+- [config.json](/config.json)
 
 ## Environmental Variables
-Ensure all environmental variables are spelled exactly as below and can be found in `.env` in the `root` ([.env](./env)) and `/client` ([client/.env](./client/.env)) directory before running the application.
+Ensure all environmental variables are spelled exactly as below and can be found in `.env` in the `root` ([.env](/.env)) and `/client` ([client/.env](/client/.env)) directory before running the application.
 
 ### Root
 - `APP_PORT` - the local port the server application should be running on
@@ -69,7 +69,7 @@ Ensure all environmental variables are spelled exactly as below and can be found
 - `REGISTER` - the name of the registration service for the bot 
     - as in, "go to REGISTER to register for this organization"
 - `GSA_BANNER` - the banner image
-    - Since the `gsa banner` image may contain sensitive information about the name of the school, it is contained in [client/.env](./client/.env). All other images are in [client/config.json](./client/config.json) since they shouldn't contain any sensitive information.
+    - Since the `gsa banner` image may contain sensitive information about the name of the school, it is contained in [client/.env](/client/.env). All other images are in [client/config.json](/client/config.json) since they shouldn't contain any sensitive information.
 - `DOMAIN` - the domain name of the application
     - does not include any subdomains (www)
 - `MINECRAFT_SUBDOMAIN` - the subdomain used to connect to the Minecraft server
@@ -96,6 +96,6 @@ Button id's follow the format: `category`:`subcategory`:`id`
 - `{id}` - the id of a specific action with no other similar buttons
 
 > **Note**
-> To add a new reaction role, simply specify its information in [client/config.json](./client/config.json) in the `roles` section. When a button is pressed with the same id as the `id` property specified, that role will be handled by the bot. No other configuration is necessary. Just ensure the information in [client/config.json](./client/config.json) lines up with the roles in the Discord server.
+> To add a new reaction role, simply specify its information in [client/config.json](/client/config.json) in the `roles` section. When a button is pressed with the same id as the `id` property specified, that role will be handled by the bot. No other configuration is necessary. Just ensure the information in [client/config.json](/client/config.json) lines up with the roles in the Discord server.
 
-Adding new functionality must be specified in [buttonEvent.js](./client/events/buttonEvent.js)
+Adding new functionality must be specified in [buttonEvent.js](/client/events/buttonEvent.js)
