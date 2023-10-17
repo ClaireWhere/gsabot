@@ -2,7 +2,7 @@
 Discord bot for the Gender and Sexuality Alliance.
 
 > **Important**
-> To see a full list of features, see [List of all Features](FEATURES.md)
+> To see a full list of features, see [List of all Features](./FEATURES.md)
 
 ## Installation
 1. Ensure all [dependencies](README.md#dependencies) are configured and running
@@ -24,7 +24,7 @@ Discord bot for the Gender and Sexuality Alliance.
 
 
 > **Note**
-> The following dependencies are only required for the `deleted message` features (see [FEATURES](FEATURES.md#deleted-message-logger)). If these features are not being utilized, disable them in [client/config.json](./client/config.json). 
+> The following dependencies are only required for the `deleted message` features (see [FEATURES](./FEATURES.md#deleted-message-logger)). If these features are not being utilized, disable them in [client/config.json](./client/config.json). 
 
 3. SQLite
     - This application uses a local SQLite deployment. 
@@ -49,7 +49,7 @@ Discord bot for the Gender and Sexuality Alliance.
 ## Config
 To be added
 - [client/config.json](./client/config.json)
-- [config.json](config.json)
+- [config.json](./config.json)
 
 ## Environmental Variables
 Ensure all environmental variables are spelled exactly as below and can be found in `.env` in the `root` ([.env](./env)) and `/client` ([client/.env](./client/.env)) directory before running the application.
