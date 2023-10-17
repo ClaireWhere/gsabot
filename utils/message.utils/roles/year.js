@@ -44,7 +44,7 @@ module.exports = {
         const embed = {
             title: `Year Roles`,
             description: `Click the buttons below for what year you're in here at OU.\n\nYou can only have one of these at once. At the start of each school year we'll try to remind you to click the next one!`,
-            color: parseInt(config.colors.light_green.lighten[3].hex),
+            color: parseInt(config.colors.rainbow[2].hex),
             thumbnail: {
             url: config.images.year_thmb,
             height: 0,

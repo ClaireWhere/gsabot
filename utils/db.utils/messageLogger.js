@@ -1,6 +1,5 @@
 const { LoggedMessage } = require('../../models/LoggedMessage');
 const { config } = require('../../config.json');
-const { debug } = require('../debugger');
 const { logger } = require('../logger');
 /**
  * 
@@ -14,7 +13,7 @@ function insertMessageLog(message) {
         fileMustExist: true
     });
 
-    if (!db) { return false; }
+    if (!db) { return true; }
 
     try {
         const insert_user = db.prepare('INSERT INTO user (id, name) VALUES (?, ?)');
@@ -44,6 +43,7 @@ function insertMessageLog(message) {
     } catch (error) {
         logger.warn(`[SQLite] did not insert into deleted_message (${error})`);
         db.close();
+        logger.info(`[SQLite] unable to log message by ${message.author_name} - already exists in ${config.database.name}`);
         return false;
     }
     db.close();
@@ -100,7 +100,7 @@ function open(options) {
         db.pragma('journal_mode = WAL');
         return db;
     } catch (error) {
-        logger.warn(`${config.database.name}.db does not exist! Run "npm run initialize" to initialize the database`);
+        logger.warn(`${config.database.name}.db does not exist at ${getDbDirectory()}! Run "npm run initialize" to initialize the database`);
         return undefined;
     }
 }
@@ -120,5 +120,5 @@ function verifyMessageId(id) {
 }
 
 function getDbDirectory() {
-    return __dirname.slice(0, __dirname.lastIndexOf('utils'));
+    return __dirname.slice(0, __dirname.indexOf('utils'));
 }

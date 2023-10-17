@@ -4,7 +4,8 @@ const { getChannelParentName } = require("../../utils");
 
 module.exports = { 
     async execute(interaction) {
-        const announcements_channel = await interaction.guild.channels.cache.find(channel => channel.name === 'announcements' && !getChannelParentName(channel).includes('archive')) ?? `\`#announcements\``;
+        const announcements_channel = interaction.guild.channels.cache.find(channel => channel.name === 'announcements' && !getChannelParentName(channel).includes('archive')) ?? `\`#announcements\``;
+        const announcements_role = interaction.guild.roles.cache.find(role => role.name === config.roles.announcements.name ?? '\`@Announcements\`');
 
         const row_1 = new ActionRowBuilder()
             .addComponents(
@@ -17,8 +18,8 @@ module.exports = {
 
         const embed = {
             title: `Announcements Role`,
-            description: `Do you want access to be pinged ${announcements_channel} for important GSA announcements?\n\nClick the button below to get notifications to keep you up to date on GSA events and news (click again to remove)`,
-            color: parseInt(config.colors.light_blue.lighten[2].hex),
+            description: `Would you like to be pinged with ${announcements_role} in ${announcements_channel} for important GSA announcements?\n\nClick the button below to get notifications to keep you up to date on GSA events and news (click again to remove)`,
+            color: parseInt(config.colors.rainbow[3].hex),
             thumbnail: {
                 url: config.images.announcements_thmb,
                 height: 0,

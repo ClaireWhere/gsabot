@@ -52,6 +52,18 @@ client.on(Events.InteractionCreate, async interaction => {
 
     if (!command) return;
 
+    if (!await interaction.deferReply({ ephemeral: true })
+            .then((res) => {
+                logger.info(`/${interaction.commandName} command deferred`);
+                return true;
+            }).catch((error) => {
+                logger.warn(`/${interaction.commandName} could not be deferred (${error})`);
+                return false;
+            })
+    ) {
+        return false;
+    }
+
     await command.execute(interaction)
         .then((res) => {
             logger.info(`${interaction.commandName} command execution completed with status ${res}`)

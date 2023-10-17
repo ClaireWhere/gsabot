@@ -1,6 +1,52 @@
 # GSA Bot - Change Log
 
-## Version 0.1.2 (Not Released Yet)
+## Version 0.1.4 (Not Released Yet)
+
+### Major Feature Changes
+---
++ Added GSC Roles
+    - GSC Coordinator
+    - GSC Graduate Assistant
+    - GSC Student Assistant
++ Added GSC Announcement Role
+    - Added to role selection
++ Add Ticket Handling System
+    + Button -> Modal -> Submission
++ Added GSC Announcement Ticket
+    - Only accessible by GSC Coordinator, GSC Graduate Assistant, and GSC Student Assistant
+    - Submission sends announcement message
+    - Input to specify announcement message (required)
+    - Option to ping GSC Announcements
+
+## Minor Feature Changes
+---
++ Exclude 's' for 1 player online, otherwise x players online
++ Changed default Minecraft Tracker frequency from every 5 minutes to every 2 minutes
++ Handled command error responses universally, rather than individually
++ Deleted Message Logger now uses locale date and time strings everywhere
++ Fixed up some wording on role messages
++ Role messages now use rainbow colors from config
++ Rearranged role choices for `/edit roles` to the order they are sent by `/send roles`
+
+### Bug Fixes
+---
++ Fixed Minecraft Tracker scheduling
++ Fixed bot always executing interactions regardless of whether they had already been deferred
++ Fixed double logging occasionally crashing bot
+    - Now uses variables instead of objects to avoid invalid keys
++ Fixed timestamps in Deleted Message Logger
+    - Message image timestamp now shows creation date
+    - Now keeps consistent date usage (doesn't create new dates)
++ Fixed `/repair roles` crashing whenever roles need permission changes
++ Fixed searching for database in the wrong location
+
+## Version 0.1.3 (2023-09-10)
+
+### Big Fixes
++ Added missing filter in safe space entrance message
++ Removed space from politics entrance message
+
+## Version 0.1.2 (2023-09-10)
 
 ### Major Feature Changes
 ---

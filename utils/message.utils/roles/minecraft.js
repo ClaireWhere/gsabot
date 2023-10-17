@@ -12,12 +12,12 @@ module.exports = {
                     .setDisabled(false)
             );
 
-        const minecraft_role = await interaction.guild.roles.cache.find(role => role.name === 'Minecraft') ?? `@Minecraft`;
+        const minecraft_role = interaction.guild.roles.cache.find(role => role.name === 'Minecraft') ?? '\`@Minecraft\`';
 
         const embed = {
             title: `Minecraft Role`,
             description: `Do you want access to the Minecraft server and talk about Minecraft?\n\nClick the button below to get the ${minecraft_role} role (click again to remove)`,
-            color: parseInt(config.colors.purple.lighten[3].hex),
+            color: parseInt(config.colors.rainbow[4].hex),
             thumbnail: {
                 url: config.images.minecraft_thmb,
                 height: 0,

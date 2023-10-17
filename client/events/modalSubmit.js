@@ -3,6 +3,7 @@ const { removeNeopronouns, addNeopronouns } = require('../../utils/roles.utils/p
 const { removeIntersection, arrayToLowerCase } = require('../../utils/utils');
 const { config } = require('../config.json');
 const { logger } = require('../../utils/logger');
+const { ticketSubmitHandler } = require('../../utils/ticketHandler');
 
 module.exports = {
     name: Events.InteractionCreate,
@@ -14,11 +15,17 @@ module.exports = {
         
         logger.info(`received ${this.name.toString()} interaction with id ${interaction.customId} from ${interaction.member.user.username}`);
 
-        await interaction.deferUpdate()
-            .catch((error) => {
-                logger.warn(`Unable to defer modal submit interaction from ${interaction.member.user.username} (${error})`);
-                return;
-            });
+        if (!await interaction.deferUpdate()
+                .then((res) => {
+                    logger.info(`${this.name.toString()} interaction deferred`);
+                    return true;
+                }).catch((error) => {
+                    logger.warn(`Unable to defer modal submit interaction from ${interaction.member.user.username} (${error})`);
+                    return false;
+                })
+        ) {
+            return false;
+        }
         
         // neopronounsModal
         if (interaction.customId === 'neopronounsModal') {
@@ -38,6 +45,10 @@ module.exports = {
 
             await removeNeopronouns(interaction, removeArray);
             await addNeopronouns(interaction, addArray);
+        }
+
+        if (interaction.customId === 'gscModal') {
+            return await ticketSubmitHandler(interaction);
         }
     }
 }

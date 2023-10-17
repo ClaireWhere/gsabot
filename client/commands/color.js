@@ -28,8 +28,6 @@ module.exports = {
         ),
         async execute(interaction) {
             if (interaction.commandName != 'color') { return; }
-            
-            await interaction.deferReply({ ephemeral: true }).catch(error => logger.warn(`could not defer ${interaction.commandName} interaction (${error})`));
 
             if (interaction.options.getSubcommand() === 'set') {
                 return await set(interaction);

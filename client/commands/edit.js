@@ -11,8 +11,10 @@ const identity = require('../../utils/message.utils/roles/identity.js');
 const minecraft = require('../../utils/message.utils/roles/minecraft.js');
 const pronouns = require('../../utils/message.utils/roles/pronouns.js');
 const year = require('../../utils/message.utils/roles/year.js');
+const gsc = require('../../utils/message.utils/roles/gsc.js');
 const { getChannelParentName } = require('../../utils/utils.js');
 const { logger } = require('../../utils/logger.js');
+const gsc_ticket = require('../../utils/message.utils/gsc_ticket.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -28,11 +30,12 @@ module.exports = {
                 .setDescription('The specific roles message to edit')
                 .setRequired(true)
                 .addChoices(
-                    {name: 'Announcements', value: 'announcements'},
-                    {name: 'Identity', value: 'identity'},
-                    {name: 'Minecraft', value: 'minecraft'},
                     {name: 'Pronouns', value: 'pronouns'},
+                    {name: 'Identity', value: 'identity'},
                     {name: 'Year', value: 'year'},
+                    {name: 'Announcements', value: 'announcements'},
+                    {name: 'Minecraft', value: 'minecraft'},
+                    {name: 'GSC Announcements', value: 'gsc'},
                 ))
             .addChannelOption(option =>
                 option.setName('channel')
@@ -142,6 +145,19 @@ module.exports = {
                 option.setName('message_id')
                 .setDescription('button.')
                 .setRequired(true))
+        )
+        .addSubcommand(subcommand =>
+            subcommand.setName('gsc_ticket')
+            .setDescription('Edits the specified message to be the updated gsc announcement ticket submission')
+            .addChannelOption(option =>
+                option.setName('channel')
+                .setDescription('The channel to search for the message in')
+                .setRequired(true)
+                .addChannelTypes(ChannelType.GuildText))
+            .addStringOption(option =>
+                option.setName('message_id')
+                .setDescription('The id/snowflake of the message to edit')
+                .setRequired(true))
         ),
         /**
          * 
@@ -150,12 +166,6 @@ module.exports = {
          */
 	async execute(interaction) {
         if (interaction.commandName != 'edit') { return; }
-
-        await interaction.reply({content: `${interaction.guild.emojis.cache.find(emoji => emoji.name === 'loading')} please wait...`, ephemeral: true})
-            .then(res => {
-            }).catch((error) => {
-                logger.warn(`could not respond to ${interaction.commandName} interaction (${error})`);
-            });
 
         const channel = interaction.client.channels.cache.get(interaction.options.get('channel').value);
 
@@ -216,6 +226,7 @@ function getOutput(interaction, channel) {
          : subcommand === 'vc' ? getVcOutput(interaction)
          : subcommand === 'welcome' ? welcome.execute(interaction)
          : subcommand === 'button' ? null
+         : subcommand === 'gsc_ticket' ? gsc_ticket.execute(interaction)
          : null;
 }
 
@@ -232,6 +243,7 @@ function getRoleOutput(interaction) {
          : type === 'minecraft' ? minecraft.execute(interaction)
          : type === 'pronouns' ? pronouns.execute(interaction)
          : type === 'year' ? year.execute(interaction)
+         : type === 'gsc' ? gsc.execute(interaction)
          : null;
 }
 
