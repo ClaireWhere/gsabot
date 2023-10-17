@@ -38,6 +38,7 @@
     - Message image timestamp now shows creation date
     - Now keeps consistent date usage (doesn't create new dates)
 + Fixed `/repair roles` crashing whenever roles need permission changes
++ Fixed searching for database in the wrong location
 
 ## Version 0.1.3 (2023-09-10)
 
