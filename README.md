@@ -1,6 +1,8 @@
 # gsabot
 Discord bot for the Gender and Sexuality Alliance.
 
+> **Important**
+> To see a full list of features, see [List of all Features](FEATURES.md)
 
 ## Installation
 1. Ensure all [dependencies](README.md#dependencies) are configured and running
