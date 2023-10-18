@@ -32,7 +32,7 @@ Clicking the `Manage Neopronouns` button in the role selection channel opens a m
     <img src="https://i.imgur.com/01z8Vry.png">
 </p>
 
-> **Important**
+> [!IMPORTANT]
 >- Neopronoun roles must contain at least one "/" character
 >   - otherwise it will be rejected
 >- Neopronoun roles may have a maximum length of 40 characters
@@ -40,7 +40,7 @@ Clicking the `Manage Neopronouns` button in the role selection channel opens a m
 >- Multiple neopronoun roles must be separated by a comma AND a space
 >   - otherwise the application will consider it one neopronoun
 
-> **Note**
+> [!NOTE]
 >- Capitalization does not matter for neopronoun input
 >   - it will be handled by the application
 >- There is no limit to how many "/" characters are included in a neopronoun, as long as it fits within the 40 character limit
@@ -59,13 +59,13 @@ Upon clicking submit, the roles will be assigned to the user, creating new roles
 
 Roles may be added, changed, or removed by clicking the `Manage Neopronouns` button another time. A modal is opened displaying the user's existing neopronouns above the top input, which is used to specify neopronouns for removal. The second input can be used the same as before to specify new neopronouns. Neopronouns may be added only, removed only, or added and removed at the same time with this interaction.
 
-> **Important**
+> [!IMPORTANT]
 > Neopronouns must be spelled exactly the same as they are spelled above the input (capitalization does not matter) or their roles won't be removed.
 
-> **Note**
+> [!NOTE]
 > 🚫 Display Issues: The neopronouns specified above the removal input are cut off after 45 characters. This is a Discord limitation, and there is no other location to display text. Once Selection Menus are implemented by Discord this should be much cleaner. If some neopronoun roles are not displayed, they can still be typed in the input and removed properly, it is a purely visual issue.
 
-> **Note**
+> [!NOTE]
 > 📝 The "Neopronouns" role is automatically given in every "Manage Neopronouns" interaction unless specified to be removed. If you would like to prevent receiving this role when adding new neopronouns, make sure to type "neopronouns" into the removal input to stop it from being added.
 
 <p align="center" width="100%">
@@ -98,7 +98,7 @@ the `#politics` channel is not accessible to members unless they have the `Polit
 
 # Development Features
 
-> **Important**
+> [!IMPORTANT]
 > The following features are for developers only. Most users will not see or need these features, but if you're interested to see behind the scenes feel free to read!
 
 
