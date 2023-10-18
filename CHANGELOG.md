@@ -10,7 +10,7 @@
     - GSC Student Assistant
 + Added GSC Announcement Role
     - Added to role selection
-+ Add Ticket Handling System
++ Added Ticket Handling System
     + Button -> Modal -> Submission
 + Added GSC Announcement Ticket
     - Only accessible by GSC Coordinator, GSC Graduate Assistant, and GSC Student Assistant
@@ -18,11 +18,11 @@
     - Input to specify announcement message (required)
     - Option to ping GSC Announcements
 
-## Minor Feature Changes
+### Minor Feature Changes
 ---
 + Exclude 's' for 1 player online, otherwise x players online
 + Changed default Minecraft Tracker frequency from every 5 minutes to every 2 minutes
-+ Handled command error responses universally, rather than individually
++ Now handled command error responses universally, rather than individually
 + Deleted Message Logger now uses locale date and time strings everywhere
 + Fixed up some wording on role messages
 + Role messages now use rainbow colors from config
