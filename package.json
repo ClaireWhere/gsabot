@@ -1,6 +1,6 @@
 {
   "name": "gsabot",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Discord bot for the Gender and Sexuality Alliance.",
   "main": "",
   "dependencies": {
