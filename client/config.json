@@ -38,7 +38,7 @@
             "eboard": {"name": "Eboard", "color": "0xB0E0FF", "permissions": ["CreatePrivateThreads", "DeafenMembers", "KickMembers", "ManageEmojisAndStickers", "ManageEvents", "ManageGuildExpressions",  "ManageRoles", "ManageThreads", "ModerateMembers", "MoveMembers", "MuteMembers", "MentionEveryone", "ViewAuditLog", "ViewGuildInsights"]},
             "gsc_coordinator": {"name": "GSC Coordinator", "color": "0xF59BA7"},
             "gsc_graduate_assistant": {"name": "GSC Graduate Assistant", "color": "0x3EAD49"},
-            "gsc_student_assistant": {"name": "GSC Student Assistant", "color": "0x273A92"},
+            "gsc_student_assistant": {"name": "GSC Student Assistant", "color": "0x556CCA"},
             "member": {"id": "member", "name": "GSA Member", "color": "0x009ED5", "permissions": ["AddReactions", "AttachFiles", "ChangeNickname", "Connect", "CreateInstantInvite", "CreatePublicThreads", "EmbedLinks", "ReadMessageHistory", "RequestToSpeak", "SendMessages", "SendMessagesInThreads", "Speak", "Stream", "UseApplicationCommands", "UseEmbeddedActivities", "UseExternalEmojis", "UseExternalSounds", "UseExternalStickers", "UseSoundboard", "UseVAD", "ViewChannel"]},
             "pronouns": {
                 "she_her": {"id": "pronouns:she_her", "name": "She/Her", "color": "0x8365AC", "exclusion": ["she_they", "she_he", "she_he_they", "she_they_he", "he_they", "he_she", "he_she_they", "he_they_she", "they_she", "they_he", "they_she_he", "they_he_she", "any"]},
