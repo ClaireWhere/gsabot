@@ -2,7 +2,9 @@
 Discord bot for the Gender and Sexuality Alliance.
 
 > [!IMPORTANT]
-> To see a full list of features, see [List of all Features](FEATURES.md)
+> To see a full list of features, see [List of all Features](FEATURES.md) 
+>
+> Use [this link](https://github.com/ClaireWhere/gsabot/blob/main/FEATURES.md) if the first one is broken (GitHub struggles with relative links on the main page)
 
 ## Installation
 1. Ensure all [dependencies](README.md#dependencies) are configured and running
