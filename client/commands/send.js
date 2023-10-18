@@ -2,6 +2,12 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { ChannelType } = require('discord.js');
 const rules = require('../../utils/message.utils/rules.js');
 const roles = require('../../utils/message.utils/roles.js');
+const announcements = require('../../utils/message.utils/roles/announcements.js');
+const identity = require('../../utils/message.utils/roles/identity.js');
+const minecraft = require('../../utils/message.utils/roles/minecraft.js');
+const pronouns = require('../../utils/message.utils/roles/pronouns.js');
+const year = require('../../utils/message.utils/roles/year.js');
+const gsc = require('../../utils/message.utils/roles/gsc.js');
 const agreement = require('../../utils/message.utils/agreement.js');
 const welcome = require('../../utils/message.utils/welcome.js');
 const vc = require('../../utils/message.utils/vc.js');
@@ -20,6 +26,19 @@ module.exports = {
         .addSubcommand(subcommand =>
             subcommand.setName('roles')
             .setDescription('Sends the reaction roles in the specified channel')
+            .addStringOption(option =>
+                option.setName('type')
+                .setDescription('The specific roles message to send')
+                .setRequired(true)
+                .addChoices(
+                    {name: 'All', value: 'all'},
+                    {name: 'Pronouns', value: 'pronouns'},
+                    {name: 'Identity', value: 'identity'},
+                    {name: 'Year', value: 'year'},
+                    {name: 'Announcements', value: 'announcements'},
+                    {name: 'Minecraft', value: 'minecraft'},
+                    {name: 'GSC Announcements', value: 'gsc'},
+                ))
             .addChannelOption(option =>
                 option.setName('channel')
                 .setDescription('The channel to send the roles to')
@@ -149,14 +168,27 @@ function getOutput(interaction, channel) {
     if (!subcommand) { return null; }
 
     return subcommand === 'agreement' ? agreement.execute(interaction)
-        : subcommand === 'politics' ? politics.execute(interaction)     
-        : subcommand === 'roles' ? roles.execute(interaction)
+         : subcommand === 'politics' ? politics.execute(interaction)     
+         : subcommand === 'roles' ? getRolesOutput(interaction)
          : subcommand === 'rules' ? getRulesOutput(interaction, channel)
          : subcommand === 'safe_space' ? safe_space.execute(interaction)
          : subcommand === 'vc' ? vc.execute(interaction)
          : subcommand === 'welcome' ? welcome.execute(interaction) 
          : subcommand === 'button' ? null
          : subcommand === 'gsc_ticket' ? gsc_ticket.execute(interaction)
+         : null;
+}
+
+function getRolesOutput(interaction, channel) {
+    const type = interaction.options.get('type').value;
+    console.log(`type: ${type}`);
+    return type === 'all' ? roles.execute(interaction)
+         : type === 'announcements' ? announcements.execute(interaction)
+         : type === 'identity' ? identity.execute(interaction)
+         : type === 'minecraft' ? minecraft.execute(interaction)
+         : type === 'pronouns' ? pronouns.execute(interaction)
+         : type === 'year' ? year.execute(interaction)
+         : type === 'gsc' ? gsc.execute(interaction)
          : null;
 }
 
