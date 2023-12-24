@@ -56,6 +56,22 @@ try {
 } catch (error) {
     console.error(error.message);
 }
+try {
+    db.prepare(`
+        CREATE TABLE appreciation(
+            day DATE PRIMARY KEY NOT NULL,
+            time_started TIME NOT NULL,
+            appreciated INTEGER NOT NULL,
+            initiator INTEGER NOT NULL,
+            guild INTEGER,
+            FOREIGN KEY(appreciated) REFERENCES user(id),
+            FOREIGN KEY(initiator) REFERENCES user(id)
+        )
+    `).run();
+    console.log(`[SQLite] appreciation table created`);
+} catch (error) {
+    console.error(error.message)
+}
 
 db.close();
 
