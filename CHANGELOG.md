@@ -25,18 +25,18 @@
 ---
 
 + Added GSC Roles
-    - GSC Coordinator
-    - GSC Graduate Assistant
-    - GSC Student Assistant
+  + GSC Coordinator
+  + GSC Graduate Assistant
+  + GSC Student Assistant
 + Added GSC Announcement Role
-    - Added to role selection
+  + Added to role selection
 + Added Ticket Handling System
-    + Button -> Modal -> Submission
+  + Button -> Modal -> Submission
 + Added GSC Announcement Ticket
-    - Only accessible by GSC Coordinator, GSC Graduate Assistant, and GSC Student Assistant
-    - Submission sends announcement message
-    - Input to specify announcement message (required)
-    - Option to ping GSC Announcements
+  + Only accessible by GSC Coordinator, GSC Graduate Assistant, and GSC Student Assistant
+  + Submission sends announcement message
+  + Input to specify announcement message (required)
+  + Option to ping GSC Announcements
 
 ### Minor Feature Changes
 
@@ -57,10 +57,10 @@
 + Fixed Minecraft Tracker scheduling
 + Fixed bot always executing interactions regardless of whether they had already been deferred
 + Fixed double logging occasionally crashing bot
-    - Now uses variables instead of objects to avoid invalid keys
+  + Now uses variables instead of objects to avoid invalid keys
 + Fixed timestamps in Deleted Message Logger
-    - Message image timestamp now shows creation date
-    - Now keeps consistent date usage (doesn't create new dates)
+  + Message image timestamp now shows creation date
+  + Now keeps consistent date usage (doesn't create new dates)
 + Fixed `/repair roles` crashing whenever roles need permission changes
 + Fixed searching for database in the wrong location
 
@@ -78,10 +78,9 @@
 ---
 
 + Added **Winston Logger**
-    + Massively improved logging detail
+  + Massively improved logging detail
 + Added **Online Player Display** for the Minecraft Server
 + Added **Custom Bot Status**
-
 
 ### Minor Feature Changes
 
@@ -100,8 +99,8 @@
 + Fixed incorrect role positioning in `/repair roles`
 + Fixed inclusivity of neopronoun roles including all pronoun roles if they are found below the Neopronouns role
 + Added filters when linking channels in messages
-    + Welcome message now always shows the correct `#roles` channel
-    + All messages sent with `/send` and `/edit` now include the correct channels and the channel name only where applicable
+  + Welcome message now always shows the correct `#roles` channel
+  + All messages sent with `/send` and `/edit` now include the correct channels and the channel name only where applicable
 + Fixed undefined username on Deleted Message Logger
 + Use author avatar image for Deleted Message Logger
 + Fixed Deleted Message Logger crashing on invalid attachment
@@ -121,45 +120,45 @@
 ---
 
 + Added **Custom Neopronoun Role Manager**
-    + Changed "Request Neopronouns Role" button to "Manage Neopronouns"
+  + Changed "Request Neopronouns Role" button to "Manage Neopronouns"
 + Added fallbacks for application taking too long to respond
-    + Protects against Discord API latency issues
+  + Protects against Discord API latency issues
 + Changed database system to SQLite
-    + Added table initialization
+  + Added table initialization
 + Added **/edit** [subcommand] ([type]) [channel] [message_id]
-    + agreement
-    + politics
-    + roles
-        + [type]: Announcements, Identity, Minecraft, Pronouns, Year
-    + rules
-    + safe_space
-    + vc
-        + [type]: Info, Mobile, PC
-    + welcome
+  + agreement
+  + politics
+  + roles
+    + [type]: Announcements, Identity, Minecraft, Pronouns, Year
+  + rules
+  + safe_space
+  + vc
+    + [type]: Info, Mobile, PC
+  + welcome
 
 ### Minor Feature Changes
 
 ---
 
 + Added custom bot status
-    + Added custom bot status configuration
+  + Added custom bot status configuration
 + Changed internal name of Minecraft Server Tracker
 + Improved Minecraft Server Tracker error message
 + Added tests for Minecraft Server Tracker
 + Added configuration for Minecraft Server Tracker
-    + Enable/disable
-    + Configurable frequency
-+ Reformatted LoggedMessage 
-    + Improved the order fields show up
-    + Improved the detail of field names
-    + Now includes deleted_on field
+  + Enable/disable
+  + Configurable frequency
++ Reformatted LoggedMessage
+  + Improved the order fields show up
+  + Improved the detail of field names
+  + Now includes deleted_on field
 + Deleted message timestamps are now stored
 + Added configuration for Deleted Message Logger
-    + Enable/disable
-    + Enable/disable database storage
+  + Enable/disable
+  + Enable/disable database storage
 + Added npm initialization for database
 + Added root config
-    + For "global" configuration that applies the entire application
+  + For "global" configuration that applies the entire application
 + Added **debug mode** and configuration
 + Various performance improvements
 + Added internal utilities
@@ -171,20 +170,21 @@
 
 ---
 
-* Added validity checks to commands
-* Fixed Minecraft Server Tracker status logger logging the same error status multiple times in a row
-* Fixed Deleted Message Logger to use the correct root .env configuration instead of client .env
-* Fixed some role exclusivity rules configured to include themselves
-* Fixed some role exclusivity rules configured to include roles that should not be included
-* Fixed some role exclusivity rules that weren't even configured
-* Application no longer tries to respond to Message Delete events
++ Added validity checks to commands
++ Fixed Minecraft Server Tracker status logger logging the same error status multiple times in a row
++ Fixed Deleted Message Logger to use the correct root .env configuration instead of client .env
++ Fixed some role exclusivity rules configured to include themselves
++ Fixed some role exclusivity rules configured to include roles that should not be included
++ Fixed some role exclusivity rules that weren't even configured
++ Application no longer tries to respond to Message Delete events
+
 + Added fallback fonts for Deleted Message Logger to avoid missing font issues
 
 ### Removed
 
 ---
 
-- Removed MongoDB usage
++ Removed MongoDB usage
 
 ---
 
@@ -196,28 +196,28 @@
 
 #### Commands
 
-+ Added **/color** 
-    + set 
-        + *[hex]*
-    + view
-    + remove
++ Added **/color**
+  + set
+    + *[hex]*
+  + view
+  + remove
 + Added **/repair**
-    + roles
+  + roles
 + Added **/send**
-    + agreement
-        + *[channel]*
-    + roles
-        + *[channel]*
-    + rules
-        + *[channel]*
-    + welcome
-        + *[channel]*
-    + politics
-        + *[channel]*
-    + safe_space
-        + *[channel]*
-    + vc
-        + *[channel]*
+  + agreement
+    + *[channel]*
+  + roles
+    + *[channel]*
+  + rules
+    + *[channel]*
+  + welcome
+    + *[channel]*
+  + politics
+    + *[channel]*
+  + safe_space
+    + *[channel]*
+  + vc
+    + *[channel]*
 + Added **new member welcome agreement**
 + Added **new member welcome message**
 + Added **safe space agreement**
@@ -236,15 +236,16 @@
 
 + Alt text for images should actually exist now
 + Formatted a lot of text to use headers
-    + VC Text
+  + VC Text
 
 ### Bug Fixes
 
 ---
 
-- None
++ None
 
 ### Removed
 
 ---
-- None
+
++ None
