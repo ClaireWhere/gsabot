@@ -3,20 +3,27 @@
 ## Version 0.1.5 (Not Released Yet)
 
 ### Major Feature Changes
+
 ---
+
 + Added capability to send individual roles with `/send roles`
 
 ### Minor Feature Changes
+
 ---
+
 + Changed GSC Student Assistant role color to be more readable
 
 ### Bug Fixes
+
 ---
 
 ## Version 0.1.4 (2023-10-17)
 
 ### Major Feature Changes
+
 ---
+
 + Added GSC Roles
     - GSC Coordinator
     - GSC Graduate Assistant
@@ -32,7 +39,9 @@
     - Option to ping GSC Announcements
 
 ### Minor Feature Changes
+
 ---
+
 + Exclude 's' for 1 player online, otherwise x players online
 + Changed default Minecraft Tracker frequency from every 5 minutes to every 2 minutes
 + Now handled command error responses universally, rather than individually
@@ -42,7 +51,9 @@
 + Rearranged role choices for `/edit roles` to the order they are sent by `/send roles`
 
 ### Bug Fixes
+
 ---
+
 + Fixed Minecraft Tracker scheduling
 + Fixed bot always executing interactions regardless of whether they had already been deferred
 + Fixed double logging occasionally crashing bot
@@ -56,13 +67,16 @@
 ## Version 0.1.3 (2023-09-10)
 
 ### Big Fixes
+
 + Added missing filter in safe space entrance message
 + Removed space from politics entrance message
 
 ## Version 0.1.2 (2023-09-10)
 
 ### Major Feature Changes
+
 ---
+
 + Added **Winston Logger**
     + Massively improved logging detail
 + Added **Online Player Display** for the Minecraft Server
@@ -70,7 +84,9 @@
 
 
 ### Minor Feature Changes
+
 ---
+
 + Organized a lot of utilities
 + Added a bunch of docstring
 + Improved consistency of `/color` position assignment
@@ -78,7 +94,9 @@
 + Added a single space in a single message somewhere :)
 
 ### Bug Fixes
+
 ---
+
 + Fixed incorrect role positioning in `/repair roles`
 + Fixed inclusivity of neopronoun roles including all pronoun roles if they are found below the Neopronouns role
 + Added filters when linking channels in messages
@@ -91,13 +109,17 @@
 + Added handling for many errors
 
 ### Removed
+
 ---
+
 + Implementation of debugger
 
 ## Version 0.1.1 (2023-08-31)
 
 ### Major Feature Changes
+
 ---
+
 + Added **Custom Neopronoun Role Manager**
     + Changed "Request Neopronouns Role" button to "Manage Neopronouns"
 + Added fallbacks for application taking too long to respond
@@ -116,7 +138,9 @@
     + welcome
 
 ### Minor Feature Changes
+
 ---
+
 + Added custom bot status
     + Added custom bot status configuration
 + Changed internal name of Minecraft Server Tracker
@@ -144,7 +168,9 @@
 + Improved file and function names for clarity
 
 ### Bug Fixes
+
 ---
+
 * Added validity checks to commands
 * Fixed Minecraft Server Tracker status logger logging the same error status multiple times in a row
 * Fixed Deleted Message Logger to use the correct root .env configuration instead of client .env
@@ -155,7 +181,9 @@
 + Added fallback fonts for Deleted Message Logger to avoid missing font issues
 
 ### Removed
+
 ---
+
 - Removed MongoDB usage
 
 ---
@@ -163,6 +191,7 @@
 ## Version 0.1.0 (2023-08-14)
 
 ### Major Feature Changes
+
 ---
 **Commands**
 + Added **/color** 
@@ -173,19 +202,19 @@
 + Added **/repair**
     + roles
 + Added **/send**
-    + agreement 
+    + agreement
         + *[channel]*
-    + roles 
+    + roles
         + *[channel]*
-    + rules 
+    + rules
         + *[channel]*
-    + welcome 
+    + welcome
         + *[channel]*
-    + politics 
+    + politics
         + *[channel]*
-    + safe_space 
+    + safe_space
         + *[channel]*
-    + vc 
+    + vc
         + *[channel]*
 + Added **new member welcome agreement**
 + Added **new member welcome message**
@@ -200,16 +229,20 @@
 + Added **Minecraft server tracking**
 
 ### Minor Feature Changes
+
 ---
+
 + Alt text for images should actually exist now
 + Formatted a lot of text to use headers
     + VC Text
 
-
 ### Bug Fixes
+
 ---
+
 - None
 
 ### Removed
+
 ---
 - None
