@@ -28,6 +28,10 @@ module.exports = {
             return false;
         }
 
+        if (id[0] === 'appreciate') {
+            return await interaction.deferUpdate();
+        }
+
         // Handle button events that show modals here before deferUpdate since modals must be shown first
         if (id[0] === 'pronouns') {
             if (id[1] === 'neo') {
