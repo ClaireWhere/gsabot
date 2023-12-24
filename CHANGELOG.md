@@ -193,7 +193,9 @@
 ### Major Feature Changes
 
 ---
-**Commands**
+
+#### Commands
+
 + Added **/color** 
     + set 
         + *[hex]*
