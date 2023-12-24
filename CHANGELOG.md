@@ -4,6 +4,7 @@
 
 ### Major Feature Changes
 ---
++ Added capability to send individual roles with `/send roles`
 
 ### Minor Feature Changes
 ---
