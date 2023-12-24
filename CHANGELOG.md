@@ -7,6 +7,7 @@
 
 ### Minor Feature Changes
 ---
++ Changed GSC Student Assistant role color to be more readable
 
 ### Bug Fixes
 ---
