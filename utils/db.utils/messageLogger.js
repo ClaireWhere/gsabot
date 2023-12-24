@@ -1,6 +1,8 @@
 const { LoggedMessage } = require('../../models/LoggedMessage');
 const { config } = require('../../config.json');
 const { logger } = require('../logger');
+const { open, addUser, addChannel, addMessage, addDeleted } = require('./db.js')
+
 /**
  * 
  * @param {LoggedMessage} message 
@@ -13,41 +15,16 @@ function insertMessageLog(message) {
         fileMustExist: true
     });
 
-    if (!db) { return true; }
-
-    try {
-        const insert_user = db.prepare('INSERT INTO user (id, name) VALUES (?, ?)');
-        insert_user.run(message.author_id, message.author_name);
-        logger.info('[SQLite] inserted into user');
-    } catch (error) {
-        logger.warn(`[SQLite] did not insert into user (${error})`);
-    }
-    try {
-        const insert_channel = db.prepare(`INSERT INTO channel (id, name) VALUES (?, ?)`);
-        insert_channel.run(message.channel_id, message.channel_name);
-        logger.info('[SQLite] inserted into channel');
-    } catch (error) {
-        logger.warn(`[SQLite] did not insert into channel (${error})`);
-    }
-    try {
-        const insert_message = db.prepare(`INSERT INTO message (id, content, author, channel, date, guild) VALUES (?, ?, ?, ?, ?, ?)`);
-        insert_message.run(message.id, message.content, message.author_id, message.channel_id, !message.date ? null : message.date.getTime(), message.guild_id);
-        logger.info('[SQLite] inserted into message');
-    } catch (error) {
-        logger.warn(`[SQLite] did not insert into message (${error})`);
-    }
-    try {
-        const insert_deleted = db.prepare(`INSERT INTO deleted_message (message_id, deleted_on) VALUES (?, ?)`);
-        insert_deleted.run(message.id, new Date().getTime());
-        logger.info('[SQLite] inserted into deleted_message');
-    } catch (error) {
-        logger.warn(`[SQLite] did not insert into deleted_message (${error})`);
-        db.close();
+    addUser(db, message.author_id, message.author_name);
+    addChannel(db, message.channel_id, message.channel_name);
+    addMessage(db, message.id, message.content, message.author_id, message.channel_id, !message.date ? null : message.date.getTime(), message.guild_id);
+    
+    const success = addDeleted(db, message.id, new Date().getTime());
+    if (!success) {
         logger.info(`[SQLite] unable to log message by ${message.author_name} - already exists in ${config.database.name}`);
-        return false;
-    }
+    } 
     db.close();
-    return true;
+    return success;
 }
 
 /**
@@ -89,22 +66,6 @@ function getMessageLog(message_id) {
     return null;
 }
 
-/**
- * 
- * @param {import('better-sqlite3').Options} options 
- * @returns 
- */
-function open(options) {
-    try {
-        const db = require('better-sqlite3')(`${getDbDirectory()}${config.database.name}.db`, options);
-        db.pragma('journal_mode = WAL');
-        return db;
-    } catch (error) {
-        logger.warn(`${config.database.name}.db does not exist at ${getDbDirectory()}! Run "npm run initialize" to initialize the database`);
-        return undefined;
-    }
-}
-
 
 
 module.exports = { insertMessageLog, getMessageLog, verifyMessageId }
@@ -117,8 +78,4 @@ module.exports = { insertMessageLog, getMessageLog, verifyMessageId }
  */
 function verifyMessageId(id) {
     return (id.match('^[0-9]*$') && id.length >= 17) ?? false;
-}
-
-function getDbDirectory() {
-    return __dirname.slice(0, __dirname.indexOf('utils'));
 }
