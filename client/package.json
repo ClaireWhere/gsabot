@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "dev": "pm2 start index.js --watch --name \"GSA Bot\"",
     "initialize": "node deploy-commands.js",
     "reset": "node delete-commands.js"
   },

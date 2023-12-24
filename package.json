@@ -16,11 +16,15 @@
     "nodemon": "^3.0.1"
   },
   "scripts": {
-    "server": "nodemon --quiet server",
-    "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "node server/index.js",
+    "server-dev": "nodemon --quiet server",
+    "client": "npm run start --prefix client",
+    "client-dev": "npm run dev --prefix client",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "dev": "concurrently \"npm run server-dev\" \"npm run client-dev\"",
     "initialize": "concurrently \"node utils/db.utils/createTables.js\" \"npm run initialize --prefix client\"",
-    "reset": "npm reset --prefix client"
+    "reset": "npm reset --prefix client",
+    "lint": "eslint ."
   },
   "keywords": [],
   "author": {
