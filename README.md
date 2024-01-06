@@ -19,33 +19,32 @@ Discord bot for the Gender and Sexuality Alliance.
 
 ## Dependencies
 
-1. Node js
-    - `sudo apt install nodejs`
-    - ensure it is properly installed and working with `node -v`
-2. Node Package Manager (npm)
-    - `sudo apt install npm`
-    - ensure it is properly installed and working with `npm -v`
+- [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) (v8.1.0 or higher)
+    Ensure it is properly installed and working with `npm -v`
+- [node.js](https://nodejs.org/en/) (v20.10.0 or higher)
+    Ensure it is properly installed and working with `node -v`
+- A Discord bot application
+  - Detailed [instructions](https://discordjs.guide/preparations/setting-up-a-bot-application.html#creating-your-bot)
+    - Ensure the bot is added to the server specified in the `GUILD_ID` environmental variable
 
-    > [!NOTE]
-    > The following dependencies are only required for the `deleted message` features (see [FEATURES](FEATURES.md#deleted-message-logger)). If these features are not being utilized, disable them in [client/config.json](client/config.json).
+> [!NOTE]
+> The following dependencies are only required for the `deleted message` features (see [FEATURES](FEATURES.md#deleted-message-logger)). If these features are not being utilized, disable them in [client/config.json](client/config.json). If they are being utilized, ensure the following dependencies are installed and configured properly.
 
-3. SQLite
-    - This application uses a local SQLite deployment.
-    - [Download](https://www.sqlite.org/download.html)
-    - Detailed [Installation instructions](https://www.sqlitetutorial.net/download-install-sqlite/)
-4. A Publicly routable IP address
-    - `server.js` is configured to run on the local port specified in the `APP_PORT` environmental variable and assumes subdomain.domain specified in `SERVER_SUBDOMAIN` and `DOMAIN` environmental variables routes to the network the application is running on and to that port locally.
-    - Since this is a local port, there must be a way for the router to route traffic to the specific port on the network the application is running.
-    - One easy way to do this without exposing the network IP is to setup a [Cloudflare Access Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/). More information can be found at <https://www.cloudflare.com/>
+- [sqlite3](https://www.sqlite.org/download.html) (v5.0.2 or higher)
+  - This application uses a local SQLite deployment.
+  - Detailed [Installation instructions](https://www.sqlitetutorial.net/download-install-sqlite/)
+  - Ensure it is properly installed and working with `sqlite3 --version`
 
-    > [!NOTE]
-    > (Optional) To use the latest release/update from github, the following dependencies are required
+- A publicly routable IP address
+  - `server.js` is configured to run on the local port specified in the `APP_PORT` environmental variable and assumes subdomain.domain specified in `SERVER_SUBDOMAIN` and `DOMAIN` environmental variables routes to the network the application is running on and to that port locally.
+  - Since this is a local port, there must be a way for the router to route traffic to the specific port on the network the application is running.
+  - One easy way to do this without exposing the network IP is to setup a [Cloudflare Access Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/). More information can be found at <https://www.cloudflare.com/>
 
-5. Git
-    - `sudo apt install git`
-    - ensure it is properly installed and working with `git --version`
-    - Add a username with `git config --global user.name "your-username"`
-    - Add an email address with `git config --global user.email "example@email.com"`
+> [!NOTE]
+> (Optional) To use the latest release/update from github, the following dependencies are required
+
+- [git](https://git-scm.com/) (v2.41.0 or higher)
+    Ensure it is properly installed and working with `git --version`
 
 ## Config
 
