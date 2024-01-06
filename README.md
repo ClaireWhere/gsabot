@@ -11,12 +11,18 @@ Discord bot for the Gender and Sexuality Alliance.
 ## Installation
 
 1. Ensure all [dependencies](README.md#dependencies) are configured and running
-1. Clone the repository
-    - If installing from github, use `git clone https://github.com/ClaireWhere/gsabot.git`
-1. Configure the [Environmental Variables](README.md#environmental-variables)
-1. Run `npm init -y` to initialize the package
-1. Run `npm run initialize` to deploy any commands to the Discord bot. This only needs to be run whenever new commands are added to the application.
-1. Run `npm run dev` to start the application
+2. Clone the repository
+    - If installing from github, use
+
+    ```sh
+    git clone https://github.com/ClaireWhere/gsabot.git
+    ```
+
+3. Configure the [Environmental Variables](README.md#environmental-variables)
+4. Setup `config.json` to your configuration
+    - See [Config](README.md#config) for more information
+5. Run `npm install` to install all dependencies
+6. Run `npm run reset` to delete and re-deploy any commands to the Discord bot. This only needs to be run whenever new commands are added or removed.
 
 ## Dependencies
 
