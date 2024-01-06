@@ -3,6 +3,7 @@
 Discord bot for the Gender and Sexuality Alliance.
 
 > [!IMPORTANT]
+>
 > To see a full list of features, see [List of all Features](FEATURES.md)
 >
 > Use [this link](https://github.com/ClaireWhere/gsabot/blob/main/FEATURES.md) if the first one is broken (GitHub struggles with relative links on the main page)
@@ -28,6 +29,7 @@ Discord bot for the Gender and Sexuality Alliance.
     - Ensure the bot is added to the server specified in the `GUILD_ID` environmental variable
 
 > [!NOTE]
+>
 > The following dependencies are only required for the `deleted message` features (see [FEATURES](FEATURES.md#deleted-message-logger)). If these features are not being utilized, disable them in [client/config.json](client/config.json). If they are being utilized, ensure the following dependencies are installed and configured properly.
 
 - [sqlite3](https://www.sqlite.org/download.html) (v5.0.2 or higher)
@@ -41,6 +43,7 @@ Discord bot for the Gender and Sexuality Alliance.
   - One easy way to do this without exposing the network IP is to setup a [Cloudflare Access Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/). More information can be found at <https://www.cloudflare.com/>
 
 > [!NOTE]
+>
 > (Optional) To use the latest release/update from github, the following dependencies are required
 
 - [git](https://git-scm.com/) (v2.41.0 or higher)
@@ -84,6 +87,7 @@ Ensure all environmental variables are spelled exactly as below and can be found
 Button id's follow the format: `category`:`subcategory`:`id`
 
 > [!NOTE]
+>
 > `id` is always the last element of the group and is the most specific descriptor of the purpose of the button. `category` and `subcategory` are both optional to add additional description to the purpose. This is especially helpful if there are many buttons that require similar response actions that can be filtered out with a single `category` descriptor. `subcategory` can similarly offer a second level of description. There is technically no limit to how many subcategories there are, but it is recommended to try to keep them as concise as possible while offering a balance between readable simplicity and code efficiency.
 
 ### Current Button categories
@@ -102,6 +106,7 @@ Button id's follow the format: `category`:`subcategory`:`id`
 - `{id}` - the id of a specific action with no other similar buttons
 
 > [!NOTE]
+>
 > To add a new reaction role, simply specify its information in [client/config.json](client/config.json) in the `roles` section. When a button is pressed with the same id as the `id` property specified, that role will be handled by the bot. No other configuration is necessary. Just ensure the information in [client/config.json](client/config.json) lines up with the roles in the Discord server.
 
 Adding new functionality must be specified in [buttonEvent.js](client/events/buttonEvent.js)
