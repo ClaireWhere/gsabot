@@ -44,7 +44,7 @@ Discord bot for the Gender and Sexuality Alliance.
 > (Optional) To use the latest release/update from github, the following dependencies are required
 
 - [git](https://git-scm.com/) (v2.41.0 or higher)
-    Ensure it is properly installed and working with `git --version`
+  - Ensure it is properly installed and working with `git --version`
 
 ## Config
 
