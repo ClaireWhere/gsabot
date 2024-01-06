@@ -55,6 +55,42 @@ Discord bot for the Gender and Sexuality Alliance.
 - [git](https://git-scm.com/) (v2.41.0 or higher)
   - Ensure it is properly installed and working with `git --version`
 
+## Run the application
+
+### Run with Docker
+
+1. Navigate to the project directory
+
+    ```sh
+    cd gsabot
+    ```
+
+2. Build the Docker image
+
+    ```sh
+    sudo docker build . -t gsabot
+    ```
+
+3. Run the Docker image
+
+    ```sh
+    sudo docker run -d --name gsabot -p 192.168.1.{ip}:{port}:{port} gsabot
+    ```
+
+### Run without Docker
+
+1. Install NPM packages
+
+    ```sh
+    npm install
+    ```
+
+2. Start the bot
+
+    ```sh
+    npm start
+    ```
+
 ## Config
 
 To be added
