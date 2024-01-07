@@ -13,4 +13,4 @@ COPY . .
 EXPOSE 5048
 RUN npm install -y
 RUN npm run initialize
-CMD [ "npm", "run", "client" ]
+CMD [ "npm", "start" ]
