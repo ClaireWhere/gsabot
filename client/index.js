@@ -15,10 +15,10 @@ const client = new Client({
 
 
 // Initialize Events
-const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
+const eventFiles = fs.readdirSync(`${__dirname}/events`).filter(file => file.endsWith('.js'));
 
 for (const file of eventFiles) {
-    const event = require(`./events/${file}`);
+    const event = require(`${__dirname}/events/${file}`);
     if (event.once) {
         client.once(event.name, (...args) => event.execute(...args));
     } else {
@@ -30,10 +30,10 @@ for (const file of eventFiles) {
 
 // Initialize Commands
 client.commands = new Collection();
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+const commandFiles = fs.readdirSync(`${__dirname}/commands`).filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {
-    const command = require(`./commands/${file}`);
+    const command = require(`${__dirname}/commands/${file}`);
     try {
         client.commands.set(command.data.name, command);
         logger.info(`initialized command: ${command.data.name}`);
