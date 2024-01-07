@@ -3,8 +3,7 @@ FROM node:18.17.0
 WORKDIR /usr/src/app
 # Install app dependencies
 COPY package*.json ./
-RUN npm install
-RUN npm install --prefix client
+RUN npm install -g @npm@10.1.0
 # Install Canvas
 RUN apt-get update
 RUN apt-get install -y build-essential libcairo2-dev libpango1.0-dev
@@ -12,5 +11,6 @@ RUN apt-get install -y build-essential libcairo2-dev libpango1.0-dev
 RUN NODE_ENV=production
 COPY . .
 EXPOSE 5048
+RUN npm install -y
 RUN npm run initialize
 CMD [ "npm", "run", "client" ]
