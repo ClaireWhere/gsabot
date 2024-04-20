@@ -76,7 +76,11 @@
         "dot-notation": ["warn", {"allowKeywords": true}],
         "eqeqeq": "warn",
         "func-style": "off",
-        "accessor-pairs": ["warn", {"setBeforeGet": true}],
+        "accessor-pairs": ["warn", {
+            "getWithoutSet": false,
+            "setWithoutGet": true,
+            "enforceForClassMembers": true
+        }],
         "guard-for-in": "warn",
         "id-blacklist": ["error", "data", "err", "e", "cb", "callback"],
         "operator-assignment": "off",
