@@ -1,0 +1,28 @@
+{
+  "name": "gsabot-server",
+  "version": "0.1.0",
+  "description": "The web server for the GSA bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "initialize": "node ../utils/db.utils/createTables.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ClaireWhere/gsabot.git"
+  },
+  "author": "ClaireWhere",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ClaireWhere/gsabot/issues"
+  },
+  "homepage": "https://github.com/ClaireWhere/gsabot#readme",
+  "dependencies": {
+    "better-sqlite3": "^9.6.0",
+    "canvas": "^2.11.2",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "winston": "^3.13.0"
+  }
+}
