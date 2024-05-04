@@ -12,6 +12,9 @@
     "name": "ClaireWhere",
     "url": "https://github.com/ClaireWhere"
   },
+  "bugs": {
+    "url": "https://github.com/ClaireWhere/gsabot/issues"
+  },
   "license": "MIT",
   "directories": {
     "test": "tests"
