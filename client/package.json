@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "initialize": "node deploy-commands.js",
+    "start": "node index.js",
     "reset": "node delete-commands.js"
   },
   "keywords": [],
