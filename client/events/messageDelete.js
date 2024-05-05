@@ -17,10 +17,10 @@ module.exports = {
         if (!config.deleted_message_log.enabled) { return; }
         logger.info(`received ${this.name.toString()} interaction from channel: ${message.channel} by ${message.author.username}`);
 
-        const author = message.guild.members.cache.find(user => user.id === message.author.id);
+        const author = message.guild.members.cache.find(user => {return user.id === message.author.id});
         const nickname = author.nickname ?? message.author.globalName ?? message.author.username;
         const displayColor = author.displayHexColor;
-        const channel_name = message.guild.channels.cache.find(c => c.id === message.channelId).name;
+        const channelName = message.guild.channels.cache.find(c => {return c.id === message.channelId}).name;
 
         const logged = new LoggedMessage(
             message.id,
@@ -28,12 +28,12 @@ module.exports = {
             message.author.id,
             nickname,
             message.channelId,
-            channel_name,
+            channelName,
             message.guildId,
             message.createdTimestamp
         );
         
-        var raw = "";
+        let raw = "";
         if (config.deleted_message_log.use_database) {
             if (!insertMessageLog(logged)) {
                 return false;
@@ -42,26 +42,29 @@ module.exports = {
         }
         
         const buffer = await messageToBuffer(message, nickname, displayColor);
-        const file = !buffer ? null : new AttachmentBuilder().setFile(buffer).setName('message.png');
-        const creation_date = new Date(message.createdTimestamp);
+        const file = buffer ? new AttachmentBuilder().setFile(buffer).setName('message.png') : null;
+        const creationDate = new Date(message.createdTimestamp);
 
         const embed = {
             title: "**MESSAGE DELETED**",
-            description: '' 
+            description: `` 
                 + `**Author: **${message.author.globalName} (${message.author.username})`
                 + `\n**Channel: **${message.channel}`
-                + `\nCreated On: ${creation_date.toLocaleDateString()} ${creation_date.toLocaleTimeString()}`
-                + raw,
+                + `\nCreated On: ${creationDate.toLocaleDateString()} ${creationDate.toLocaleTimeString()}${
+                 raw}`,
             timestamp: new Date().toISOString(),
             footer: {
                 text: `Message ID: ${message.id}\nAuthor ID: ${message.author.id}`,
+                // eslint-disable-next-line camelcase
                 icon_url: message.author.avatarURL()
             },
+            // eslint-disable-next-line multiline-comment-style
             // thumbnail: {
             //     url: message.author.avatarURL()
             // },
             author: {
                 name: message.author.globalName,
+                // eslint-disable-next-line camelcase
                 icon_url: message.author.avatarURL()
             },
             image: {
@@ -72,11 +75,12 @@ module.exports = {
 
         
         let delchannel = message.guild.systemChannel;
+        // eslint-disable-next-line capitalized-comments
         // let delchannel = await message.guild.channels.cache.find(x => x.name === 'moderator-only');
-        if (!file) {
-            await delchannel.send({embeds: [embed]});
-        } else {
+        if (file) {
             await delchannel.send({embeds: [embed], files: [file]});
+        } else {
+            await delchannel.send({embeds: [embed]});
         }
     }
 }
