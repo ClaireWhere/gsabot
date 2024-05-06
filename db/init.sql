@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS guild_user (
     user_id INT NOT NULL,
     guild_id INT NOT NULL,
     nickname VARCHAR(255) DEFAULT NULL,
+    display_hex_color VARCHAR(7) DEFAULT NULL,
     FOREIGN KEY (user_id) REFERENCES user(id),
     FOREIGN KEY (guild_id) REFERENCES guild(id)
 );
