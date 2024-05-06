@@ -33,9 +33,18 @@ CREATE TABLE IF NOT EXISTS message (
     created_at TIMESTAMP DEFAULT NOW(),
     guild_user_id INT NOT NULL,
     channel_id INT NOT NULL,
-    attachment VARCHAR(255) DEFAULT NULL,
     FOREIGN KEY (guild_user_id) REFERENCES guild_user(id),
     FOREIGN KEY (channel_id) REFERENCES channel(id),
+);
+
+CREATE TABLE IF NOT EXISTS attachment (
+    id SERIAL PRIMARY KEY,
+    message_id INT NOT NULL,
+    url VARCHAR(255) NOT NULL,
+    content_type VARCHAR(255) NOT NULL,
+    name VARCHAR(255) DEFAULT NULL,
+    description TEXT DEFAULT NULL,
+    FOREIGN KEY (message_id) REFERENCES message(id)
 );
 
 CREATE TABLE IF NOT EXISTS deleted_message(
