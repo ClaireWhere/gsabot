@@ -5,8 +5,8 @@ async function testMinecraftTracker() {
     await checkServer()
     .then((res) => {
         console.log(`finished test 1 for minecraftTracker with response ${res}`);
-    }).catch((err) => {
-        console.error(err);
+    }).catch((checkServerError) => {
+        console.error(checkServerError);
     })
 }
 
