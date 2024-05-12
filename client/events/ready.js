@@ -1,15 +1,17 @@
-const { Client } = require("discord.js");
-const { logger } = require("../../utils/logger");
+const { logger } = require("../utils/logger");
 
 module.exports = {
     name: 'ready',
     once: true,
     /**
      * 
-     * @param {Client} client 
+     * @param {import('discord.js').Client} client
      */
     execute(client) {
         logger.info(`Ready! Logged in as ${client.user.tag}`);
-        process.send('ready');
+        
+        if (typeof process.send === 'function') { 
+            process.send('ready');
+        }        
     },
 };

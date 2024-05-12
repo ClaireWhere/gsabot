@@ -3,34 +3,76 @@ const { Client, Collection, Events, GatewayIntentBits, ActivityType, Interaction
 require('dotenv').config();
 const minecraftTracker = require('./events/minecraftTracker');
 const { config } = require('./config.json');
-const { logger } = require('../utils/logger');
+const { logger } = require('./utils/logger');
 
-logger.info(`Starting client...`);
+logger.info(`Starting client with id ${process.env.CLIENT_ID}...`);
 
-const presence = config.custom_status.enabled ? {activities: [{name: config.custom_status.name, type: ActivityType.Custom, state: config.custom_status.state}], state: config.custom_status.state} : {}
-const client = new Client({ 
-    intents: [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMembers],
-    presence: presence
-});
+function getPresence() {
+    try {
+        return config.custom_status.enabled ? {activities: [{name: config.custom_status.name, type: ActivityType.Custom, state: config.custom_status.state}], state: config.custom_status.state} : {}
+    } catch (error) {
+        logger.error(`Error while loading custom status: ${error}`);
+        return {}
+    }
+}
+function getIntents() {
+    try {
+        return [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMembers];
+    } catch (error) {
+        logger.error(`Error while loading intents: ${error}`);
+        return []
+    }
+}
 
+function getClient() {
+    try {
+        return new Client({
+            intents: getIntents(),
+            presence: getPresence()
+        });
+    } catch (error) {
+        logger.error(`Error while initializing client: ${error}`);
+        return null;
+    }
+}
+
+
+const client = getClient();
+
+if (client) {
+    logger.info(`Client initialized with presence ${JSON.stringify(getPresence())} and intents ${getIntents().join(', ')}`);
+} else {
+    logger.error(`Client could not be initialized. Exiting...`);
+    process.exit(1);
+}
 
 // Initialize Events
-const eventFiles = fs.readdirSync(`${__dirname}/events`).filter(file => file.endsWith('.js'));
+const eventFiles = fs.readdirSync(`${__dirname}/events`).filter(file => {return file.endsWith('.js')});
+logger.info(`Found ${eventFiles.length} events to load`);
 
-for (const file of eventFiles) {
+eventFiles.forEach(file => {
+    logger.info(`loading event from ${file} (full path: ${__dirname}/events/${file})`);
+    
+    try {
+        require(`${__dirname}/events/${file}`);
+    } catch (error) {
+        logger.error(`There was an error loading event from file ${file}: ${error}`);
+    }
+
     const event = require(`${__dirname}/events/${file}`);
     if (event.once) {
-        client.once(event.name, (...args) => event.execute(...args));
+        client.once(event.name, (...args) => {return event.execute(...args)});
     } else {
-        client.on(event.name, (...args) => event.execute(...args));
+        client.on(event.name, (...args) => {return event.execute(...args)});
     }
     logger.info(`registered event: ${event.name} from ${file}`)
-}
+});
 
 
 // Initialize Commands
 client.commands = new Collection();
-const commandFiles = fs.readdirSync(`${__dirname}/commands`).filter(file => file.endsWith('.js'));
+const commandFiles = fs.readdirSync(`${__dirname}/commands`).filter(file => {return file.endsWith('.js')});
+logger.info(`Found ${commandFiles.length} commands to load`);
 
 for (const file of commandFiles) {
     const command = require(`${__dirname}/commands/${file}`);
@@ -44,16 +86,16 @@ for (const file of commandFiles) {
 
 // Command handler
 client.on(Events.InteractionCreate, async interaction => {
-    if (!interaction.isChatInputCommand()) return;
+    if (!interaction.isChatInputCommand()) {return;}
 
     logger.info(`received ${InteractionType[interaction.type]} interaction /${interaction.commandName} from ${interaction.member.user.username}`);
 
     const command = client.commands.get(interaction.commandName);
 
-    if (!command) return;
+    if (!command) {return;}
 
     if (!await interaction.deferReply({ ephemeral: true })
-            .then((res) => {
+            .then(() => {
                 logger.info(`/${interaction.commandName} command deferred`);
                 return true;
             }).catch((error) => {
@@ -61,7 +103,7 @@ client.on(Events.InteractionCreate, async interaction => {
                 return false;
             })
     ) {
-        return false;
+        return;
     }
 
     await command.execute(interaction)
@@ -69,9 +111,9 @@ client.on(Events.InteractionCreate, async interaction => {
             logger.info(`${interaction.commandName} command execution completed with status ${res}`)
         }).catch(async (error) => {
             await interaction.followUp({content: 'There was an error D:', ephemeral: true})
-                .then((res) => {
+                .then(() => {
                     logger.warn(`${interaction.commandName} command executed with error. Application successfully sent error message`)
-                }).catch((err) => {
+                }).catch(() => {
                     logger.error(`${interaction.commandName} command was unable to be executed. Application did not respond in time: ${error}`);
                     return false;
                 });
@@ -81,8 +123,7 @@ client.on(Events.InteractionCreate, async interaction => {
 
 client.login(process.env.DISCORD_TOKEN);
 
-
-process.on('beforeExit', async () => {
+process.on('beforeExit', () => {
     minecraftTracker.stop();
     process.exit(0)
 });
