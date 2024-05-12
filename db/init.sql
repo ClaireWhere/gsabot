@@ -24,8 +24,9 @@ CREATE TABLE IF NOT EXISTS guild_user (
     guild_id VARCHAR(20) NOT NULL,
     nickname VARCHAR(255) DEFAULT NULL,
     display_hex_color VARCHAR(7) DEFAULT NULL,
-    FOREIGN KEY (guild_id) REFERENCES guild(id)
     FOREIGN KEY (user_id) REFERENCES "user"(id),
+    FOREIGN KEY (guild_id) REFERENCES guild(id),
+    CONSTRAINT unique_user_guild UNIQUE (user_id, guild_id)
 );
 
 CREATE TABLE IF NOT EXISTS message (
