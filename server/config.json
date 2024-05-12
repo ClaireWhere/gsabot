@@ -1,0 +1,11 @@
+{
+    "config": {
+        "database": {
+            "name": "gsabot"
+        },
+        "debug": {
+            "enabled": true,
+            "include_datetime": false
+        }
+    }
+}
