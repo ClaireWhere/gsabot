@@ -11,6 +11,135 @@ const insertGuildUser = require('../db/queries/insertGuildUser');
 const insertDeletedMessage = require('../db/queries/insertDeletedMessage');
 const { insertAttachments } = require('../db/queries/insertAttachment');
 
+/**
+ * 
+ * @param {Collection<string, Attachment>} attachments 
+ * @param {string} messageID 
+ * @returns {{messageFiles: any[], messageEmbeds: any[]} } an object containing an array of files: `messageFiles` and an array of embeds: `messageEmbeds` from the provided attachments
+ */
+function extractAttachments(attachments, messageID) {
+    const attachmentQuantity = attachments?.size ?? 0;
+    const messageFiles = [];
+    const messageEmbeds = [];
+
+    if (attachmentQuantity === 0) {
+        logger.debug(`No attachments found for deleted message ${messageID}`);
+        return {messageFiles, messageEmbeds};
+    }
+
+    logger.debug(`Extracting attachments for deleted message ${messageID}`);
+    
+    let attachmentIndex = 0;
+    attachments.forEach(attachment => {
+        attachmentIndex++;
+        logger.debug(`Extracting attachment ${attachmentIndex}/${attachmentQuantity} for deleted message ${messageID}`);
+        const attachmentUrl = attachment.url;
+        const attachmentType = attachment.contentType;
+        const DEFAULT_DECIMALS = 2;
+        function formatBytes(bytes, decimals = DEFAULT_DECIMALS) {
+            const ZERO_BYTES = 0;
+            if (bytes === ZERO_BYTES) {return '0 Bytes';}
+            const k = 1024;
+            const dm = decimals < 0 ? 0 : decimals;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))  } ${  sizes[i]}`;
+        }
+        const attachmentSize = formatBytes(attachment.size);
+
+        const attachmentEmbed = {
+            title: `**ATTACHMENT ${attachmentIndex}/${attachmentQuantity}**`,
+            description: `${attachmentUrl}\n**Type: **${attachmentType}\n**Size: **${attachmentSize}`,
+            // eslint-disable-next-line no-magic-numbers
+            color: parseInt(config.colors.light_red.darken[2].hex, 10)
+        }
+
+        if (attachmentType.startsWith('image')) {
+            const imageExtension = attachmentType.split('/').pop();
+            const imageName = `attachment${attachmentIndex}.${imageExtension}`;
+            const imageUrl = `attachment://${imageName}`;
+            attachmentEmbed.image = {
+                url: imageUrl
+            };
+            const attachmentFile = new AttachmentBuilder().setFile(attachmentUrl).setName(imageName);
+            messageFiles.push(attachmentFile);
+        } else {
+            logger.debug(`Attachment ${attachmentIndex}/${attachmentQuantity} is not an image for deleted message ${messageID}`);
+        }
+
+        messageEmbeds.push(attachmentEmbed);
+    });
+
+    return {messageFiles, messageEmbeds};
+}
+
+/**
+ * 
+ * @param {Embed[]} embeds 
+ * @param {string} messageID 
+ * @returns {{messageFiles: any[], messageEmbeds: any[]} } an object containing an array of files: `messageFiles` and an array of embeds: `messageEmbeds` from the provided embeds
+ */
+function extractEmbeds(embeds, messageID) {
+    const embedQuantity = embeds?.length ?? 0;
+    const messageFiles = [];
+    const messageEmbeds = [];
+
+    if (embedQuantity === 0) {
+        logger.debug(`No embeds found for deleted message ${messageID}`);
+        return {messageFiles, messageEmbeds};
+    }
+    
+    let embedIndex = 0;
+    logger.debug(`Extracting ${embedQuantity} embeds for deleted message ${messageID}`);
+    embeds.forEach(messageEmbed => {
+        embedIndex++;
+        logger.debug(`Extracting embed ${embedIndex}/${embedQuantity} for deleted message ${messageID}`);
+        
+        let urlSource;
+        if (messageEmbed.image) {
+            urlSource = messageEmbed.image.url;
+        } else if (messageEmbed.video) {
+            urlSource = messageEmbed.video.url;
+        } else {
+            urlSource = messageEmbed.url ?? null;
+        }
+
+        const embedType = messageEmbed.data?.type ?? messageEmbed.type ?? 'unknown';
+        const embedDescription = `${urlSource ? `[Download/Link](${urlSource})\n` : ''}**Type: **${embedType}`;
+
+        const embedEmbed = {
+            title: `**EMBED ${embedIndex}/${embedQuantity}**`,
+            description: embedDescription,
+            // eslint-disable-next-line no-magic-numbers
+            color: parseInt(config.colors.light_red.darken[2].hex, 10)
+        }
+
+        const embedExtension = urlSource?.includes('.') ? urlSource.split('.').pop().split('?').shift() : null;
+        const validExtensions = ['png', 'jpg', 'jpeg', 'gif', 'webp', 'mp4', 'mov', 'avi', 'mkv', 'webm'];
+        if (validExtensions.includes(embedExtension)) {
+            logger.debug(`Embed ${embedIndex}/${embedQuantity} has extension: ${embedExtension}`);
+            const embedName = `embed${embedIndex}.${embedExtension}`;
+            const embedUrl = `attachment://${embedName}`;
+
+            if (messageEmbed.image || messageEmbed.type === 'image') {
+                embedEmbed.image = {
+                    url: embedUrl
+                }
+            } else if (messageEmbed.video || messageEmbed.type === 'video') {
+                embedEmbed.video = {
+                    url: embedUrl
+                }
+            }
+            const embedFile = new AttachmentBuilder().setFile(urlSource).setName(embedName);
+            messageFiles.push(embedFile);
+            messageEmbeds.push(embedEmbed);
+        } else {
+            logger.debug(`Adding raw embed ${embedIndex}/${embedQuantity} to embeds for deleted message ${messageID}`);
+            messageEmbeds.push(messageEmbed);
+        }
+    });
+    return {messageFiles, messageEmbeds};
+}
 
 module.exports = {
     name: Events.MessageDelete,
@@ -97,6 +226,9 @@ module.exports = {
         const creationDate = new Date(message.createdTimestamp);
 
         const attachmentsText = message.attachments.size > 0 ? `\n**Attachments: **${message.attachments.map(attachment => {return `[${attachment.name}](${attachment.url})`}).join(', ')}` : '';
+        if (attachmentsText.length > 0) {
+            logger.debug(`Created attachments list for deleted message ${message.id}: ${attachmentsText}`);
+        }
 
         /**
          * Create the embed for the deleted message.
@@ -131,6 +263,17 @@ module.exports = {
          */
         const embeds = [embed];
         const files = [file];
+
+        logger.debug(`Adding attachments and embeds to message log ${message.id}...`);
+        const {messageFiles: attachmentFiles, messageEmbeds: attachmentEmbeds} = extractAttachments(message.attachments, message.id);
+        files.push(...attachmentFiles);
+        embeds.push(...attachmentEmbeds);
+
+        const {messageFiles: embedFiles, messageEmbeds: embedEmbeds} = extractEmbeds(message.embeds, message.id);
+        files.push(...embedFiles);
+        embeds.push(...embedEmbeds);
+
+        logger.debug(`Generated ${embeds.length} embeds and ${files.length} files for deleted message ${message.id}`);
 
         if (files) {
             await delchannel.send({embeds: embeds, files: files})
