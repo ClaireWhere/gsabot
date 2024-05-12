@@ -66,7 +66,14 @@
         /* Suggestions */
         "arrow-body-style": ["error", "always"],
         "block-scoped-var": "error",
-        "camelcase": ["error", {"properties": "always"}],
+        "camelcase": [
+            "error", 
+            {
+                "properties": "never",
+                "ignoreImports": true,
+                "ignoreDestructuring": true
+            }
+        ],
         /* Require capitalized first word of comment */
         "capitalized-comments": ["error", "always", {"ignoreConsecutiveComments": true}],
         "class-methods-use-this": "warn",
@@ -82,7 +89,7 @@
             "enforceForClassMembers": true
         }],
         "guard-for-in": "warn",
-        "id-blacklist": ["error", "data", "err", "e", "cb", "callback"],
+        "id-denylist": ["error", "data", "err", "e", "cb", "callback"],
         "operator-assignment": "off",
         "max-depth": ["warn", 4],
         "max-len": "off",
@@ -106,7 +113,15 @@
         "no-lone-blocks": "warn",
         "no-lonely-if": "warn",
         "no-loop-func": "error",
-        "no-magic-numbers": "error",
+        "no-magic-numbers": [
+            "error", 
+            {
+                "ignore": [0, 1],
+                "ignoreArrayIndexes": false,
+                "ignoreDefaultValues": true,
+                "enforceConst": true
+            }
+        ],
         "no-multi-assign": "error",
         "no-negated-condition": "warn",
         "no-nested-ternary": "off",
