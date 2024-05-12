@@ -1,12 +1,18 @@
 const { Events } = require('discord.js');
 
 const { config } = require('../config.json');
-const { colorHandler } = require('../../utils/roles.utils/colorRoles.js');
-const { handleNeopronouns } = require('../../utils/roles.utils/neopronouns');
-const { toggleRole } = require('../../utils/roles.utils/roles');
-const { welcomeMember } = require('../../utils/message.utils/welcomeMember');
-const { logger } = require('../../utils/logger');
-const { ticketDisplayHandler } = require('../../utils/ticketHandler');
+const { colorHandler } = require('../utils/roles.utils/colorRoles.js');
+const { handleNeopronouns } = require('../utils/roles.utils/neopronouns');
+const { toggleRole } = require('../utils/roles.utils/roles');
+const { welcomeMember } = require('../utils/message.utils/welcomeMember');
+const { logger } = require('../utils/logger');
+const { ticketDisplayHandler } = require('../utils/ticketHandler');
+
+const PRONOUNS_BUTTON_ID = 'pronouns';
+const NEOPRONOUNS_BUTTON_ID = 'neo';
+const TICKET_BUTTON_ID = 'ticket';
+const COLOR_BUTTON_ID = 'color';
+const NEW_MEMBER_BUTTON_ID = 'member';
 
 module.exports = {
     name: Events.InteractionCreate,
@@ -20,7 +26,7 @@ module.exports = {
 
         logger.info(`received ${this.name.toString()} interaction with id ${interaction.customId} from ${interaction.member.user.username}`);
 
-        // categorized button id's take the form parent:child. Eg. pronouns:she_her is part of the pronouns category with the child id being she_her. See more in config.json
+        // Categorized button id's take the form parent:child. Eg. pronouns:she_her is part of the pronouns category with the child id being she_her. See more in config.json
         const id = interaction.customId.split(':');
         if (id.length === 0) { 
             logger.warn(`No button id found for the supplied button interaction`);
@@ -29,18 +35,18 @@ module.exports = {
         }
 
         // Handle button events that show modals here before deferUpdate since modals must be shown first
-        if (id[0] === 'pronouns') {
-            if (id[1] === 'neo') {
+        if (id[0] === PRONOUNS_BUTTON_ID) {
+            if (id[1] === NEOPRONOUNS_BUTTON_ID) {
                 return await handleNeopronouns(interaction);
             }
         }
 
-        if (id[0] === 'ticket') {
+        if (id[0] === TICKET_BUTTON_ID) {
             return await ticketDisplayHandler(interaction, id[1]);
         }
 
         if (!await interaction.deferUpdate()
-                .then((res) => {
+                .then(() => {
                     logger.info(`${interaction.customId} interaction deferred`);
                     return true;
                 }).catch((error) => {
@@ -51,29 +57,29 @@ module.exports = {
             return false;
         }
 
-        if (interaction.customId === 'member') {
+        if (interaction.customId === NEW_MEMBER_BUTTON_ID) {
             return await welcomeMember(interaction);
         }
 
-        if (id[0] === 'color') {
+        if (id[0] === COLOR_BUTTON_ID) {
             return await colorHandler(interaction, id[1]);
         }
 
-        var role_name = "";
-        if (id.length == 1) {
-            role_name = config.roles[id[0]].name;
+        let roleName = "";
+        if (id.length === 1) {
+            roleName = config.roles[id[0]].name;
         } else {
-            role_name = config.roles[id[0]][id[1]].name;
+            roleName = config.roles[id[0]][id[1]].name;
         }
 
-        if (role_name === undefined || role_name.length === 0) { 
+        if (roleName === undefined || roleName.length === 0) { 
             logger.warn(`no role found for button: ${id.toString()}!`);
             await interaction.followUp({ephemeral: true, content: `Something went wrong finding the role you selected D:`})
-                .catch((error) => {logger.error(`could not follow up on add role from ${interaction.member.user.username} for ${interaction.customId} (${error})`)});
+                .catch((error) => {logger.error(`Could not follow up on add role from ${interaction.member.user.username} for ${interaction.customId} (${error})`)});
             return false;
         }
         
-        await toggleRole(interaction, role_name, id);
+        await toggleRole(interaction, roleName, id);
         return true;
     },
 };

@@ -1,13 +1,23 @@
 const cron = require('cron');
 const axios = require('axios');
 require('dotenv').config();
+// eslint-disable-next-line no-extra-parens
 const config = (require('../config.json')).config.minecraft_tracker;
-var previous_status = ``;
-const { getChannelParentName } = require('../../utils/utils');
-const { logger } = require('../../utils/logger');
+const { getChannelParentName } = require('../utils/utils');
+const { logger } = require('../utils/logger');
 
-var scheduledCheck;
-var client;
+let previousStatus = ``;
+let scheduledCheck;
+let client;
+
+/**
+ * 
+ * @param {import('discord.js').Client} client 
+ */
+async function setStatusChannel(status) {
+    const channel = client.channels.cache.find(_channel => {return getChannelParentName(_channel).includes('minecraft server') && !_channel.name.toLowerCase().includes('ip:')})
+    await channel.setName(status);
+}
 
 async function checkServer() {
 
@@ -16,28 +26,28 @@ async function checkServer() {
 
     await axios.get(url)
         .then(async response => {
-            if (Object.hasOwn(response.data, 'players')) {
-                if (!(previous_status === response.data.players.online)) {
-                    previous_status = response.data.players.online;
-                    await setStatusChannel(`${previous_status} Player${previous_status != 1 ? 's' : ''} Online`).catch(error => logger.warn(`[${ip}] there was an error fetching the server status channel (${error})`));
-                    logger.info(`[${ip}] ${previous_status} player${previous_status != 1 ? 's' : ''} online`)
-                } else {
-                    logger.debug(`[${[ip]}] no changes since last check`);
-                }
-            } else if (!(previous_status === 'warning')) {
-                previous_status = 'warning';
-                await setStatusChannel(`Server Offline :(`).catch(error => logger.warn(`[${ip}] there was an error fetching the server status channel (${error})`));
-                logger.warn(`[${ip}] could not reach server!`);
+            const currentStatus = response?.data?.players?.online;
+            if (currentStatus === previousStatus) {
+                logger.debug(`[${ip}] no changes since last check`);
+                return;
+            }
+
+            if (currentStatus) {
+                previousStatus = currentStatus;
+                await setStatusChannel(`${previousStatus} Player${previousStatus === 1 ? '' : 's'} Online`).catch(error => {return logger.warn(`[${ip}] there was an error fetching the server status channel (${error})`)});
+                logger.info(`[${ip}] ${previousStatus} player${previousStatus === 1 ? '' : 's'} online`);
             } else {
-                logger.debug(`[${[ip]}] no changes since last check`);
+                previousStatus = 'warning';
+                await setStatusChannel(`Server Offline :(`).catch(error => {return logger.warn(`[${ip}] there was an error fetching the server status channel (${error})`)});
+                logger.warn(`[${ip}] could not reach server!`);
             }
         })
         .catch(error => {
-            if (!(previous_status === 'error')) {
-                previous_status = 'error';
-                logger.error(`[${ip}] there was an error fetching the server status (${error})`);
-            } else {
+            if (previousStatus === 'error') {
                 logger.debug(`[${[ip]}] no changes since last check`);
+            } else {
+                previousStatus = 'error';
+                logger.error(`[${ip}] there was an error fetching the server status (${error})`);
             }
         });
 }
@@ -48,21 +58,14 @@ function start(client_) {
     scheduledCheck.start()
 }
 
-/**
- * 
- * @param {import('discord.js').Client} client 
- */
-async function setStatusChannel(status) {
-    const channel = client.channels.cache.find(channel => getChannelParentName(channel).includes('minecraft server') && !channel.name.toLowerCase().includes('ip:'))
-    channel.setName(status);
-}
+
 
 module.exports = {
     name: 'ready',
     once: true,
-    execute(client) {
+    execute(_client) {
         if (config.enabled) {
-            start(client)
+            start(_client)
         }
     },
     stop() {
