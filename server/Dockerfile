@@ -11,4 +11,4 @@ RUN npm install
 RUN NODE_ENV=production
 COPY . .
 RUN npm run initialize
-RUN npm run start
+ENTRYPOINT ["npm", "run", "start"]
