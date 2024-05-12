@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS channel (
 CREATE TABLE IF NOT EXISTS "user" (
     id VARCHAR(20) PRIMARY KEY,
     username VARCHAR(255) NOT NULL,
-    display_name VARCHAR(255) NOT NULL,
+    display_name VARCHAR(255) DEFAULT NULL,
     avatar VARCHAR(255) DEFAULT NULL,
     created_at TIMESTAMP DEFAULT NOW()
 );
