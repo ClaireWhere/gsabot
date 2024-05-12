@@ -1,6 +1,20 @@
 version: 3
 
 services:
+
+  db:
+    image: postgres:16.2-alpine3.19
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    container_name: gsabot-db
+    ports:
+      - "5432:5432"
+    volumes:
+      - data:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: always
   server:
     build: 
       context: ./server
@@ -37,15 +51,4 @@ services:
         GSA_BANNER: ${GSA_BANNER}
     container_name: gsabot-client
     restart: unless-stopped
-  db:
-    image: postgres:13
-    environment:
-      POSTGRES_USER: gsabot
-      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
-      POSTGRES_DB: gsabot
-    ports:
-      - "5432:5432"
     volumes:
-      - data:/var/lib/postgresql/data
-      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
-    restart: unless-stopped
