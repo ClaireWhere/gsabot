@@ -13,13 +13,21 @@ app.get('/', (req, res) => {
     res.send('Welcome to the gsabot API!');
 });
 
+/**
+ * @param {string} id - The ID to sanitize
+ * @returns {string} - The ID input with all non-numeric characters removed
+ */
+function sanitizeId(id) {
+    return id.replace(/[^0-9]/g, '');
+}
+
 app.get('/deleted/*/raw', (req, res) => {
-    const id = req.query.id;
-    const m = getDeletedMessage(id);
-    logger.info(`[RESPONSE] ${m ? `retrieved deleted_message data for ${id}` : `no record found in deleted_message for ${id}`}`);
+    const sanitizedId = sanitizeId(req.query.id);
+    const m = getDeletedMessage(sanitizedId);
+    logger.info(`[RESPONSE] ${m ? `retrieved deleted_message data for ${sanitizedId}` : `no record found in deleted_message for ${sanitizedId}`}`);
     
     if (!m) {
-        res.send(`no log found for ${id}.`);
+        res.send(`no log found for ${sanitizedId}.`);
         return;
     }
 
@@ -31,12 +39,12 @@ app.get('/deleted/*/raw', (req, res) => {
 });
 
 app.get('/deleted/*', (req, res) => {
-    const id = req.query.id;
-    const m = getDeletedMessage(id);
-    logger.info(`[RESPONSE] ${m ? `retrieved deleted_message data for ${id}` : `no record found in deleted_message for ${id}`}`);
+    const sanitizedId = sanitizeId(req.query.id);
+    const m = getDeletedMessage(sanitizedId);
+    logger.info(`[RESPONSE] ${m ? `retrieved deleted_message data for ${sanitizedId}` : `no record found in deleted_message for ${sanitizedId}`}`);
     
     if (!m) {
-        res.send(`no log found for ${id}.`);
+        res.send(`no log found for ${sanitizedId}.`);
         return;
     }
 
@@ -71,12 +79,12 @@ app.get('/deleted/*', (req, res) => {
 });
 
 app.get('/message/*/raw', (req, res) => {
-    const id = req.query.id;
-    const m = getMessage(id);
-    logger.info(`[RESPONSE] ${m ? `retrieved message data for ${id}` : `no record found in message for ${id}`}`);
+    const sanitizedId = sanitizeId(req.query.id);
+    const m = getMessage(sanitizedId);
+    logger.info(`[RESPONSE] ${m ? `retrieved message data for ${sanitizedId}` : `no record found in message for ${sanitizedId}`}`);
     
     if (!m) {
-        res.send(`no log found for ${id}.`);
+        res.send(`no log found for ${sanitizedId}.`);
         return;
     }
 
@@ -88,12 +96,12 @@ app.get('/message/*/raw', (req, res) => {
 });
 
 app.get('/message/*', (req, res) => {
-    const id = req.query.id;
-    const m = getMessage(id);
-    logger.info(`[RESPONSE] ${m ? `retrieved message data for ${id}` : `no record found in message for ${id}`}`);
+    const sanitizedId = sanitizeId(req.query.id);
+    const m = getMessage(sanitizedId);
+    logger.info(`[RESPONSE] ${m ? `retrieved message data for ${sanitizedId}` : `no record found in message for ${sanitizedId}`}`);
 
     if (!m) {
-        res.send(`no log found for ${id}.`);
+        res.send(`no log found for ${sanitizedId}.`);
         return;
     }
 
@@ -123,13 +131,16 @@ app.get('/message/*', (req, res) => {
     res.send(responseString);
 });
 
+
+
 app.get('/message/*/edit', (req, res) => {
-    const id = req.query.id;
-    const m = getEdits(id);
-    logger.info(`[RESPONSE] ${m ? `retrieved message_edit data for ${id}` : `no record found in message_edit for ${id}`}`);
+    const sanitizedId = sanitizeId(req.query.id);
+    const m = getEdits(sanitizedId);
+    
+    logger.info(`[RESPONSE] ${m ? `retrieved message_edit data for ${sanitizedId}` : `no record found in message_edit for ${sanitizedId}`}`);
 
     if (!m) {
-        res.send(`no log found for ${id}.`);
+        res.send(`no log found for ${sanitizedId}.`);
         return;
     }
 
