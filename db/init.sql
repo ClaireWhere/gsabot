@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS message (
     guild_user_id INTEGER NOT NULL,
     channel_id VARCHAR(20) NOT NULL,
     FOREIGN KEY (guild_user_id) REFERENCES guild_user(id),
-    FOREIGN KEY (channel_id) REFERENCES channel(id),
+    FOREIGN KEY (channel_id) REFERENCES channel(id)
 );
 
 CREATE TABLE IF NOT EXISTS attachment (
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS attachment (
     FOREIGN KEY (message_id) REFERENCES message(id)
 );
 
-CREATE TABLE IF NOT EXISTS deleted_message(
+CREATE TABLE IF NOT EXISTS deleted_message (
     id SERIAL PRIMARY KEY,
     message_id VARCHAR(20) NOT NULL UNIQUE,
     deleted_at TIMESTAMP DEFAULT NOW(),
