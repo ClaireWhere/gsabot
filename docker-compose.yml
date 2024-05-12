@@ -2,23 +2,41 @@ version: 3
 
 services:
   server:
-    image: ./server
-    hostname: server
+    build: 
+      context: ./server
+      args:
+        DB_HOST: gsabot-db
+        DB_PORT: ${DB_PORT}
+        DB_USER: ${DB_USER}
+        DB_PASSWORD: ${DB_PASSWORD}
+        DB_NAME: ${DB_NAME}
     container_name: gsabot-server
     restart: unless-stopped
     ports:
       - "8080:80"
     depends_on:
       - db
-    environment:
-      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
   client:
-    image: ./client
-    hostname: client
+    build: 
+      context: ./client
+      args:
+        DB_HOST: gsabot-db
+        DB_PORT: ${DB_PORT}
+        DB_USER: ${DB_USER}
+        DB_PASSWORD: ${DB_PASSWORD}
+        DB_NAME: ${DB_NAME}
+        CLIENT_ID: ${CLIENT_ID}
+        GUILD_ID: ${GUILD_ID}
+        DISCORD_TOKEN: ${DISCORD_TOKEN}
+        DOMAIN: ${DOMAIN}
+        MINECRAFT_SUBDOMAIN: ${MINECRAFT_SUBDOMAIN}
+        SERVER_SUBDOMAIN: ${SERVER_SUBDOMAIN}
+        SCHOOL: ${SCHOOL}
+        SCHOOL_CODE: ${SCHOOL_CODE}
+        REGISTER: ${REGISTER}
+        GSA_BANNER: ${GSA_BANNER}
     container_name: gsabot-client
     restart: unless-stopped
-    environment:
-      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
   db:
     image: postgres:13
     environment:
