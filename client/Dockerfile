@@ -24,4 +24,4 @@ RUN npm cache clean --force \
 
 COPY . .
 RUN npm run initialize
-RUN npm run start
+ENTRYPOINT ["npm", "run", "start"]
