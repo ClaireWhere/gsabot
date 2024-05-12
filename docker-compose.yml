@@ -28,7 +28,7 @@ services:
     container_name: gsabot-server
     restart: unless-stopped
     ports:
-      - "8080:80"
+      - "8080:8080"
     depends_on:
       - db
     networks:
@@ -70,6 +70,7 @@ volumes:
     driver: local
   client-logs:
     driver: local
+
 networks:
   dbConnection:
     driver: bridge
