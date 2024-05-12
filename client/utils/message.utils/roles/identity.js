@@ -1,9 +1,9 @@
 const { ButtonBuilder, ButtonStyle, ActionRowBuilder } = require("discord.js");
-const { config } = require('../../../client/config.json');
+const { config } = require('../../../config.json');
 
 module.exports = { 
-    async execute(interaction) {
-        const row_1 = new ActionRowBuilder()
+    execute() {
+        const row1 = new ActionRowBuilder()
         .addComponents(
             new ButtonBuilder()
                 .setStyle(ButtonStyle.Primary)
@@ -17,7 +17,7 @@ module.exports = {
                 .setDisabled(false),
         );
 
-        const row_2 = new ActionRowBuilder()
+        const row2 = new ActionRowBuilder()
             .addComponents(
                 new ButtonBuilder()
                     .setStyle(ButtonStyle.Success)
@@ -46,7 +46,7 @@ module.exports = {
                     .setDisabled(false),
             );
 
-        const row_3 = new ActionRowBuilder()
+        const row3 = new ActionRowBuilder()
             .addComponents(
                 new ButtonBuilder()
                     .setStyle(ButtonStyle.Danger)
@@ -63,7 +63,7 @@ module.exports = {
         const embed = {
             title: `Identity Roles`,
             description: `Click the buttons below that represent your identity.\n\n**Remember that these are completely optional. Only take them if you are comfortable with it being visible to anyone who clicks your profile!**\n`,
-            color: parseInt(config.colors.rainbow[1].hex),
+            color: parseInt(config.colors.rainbow[1].hex, 10),
             thumbnail: {
             url: config.images.identity_thmb,
             height: 0,
@@ -71,7 +71,7 @@ module.exports = {
             }
         }
 
-        const identity = { embeds: [embed], components: [row_1, row_2, row_3] }
+        const identity = { embeds: [embed], components: [row1, row2, row3] }
         return identity;
     }
 }

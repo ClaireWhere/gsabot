@@ -1,24 +1,24 @@
 const { AttachmentBuilder } = require('discord.js');
-const { config } = require('../../client/config.json');
+const { config } = require('../../config.json');
 const { getChannelParentName } = require('../utils');
 require('dotenv').config();
 
 module.exports = {
-    async execute(interaction) {
-        const guild_owner = interaction.client.guilds.cache.get(process.env.GUILD_ID).fetchOwner();
-        const rules = interaction.guild.channels.cache.find(channel => channel.name === 'rules' && getChannelParentName(channel).includes('verification')) ?? `\`#rules\``;
+    execute(interaction) {
+        const guildOwner = interaction.client.guilds.cache.get(process.env.GUILD_ID).fetchOwner();
+        const rules = interaction.guild.channels.cache.find(channel => {return channel.name === 'rules' && getChannelParentName(channel).includes('verification')}) ?? `\`#rules\``;
 
-        const content = `If you have ANY questions or concerns about rules, what we're all about, or anything like that, please message ${guild_owner} <-- you can click my name here and message\n‎`
+        const content = `If you have ANY questions or concerns about rules, what we're all about, or anything like that, please message ${guildOwner} <-- you can click my name here and message\n‎`
 
         const file = new AttachmentBuilder()
             .setFile(process.env.GSA_BANNER)
             .setName(`gsa_banner.png`)
             .setDescription(`Gender and Sexuality Alliance Banner`);
 
-        const embed_1 = {
+        const embed1 = {
             title: `‎\nWelcome to the GSA Discord server!!`,
             description: `‎\n🏳️‍🌈 We are the Gender and Sexuality Alliance; we provide a welcoming and safe space for people of all orientations and points in their journey. Straight cis allies are encouraged to be involved.\n\nMany people are still figuring out their gender and sexuality and we are here to support them through the good and the bad times.`,
-            color: parseInt(config.colors.black.hex),
+            color: parseInt(config.colors.black.hex, 10),
             fields: [
             {
                 name: `‎\n🎉 It's so awesome you've shown an interest in joining the Discord`,
@@ -40,18 +40,18 @@ module.exports = {
             }
         };
 
-        const embed_2 = {
+        const embed2 = {
             title: "",
-            description: `‎\n\n**Just make sure you've read through the rules in ${rules}, then click the button at the bottom that you agree to the rules of this server!**\n\n‎If you have ANY questions or concerns about rules, what we're all about, or anything like that, please message ${guild_owner}\n‎`,
+            description: `‎\n\n**Just make sure you've read through the rules in ${rules}, then click the button at the bottom that you agree to the rules of this server!**\n\n‎If you have ANY questions or concerns about rules, what we're all about, or anything like that, please message ${guildOwner}\n‎`,
             timestamp: new Date().toISOString(),
             footer: {
                 text: `Posted on`,
                 icon_url: config.images.gsa_icon
             },
-            color: parseInt(config.colors.light_red.darken[0].hex)
+            color: parseInt(config.colors.light_red.darken[0].hex, 10)
         };
 
-        const welcome = {content: content, embeds: [embed_1, embed_2], files: [file] };
+        const welcome = {content: content, embeds: [embed1, embed2], files: [file] };
         return welcome;
     }        
 };

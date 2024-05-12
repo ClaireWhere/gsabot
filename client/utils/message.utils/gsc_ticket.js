@@ -1,8 +1,8 @@
-const { config } = require('../../client/config.json');
+const { config } = require('../../config.json');
 const { ButtonStyle, ActionRowBuilder, ButtonBuilder } = require('discord.js');
 
 module.exports = { 
-    async execute(interaction) {
+    execute() {
         const button = new ButtonBuilder()
             .setStyle(ButtonStyle.Danger)
             .setLabel(`Submit GSC Announcement`)
@@ -24,10 +24,10 @@ module.exports = {
                 name: `Gender & Sexuality Alliance`,
                 icon_url: config.images.gsa_icon
             },
-            color: parseInt(config.colors.light_red.darken[0].hex)
+            color: parseInt(config.colors.light_red.darken[0].hex, 10)
         }
 
-        const gsc_ticket = {embeds: [embed], components: [row] };
-        return gsc_ticket;
+        const gscTicket = {embeds: [embed], components: [row] };
+        return gscTicket;
     }
  }

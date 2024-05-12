@@ -28,6 +28,8 @@
     "cron": "^2.4.3",
     "discord-api-types": "^0.37.56",
     "discord.js": "^14.13.0",
-    "dotenv": "^16.3.1"
+    "dotenv": "^16.3.1",
+    "pg": "^8.11.5",
+    "winston": "^3.13.0"
   }
 }

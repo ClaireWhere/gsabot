@@ -1,33 +1,76 @@
-version: 3
-
 services:
-  server:
-    image: ./server
-    hostname: server
-    container_name: gsabot-server
-    restart: unless-stopped
-    ports:
-      - "8080:80"
-    depends_on:
-      - db
-    environment:
-      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
-  client:
-    image: ./client
-    hostname: client
-    container_name: gsabot-client
-    restart: unless-stopped
-    environment:
-      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+
   db:
-    image: postgres:13
+    image: postgres:16.2-alpine3.19
     environment:
-      POSTGRES_USER: gsabot
-      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
-      POSTGRES_DB: gsabot
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    container_name: gsabot-db
     ports:
       - "5432:5432"
     volumes:
       - data:/var/lib/postgresql/data
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: always
+    networks:
+      - dbConnection
+
+  server:
+    build: 
+      context: ./server
+      args:
+        DB_HOST: gsabot-db
+        DB_PORT: ${DB_PORT}
+        DB_USER: ${DB_USER}
+        DB_PASSWORD: ${DB_PASSWORD}
+        DB_NAME: ${DB_NAME}
+    container_name: gsabot-server
     restart: unless-stopped
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    networks:
+      - dbConnection
+    volumes:
+      - server-logs:/usr/src/server/logs
+    
+
+  client:
+    build: 
+      context: ./client
+      args:
+        DB_HOST: gsabot-db
+        DB_PORT: ${DB_PORT}
+        DB_USER: ${DB_USER}
+        DB_PASSWORD: ${DB_PASSWORD}
+        DB_NAME: ${DB_NAME}
+        CLIENT_ID: ${CLIENT_ID}
+        GUILD_ID: ${GUILD_ID}
+        DISCORD_TOKEN: ${DISCORD_TOKEN}
+        DOMAIN: ${DOMAIN}
+        MINECRAFT_SUBDOMAIN: ${MINECRAFT_SUBDOMAIN}
+        SERVER_SUBDOMAIN: ${SERVER_SUBDOMAIN}
+        SCHOOL: ${SCHOOL}
+        SCHOOL_CODE: ${SCHOOL_CODE}
+        REGISTER: ${REGISTER}
+        GSA_BANNER: ${GSA_BANNER}
+    container_name: gsabot-client
+    restart: unless-stopped
+    volumes:
+      - client-logs:/usr/src/client/logs
+    networks:
+      - dbConnection
+
+volumes:
+  data:
+    driver: local
+  server-logs:
+    driver: local
+  client-logs:
+    driver: local
+
+networks:
+  dbConnection:
+    driver: bridge

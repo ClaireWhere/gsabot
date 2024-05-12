@@ -1,4 +1,4 @@
-const { config } = require('../../client/config.json');
+const { config } = require('../../config.json');
 const { ButtonStyle, ActionRowBuilder, AttachmentBuilder, ButtonBuilder } = require('discord.js');
 require('dotenv').config();
 
@@ -21,7 +21,7 @@ module.exports = {
     const embed = {
         title: ``,
         description: ``,
-        color: parseInt(config.colors.black.hex),
+        color: parseInt(config.colors.black.hex, 10),
         fields: [
           {
             name: ``,

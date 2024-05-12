@@ -3,6 +3,10 @@ const { getNeopronounRoles } = require('./roles');
 const { logger } = require('../logger');
 
 
+const MAX_LABEL_LENGTH = 45;
+const MAX_INPUT_LENGTH = 200;
+const MIN_INPUT_LENGTH = 4;
+
 /**
  * @param {import('discord.js').Interaction} interaction 
  */
@@ -16,22 +20,22 @@ async function handleNeopronouns(interaction) {
     previousRoles.length > 0 
         ? new TextInputBuilder()
             .setCustomId('removeNeopronouns')
-            .setLabel(`${previousRoles.join(', ').substring(0, 45)}`)
+            .setLabel(`${previousRoles.join(', ').substring(0, MAX_LABEL_LENGTH)}`)
             .setStyle(TextInputStyle.Paragraph)
             .setRequired(false)
             .setPlaceholder(`Type the neopronouns you would like removed from your profile (if any) separated by commas as above`)
-            .setMinLength(4)
-            .setMaxLength(200)
+            .setMinLength(MIN_INPUT_LENGTH)
+            .setMaxLength(MAX_INPUT_LENGTH)
         : undefined;
     
     const neopronounsInput = new TextInputBuilder()
         .setCustomId('neopronounsInput')
         .setLabel('what neopronouns would you like to add?')
         .setStyle(TextInputStyle.Paragraph)
-        .setRequired(previousRoles.length > 0 ? false : true)
+        .setRequired(!(previousRoles.length > 0))
         .setPlaceholder('Type the neopronouns you would like to add to your profile separated by commas. (e.g. xe/xem, ey/em)')
-        .setMinLength(4)
-        .setMaxLength(200);
+        .setMinLength(MIN_INPUT_LENGTH)
+        .setMaxLength(MAX_INPUT_LENGTH);
 
     const firstRow = new ActionRowBuilder().addComponents(previousNeopronouns);
     const secondRow = new ActionRowBuilder().addComponents(neopronounsInput);

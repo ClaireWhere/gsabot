@@ -1,9 +1,9 @@
 const { ButtonBuilder, ButtonStyle, ActionRowBuilder } = require("discord.js");
-const { config } = require('../../../client/config.json');
+const { config } = require('../../../config.json');
 
 module.exports = { 
-    async execute(interaction) {
-        const row_1 = new ActionRowBuilder()
+    execute() {
+        const row1 = new ActionRowBuilder()
             .addComponents(
                 new ButtonBuilder()
                     .setStyle(ButtonStyle.Primary)
@@ -32,7 +32,7 @@ module.exports = {
                     .setDisabled(false)
             );
 
-        const row_2 = new ActionRowBuilder()
+        const row2 = new ActionRowBuilder()
             .addComponents(
                 new ButtonBuilder()
                     .setStyle(ButtonStyle.Primary)
@@ -61,7 +61,7 @@ module.exports = {
                     .setDisabled(false)
             );
 
-        const row_3 = new ActionRowBuilder()
+        const row3 = new ActionRowBuilder()
             .addComponents(
                 new ButtonBuilder()
                     .setStyle(ButtonStyle.Primary)
@@ -90,7 +90,7 @@ module.exports = {
                     .setDisabled(false)
             );
 
-        const row_4 = new ActionRowBuilder()
+        const row4 = new ActionRowBuilder()
             .addComponents(
                 new ButtonBuilder()
                     .setStyle(ButtonStyle.Success)
@@ -107,7 +107,7 @@ module.exports = {
         const embed = {
             title: `Pronoun Roles`,
             description: `Click the buttons to set your pronouns! \nClicking a button again will remove those pronouns, you may do this as much as you like\n\nIf you use multiple pronouns but have no preference, select the blue options. If you use multiple pronouns and DO have a preference, choose from the gray options.\n\n**Example:** If I use all pronouns but prefer she and they equally. I would choose she/he and they/he, showing that he is my secondary choice. If you prefer your pronouns in a certain order, pick the right option for you!`,
-            color: parseInt(config.colors.rainbow[0].hex),
+            color: parseInt(config.colors.rainbow[0].hex, 10),
             thumbnail: {
             url: config.images.pronouns_thmb,
             height: 0,
@@ -115,7 +115,7 @@ module.exports = {
             }
         }
 
-        const pronouns = { embeds: [embed], components: [row_1, row_2, row_3, row_4] }
+        const pronouns = { embeds: [embed], components: [row1, row2, row3, row4] }
         return pronouns;
     }
 }

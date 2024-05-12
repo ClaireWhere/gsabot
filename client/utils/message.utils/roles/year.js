@@ -1,9 +1,9 @@
 const { ButtonBuilder, ButtonStyle, ActionRowBuilder } = require("discord.js");
-const { config } = require('../../../client/config.json');
+const { config } = require('../../../config.json');
 
 module.exports = { 
-    async execute(interaction) {
-        const row_1 = new ActionRowBuilder()
+    execute() {
+        const row1 = new ActionRowBuilder()
             .addComponents(
                 new ButtonBuilder()
                     .setStyle(ButtonStyle.Success)
@@ -27,7 +27,7 @@ module.exports = {
                     .setDisabled(false),
             );
 
-        const row_2 = new ActionRowBuilder()
+        const row2 = new ActionRowBuilder()
             .addComponents(
                 new ButtonBuilder()
                     .setStyle(ButtonStyle.Primary)
@@ -44,7 +44,8 @@ module.exports = {
         const embed = {
             title: `Year Roles`,
             description: `Click the buttons below for what year you're in here at OU.\n\nYou can only have one of these at once. At the start of each school year we'll try to remind you to click the next one!`,
-            color: parseInt(config.colors.rainbow[2].hex),
+            // eslint-disable-next-line no-magic-numbers
+            color: parseInt(config.colors.rainbow[2].hex, 10),
             thumbnail: {
             url: config.images.year_thmb,
             height: 0,
@@ -53,7 +54,7 @@ module.exports = {
         }
 
 
-        const year = { embeds: [embed], components: [row_1, row_2] }
+        const year = { embeds: [embed], components: [row1, row2] }
         return year;
     }
 }
