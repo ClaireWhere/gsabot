@@ -1,23 +1,23 @@
 const { EmbedBuilder, AttachmentBuilder } = require('discord.js');
-const { config } = require('../../client/config.json');
+const { config } = require('../../config.json');
 const { getChannelParentName } = require('../utils');
 require('dotenv').config();
 
 module.exports = {
     async execute(interaction, isVerification) {
-        const embed_1 = new EmbedBuilder()
+        const embed1 = new EmbedBuilder()
             .setTitle(`‎\n📣 REMEMBER THIS IS A SAFE AND POSITIVE SPACE FOR THE LGBTQ+ COMMUNITY AT ${process.env.SCHOOL.toUpperCase()}, AND THE POSTS MADE IN THIS DISCORD ARE REPRESENTATIVE OF OUR ORGANIZATION AS A WHOLE.`)
             .setDescription('‎\nThere is **ABSOLUTELY NO TOLERANCE** for homophobia, transphobia, sexism, racism, or any type of hate speech. If you are unfamiliar with a certain topic that comes up in conversation, ask and be open and respectful.')
-            .setColor(parseInt(config.colors.light_red.darken[0].hex))
+            .setColor(parseInt(config.colors.light_red.darken[0].hex, 10))
             .setAuthor({ name: 'Gender & Sexuality Alliance', iconURL: config.images.gsa_icon })
             .setThumbnail(config.images.rules_thmb);
 
-        const safe_space = isVerification ? '\`#safe_space\`' : await interaction.guild.channels.cache.find(channel => channel.name === 'safe-space' && !getChannelParentName(channel).includes('archive')) ?? `\`#safe-space\``;
-        const safe_space_entrance = isVerification ? '\`#safe_space_entrance\`': await interaction.guild.channels.cache.find(channel => channel.name === 'safe-space-entrance' && !getChannelParentName(channel).includes('archive')) ?? `\`#safe-space-entrance\``;
-        const general = isVerification ? '\`#general\`': await interaction.guild.channels.cache.find(channel => channel.name === 'general' && !getChannelParentName(channel).includes('archive')) ?? `\`#general\``;
+        const safeSpace = isVerification ? '`#safe_space`' : await interaction.guild.channels.cache.find(channel => {return channel.name === 'safe-space' && !getChannelParentName(channel).includes('archive')}) ?? `\`#safe-space\``;
+        const safeSpaceEntrance = isVerification ? '`#safe_space_entrance`': await interaction.guild.channels.cache.find(channel => {return channel.name === 'safe-space-entrance' && !getChannelParentName(channel).includes('archive')}) ?? `\`#safe-space-entrance\``;
+        const general = isVerification ? '`#general`': await interaction.guild.channels.cache.find(channel => {return channel.name === 'general' && !getChannelParentName(channel).includes('archive')}) ?? `\`#general\``;
 
-        const embed_2 = new EmbedBuilder()
-            .setColor(parseInt(config.colors.black.hex))
+        const embed2 = new EmbedBuilder()
+            .setColor(parseInt(config.colors.black.hex, 10))
             .addFields(
                 {
                     "name": `1️⃣ Be respectful and welcoming of others`,
@@ -47,7 +47,7 @@ module.exports = {
                 },
                 {
                     "name": `‎\n5️⃣ \`\`\`#general\`\`\` is the main chat and should be used for casual discussions`,
-                    "value": `Please keep topics of politics, trauma, mental health, and any sensitive topics in ${safe_space}. Topics of politics should be talked about very carefully here. Please be respectful.`
+                    "value": `Please keep topics of politics, trauma, mental health, and any sensitive topics in ${safeSpace}. Topics of politics should be talked about very carefully here. Please be respectful.`
                 },
                 {
                     "name": `‎\n6️⃣ Use channels as intended`,
@@ -55,11 +55,11 @@ module.exports = {
                 },
                 {
                     "name": `‎\n7️⃣ Use spoiler tags when needed`,
-                    "value": `❗ For the ${safe_space} rules and how to gain access to it, head over to ${safe_space_entrance}`,
+                    "value": `❗ For the ${safeSpace} rules and how to gain access to it, head over to ${safeSpaceEntrance}`,
                 },
                 {
                     "name": `✨ When to use spoiler tags`,
-                    "value": `>>> Spoiler tags may be helpful outside of ${safe_space} if you are mentioning something that could potentially be seen as a sensitive topic. Once again, keep heavily sensitive topics such as trauma, mental health, etc. out of ${general}`,
+                    "value": `>>> Spoiler tags may be helpful outside of ${safeSpace} if you are mentioning something that could potentially be seen as a sensitive topic. Once again, keep heavily sensitive topics such as trauma, mental health, etc. out of ${general}`,
                     "inline": true
                 },
                 {
@@ -80,7 +80,7 @@ module.exports = {
             .setName(`gsa_banner.png`)
             .setDescription(`Gender and Sexuality Alliance Banner`);
 
-        const rules = { embeds: [embed_1, embed_2], files: [file] };
+        const rules = { embeds: [embed1, embed2], files: [file] };
         return rules;
     }
 }
