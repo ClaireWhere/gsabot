@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS channel (
     created_at TIMESTAMP DEFAULT NOW()
 );
 
-CREATE TABLE IF NOT EXISTS user (
+CREATE TABLE IF NOT EXISTS "user" (
     id VARCHAR(20) PRIMARY KEY,
     username VARCHAR(255) NOT NULL,
     display_name VARCHAR(255) NOT NULL,
@@ -24,8 +24,8 @@ CREATE TABLE IF NOT EXISTS guild_user (
     guild_id VARCHAR(20) NOT NULL,
     nickname VARCHAR(255) DEFAULT NULL,
     display_hex_color VARCHAR(7) DEFAULT NULL,
-    FOREIGN KEY (user_id) REFERENCES user(id),
     FOREIGN KEY (guild_id) REFERENCES guild(id)
+    FOREIGN KEY (user_id) REFERENCES "user"(id),
 );
 
 CREATE TABLE IF NOT EXISTS message (
