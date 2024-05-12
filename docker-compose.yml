@@ -30,6 +30,10 @@ services:
       - "8080:80"
     depends_on:
       - db
+    volumes:
+      - server-logs:/usr/src/server/logs
+    
+
   client:
     build: 
       context: ./client
@@ -52,3 +56,11 @@ services:
     container_name: gsabot-client
     restart: unless-stopped
     volumes:
+      - client-logs:/usr/src/client/logs
+volumes:
+  data:
+    driver: local
+  server-logs:
+    driver: local
+  client-logs:
+    driver: local
