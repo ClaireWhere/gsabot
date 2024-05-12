@@ -17,3 +17,5 @@ app.get('/logs/*', async function(req, res) {
 app.listen(PORT, () => {
     console.log(`server listening on port ${PORT}`);
 });
+
+process.send('ready');
