@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "initialize": "node ../utils/db.utils/createTables.js"
+    "initialize": "echo \"server package has no initialization required\" && exit 0"
   },
   "repository": {
     "type": "git",
@@ -19,9 +19,9 @@
   },
   "homepage": "https://github.com/ClaireWhere/gsabot#readme",
   "dependencies": {
-    "better-sqlite3": "^9.6.0",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "pg": "^8.11.5",
     "winston": "^3.13.0"
   }
 }
