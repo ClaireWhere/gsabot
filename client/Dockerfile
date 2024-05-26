@@ -57,7 +57,7 @@ RUN npm cache clean --force \
 
 RUN mkdir -p /usr/share/fonts/
 COPY ./fonts/ /usr/share/fonts/
-RUN install -m644 /usr/share/fonts/* /usr/share/fonts/ \
+RUN install -m644 /usr/share/fonts/*/* /usr/share/fonts/ \
     && fc-cache -f -v
 
 COPY . .
