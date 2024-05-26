@@ -1,4 +1,4 @@
-const { db, healthy } = require('../db');
+const { client, healthy } = require('../db');
 
 /**
  * 
@@ -27,7 +27,7 @@ function insertMessage(id, content, createdAt, guildUserID, channelID) {
         if (!healthy) {
             reject(new Error('No database connection.'));
         }
-        db.query(query, values, (queryError, queryResponse) => {
+        client.query(query, values, (queryError, queryResponse) => {
             if (queryError) {
                 console.error(queryError.stack);
                 reject(queryError);
