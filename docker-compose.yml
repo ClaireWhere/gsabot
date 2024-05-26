@@ -60,6 +60,7 @@ services:
     restart: unless-stopped
     volumes:
       - client-logs:/usr/src/client/logs
+      - ./fonts:/usr/src/client/fonts
     networks:
       - dbConnection
 

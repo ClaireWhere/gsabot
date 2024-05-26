@@ -18,12 +18,14 @@ const margins = 25;
 const fontSize = 24;
 
 /*
- * Note: The font gg sans is licensed by Discord and is currently closed source, meaning it cannot be used without explicit permission from Discord. 
+ * Note: The font gg sans is licensed by Discord and is currently closed source, meaning it cannot be used or downloaded without explicit permission from Discord. 
  *   If you somehow have it downloaded, great! the messages will look wonderful. 
- *   Otherwise, use whitney, it looks pretty close 
+ *   Otherwise, use whitney, it looks pretty close. 
+ *   If none of those are available, open sans is a good fallback.
  */
-const font = 'gg sans, whitney book, sans'
-const titleFont = 'gg sans, whitney, sans'
+const font = 'gg sans, whitney book, open sans';
+const titleFont = 'gg sans, whitney, open sans';
+
 
 /**
  * Calculates the absolute minimum width of the canvas (for if the message text is smaller than the header)

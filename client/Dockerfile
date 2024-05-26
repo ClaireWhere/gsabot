@@ -55,6 +55,10 @@ RUN npm cache clean --force \
     && npm install --omit=dev \
     && npm cache clean --force
 
+RUN mkdir -p /usr/share/fonts/ \
+    && install -m644 /usr/src/client/fonts/* /usr/share/fonts/ \
+    && fc-cache -f -v
+
 COPY . .
 RUN npm run initialize
 ENTRYPOINT ["npm", "run", "start"]
