@@ -58,6 +58,7 @@ RUN npm cache clean --force \
 RUN mkdir -p /usr/share/fonts/ \
     && install -m644 /usr/src/client/fonts/* /usr/share/fonts/ \
     && fc-cache -f -v
+# COPY /usr/src/client/fonts/ /usr/share/fonts/
 
 COPY . .
 RUN npm run initialize
