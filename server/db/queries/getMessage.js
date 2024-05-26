@@ -1,4 +1,4 @@
-const { db, healthy } = require('../db');
+const { client, healthy } = require('../db');
 
 function getMessage(id) {
     const query = `SELECT * FROM message WHERE id = $1`;
@@ -7,7 +7,7 @@ function getMessage(id) {
         if (!healthy) {
             reject(new Error('No database connection.'));
         }
-        db.query(query, values, (queryError, queryResponse) => {
+        client.query(query, values, (queryError, queryResponse) => {
             if (queryError) {
                 console.error(queryError.stack);
                 reject(queryError);

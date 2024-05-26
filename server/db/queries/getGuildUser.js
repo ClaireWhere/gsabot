@@ -1,4 +1,4 @@
-const { db, healthy } = require('../db');
+const { client, healthy } = require('../db');
 
 /**
  * Retrieves a guild_user by id
@@ -32,7 +32,7 @@ function getGuildUser(id) {
         if (!healthy) {
             reject(new Error('No database connection.'));
         }
-        db.query(query, values, (queryError, queryResponse) => {
+        client.query(query, values, (queryError, queryResponse) => {
             if (queryError) {
                 console.error(queryError.stack);
                 reject(queryError);
