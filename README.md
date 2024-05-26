@@ -101,3 +101,7 @@ Button id's follow the format: `category`:`subcategory`:`id`
 > To add a new reaction role, simply specify its information in [client/config.json](client/config.json) in the `roles` section. When a button is pressed with the same id as the `id` property specified, that role will be handled by the bot. No other configuration is necessary. Just ensure the information in [client/config.json](client/config.json) lines up with the roles in the Discord server.
 
 Adding new functionality must be specified in [buttonEvent.js](client/events/buttonEvent.js)
+
+## Credits
+
+- Open Sans font: [License](credits/Open%20Sans.txt)
