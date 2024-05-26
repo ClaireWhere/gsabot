@@ -1,5 +1,21 @@
 # GSA Bot - Change Log
 
+## GSA Bot Version 0.2.0 (Not Released Yet)
+
+This release separated the bot into three separate modules: The GSA Discord Bot, the GSA Server, and the GSA Database. The GSA Discord Bot (referred to as simply GSA Bot) is the Discord bot that interacts with the Discord API and the GSA Server is the server that accesses.
+
+### Major Feature Changes
+
+---
+
+### Minor Feature Changes
+
+---
+
+### Bug Fixes
+
+---
+
 ## Version 0.1.4 (2023-10-17)
 
 ### Major Feature Changes
