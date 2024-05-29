@@ -32,7 +32,7 @@ async function checkServer() {
                 return;
             }
 
-            if (currentStatus) {
+            if (typeof currentStatus === 'number') {
                 previousStatus = currentStatus;
                 await setStatusChannel(`${previousStatus} Player${previousStatus === 1 ? '' : 's'} Online`).catch(error => {return logger.warn(`[${ip}] there was an error fetching the server status channel (${error})`)});
                 logger.info(`[${ip}] ${previousStatus} player${previousStatus === 1 ? '' : 's'} online`);
