@@ -26,14 +26,14 @@ async function checkServer() {
 
     await axios.get(url)
         .then(async response => {
-            const currentStatus = response?.data?.players?.online;
-            if (currentStatus === previousStatus) {
+            const playersOnline = response?.data?.players?.online;
+            if (playersOnline === previousStatus) {
                 logger.debug(`[${ip}] no changes since last check`);
                 return;
             }
 
-            if (typeof currentStatus === 'number') {
-                previousStatus = currentStatus;
+            if (typeof playersOnline === 'number') {
+                previousStatus = playersOnline;
                 await setStatusChannel(`${previousStatus} Player${previousStatus === 1 ? '' : 's'} Online`).catch(error => {return logger.warn(`[${ip}] there was an error fetching the server status channel (${error})`)});
                 logger.info(`[${ip}] ${previousStatus} player${previousStatus === 1 ? '' : 's'} online`);
             } else {
