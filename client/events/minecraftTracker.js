@@ -36,6 +36,8 @@ async function checkServer() {
                 previousStatus = playersOnline;
                 await setStatusChannel(`${previousStatus} Player${previousStatus === 1 ? '' : 's'} Online`).catch(error => {return logger.warn(`[${ip}] there was an error fetching the server status channel (${error})`)});
                 logger.info(`[${ip}] ${previousStatus} player${previousStatus === 1 ? '' : 's'} online`);
+            } else if (previousStatus === 'warning') {
+                logger.debug(`[${ip}] no changes since last check`);
             } else {
                 previousStatus = 'warning';
                 await setStatusChannel(`Server Offline :(`).catch(error => {return logger.warn(`[${ip}] there was an error fetching the server status channel (${error})`)});
