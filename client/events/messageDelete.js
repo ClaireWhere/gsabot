@@ -150,7 +150,7 @@ module.exports = {
      */
     async execute(message) {
         if (!config.deleted_message_log.enabled) { return; }
-        logger.info(`Received ${this.name.toString()} interaction\n\tChannel: ${message.channel.name} (id: ${message.channelID})\n\tAuthor: ${message.author.username} (id: ${message.author.id})\n\tGuild: ${message.guild.name} (id: ${message.guild.id})`);
+        logger.info(`Received ${this.name.toString()} interaction\n\tChannel: ${message.channel.name} (id: ${message.channel.id})\n\tAuthor: ${message.author.username} (id: ${message.author.id})\n\tGuild: ${message.guild.name} (id: ${message.guild.id})`);
 
         /**
          * Skip logging messages sent by bots or messages not sent in a guild.
@@ -180,10 +180,10 @@ module.exports = {
          * Insert the deleted message into the database if the feature is enabled.
          */
         if (config.deleted_message_log.use_database) {
-            await insertGuild(message.guildId, message.guild.name).catch((error) => {logger.warn(`failed to insert guild: ${error}`)});
+            await insertGuild(message.guild.id, message.guild.name).catch((error) => {logger.warn(`failed to insert guild: ${error}`)});
             await insertUser(authorID, authorUsername, authorDisplayName, authorAvatar).catch((error) => {logger.warn(`failed to insert user: ${error}`)});
-            const guildUserID = await insertGuildUser(message.guildId, authorID, authorNickname, authorDisplayColor).catch((error) => {logger.warn(`failed to insert guild user: ${error}`)});
-            await insertChannel(message.channelId, message.channel.name, message.guildId).catch((error) => {logger.warn(`failed to insert channel: ${error}`)});
+            const guildUserID = await insertGuildUser(message.guild.id, authorID, authorNickname, authorDisplayColor).catch((error) => {logger.warn(`failed to insert guild user: ${error}`)});
+            await insertChannel(message.channel.id, message.channel.name, message.guild.id).catch((error) => {logger.warn(`failed to insert channel: ${error}`)});
             await insertMessage(message.id, message.content, message.createdAt, guildUserID, message.channelId).catch((error) => {logger.warn(`failed to insert message: ${error}`)});
             await insertAttachments(message.attachments, message.id).catch((error) => {logger.warn(`failed to insert attachments: ${error}`)});
             const deletedID = await insertDeletedMessage(message.id, deletedAt).catch((error) => {logger.warn(`failed to insert deleted message: ${error}`)});
