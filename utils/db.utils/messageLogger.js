@@ -1,6 +1,39 @@
 const { LoggedMessage } = require('../../models/LoggedMessage');
 const { config } = require('../../config.json');
 const { logger } = require('../logger');
+
+
+
+/**
+ * Filters out some invalid message id's. Does not accurately verify message id's as true all of the time.
+ * 
+ * @param {string} id
+ * @returns boolean - false if the provided id is not a valid message id, true if the message is *likely* valid.
+ */
+function verifyMessageId(id) {
+    return (id.match('^[0-9]*$') && id.length >= 17) ?? false;
+}
+
+function getDbDirectory() {
+    return __dirname.slice(0, __dirname.indexOf('utils'));
+}
+
+/**
+ * 
+ * @param {import('better-sqlite3').Options} options 
+ * @returns 
+ */
+function open(options) {
+    try {
+        const db = require('better-sqlite3')(`${getDbDirectory()}${config.database.name}.db`, options);
+        db.pragma('journal_mode = WAL');
+        return db;
+    } catch (error) {
+        logger.warn(`${config.database.name}.db does not exist at ${getDbDirectory()}! Run "npm run initialize" to initialize the database`);
+        return undefined;
+    }
+}
+
 /**
  * 
  * @param {LoggedMessage} message 
@@ -89,36 +122,9 @@ function getMessageLog(message_id) {
     return null;
 }
 
-/**
- * 
- * @param {import('better-sqlite3').Options} options 
- * @returns 
- */
-function open(options) {
-    try {
-        const db = require('better-sqlite3')(`${getDbDirectory()}${config.database.name}.db`, options);
-        db.pragma('journal_mode = WAL');
-        return db;
-    } catch (error) {
-        logger.warn(`${config.database.name}.db does not exist at ${getDbDirectory()}! Run "npm run initialize" to initialize the database`);
-        return undefined;
-    }
-}
+
 
 
 
 module.exports = { insertMessageLog, getMessageLog, verifyMessageId }
 
-/**
- * Filters out some invalid message id's. Does not accurately verify message id's as true all of the time.
- * 
- * @param {string} id
- * @returns boolean - false if the provided id is not a valid message id, true if the message is *likely* valid.
- */
-function verifyMessageId(id) {
-    return (id.match('^[0-9]*$') && id.length >= 17) ?? false;
-}
-
-function getDbDirectory() {
-    return __dirname.slice(0, __dirname.indexOf('utils'));
-}
