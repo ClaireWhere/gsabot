@@ -53,21 +53,21 @@ function insertMessageLog(message) {
         insertUser.run(message.author_id, message.author_name);
         logger.info('[SQLite] inserted into user');
     } catch (error) {
-        logger.warn(`[SQLite] did not insert into user (${error})`);
+        logger.debug(`[SQLite] did not insert (${message.author_name}) into user: ${error}`);
     }
     try {
         const insertChannel = db.prepare(`INSERT INTO channel (id, name) VALUES (?, ?)`);
         insertChannel.run(message.channel_id, message.channel_name);
         logger.info('[SQLite] inserted into channel');
     } catch (error) {
-        logger.warn(`[SQLite] did not insert into channel (${error})`);
+        logger.debug(`[SQLite] did not insert (${message.channel_name}) into channel: ${error}`);
     }
     try {
         const insertMessage = db.prepare(`INSERT INTO message (id, content, author, channel, date, guild) VALUES (?, ?, ?, ?, ?, ?)`);
         insertMessage.run(message.id, message.content, message.author_id, message.channel_id, message.date ? message.date.getTime() : null, message.guild_id);
         logger.info('[SQLite] inserted into message');
     } catch (error) {
-        logger.warn(`[SQLite] did not insert into message (${error})`);
+        logger.warn(`[SQLite] did not insert message by ${message.author_name} - already exists in ${config.database.name}`);
     }
     try {
         const insertDeleted = db.prepare(`INSERT INTO deleted_message (message_id, deleted_on) VALUES (?, ?)`);
@@ -76,7 +76,7 @@ function insertMessageLog(message) {
     } catch (error) {
         logger.warn(`[SQLite] did not insert into deleted_message (${error})`);
         db.close();
-        logger.info(`[SQLite] unable to log message by ${message.author_name} - already exists in ${config.database.name}`);
+        logger.warn(`[SQLite] failed to log message by ${message.author_name} - already exists in ${config.database.name}`);
         return false;
     }
     db.close();
