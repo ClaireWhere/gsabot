@@ -64,7 +64,7 @@ function insertMessageLog(message) {
     }
     try {
         const insertMessage = db.prepare(`INSERT INTO message (id, content, author, channel, date, guild) VALUES (?, ?, ?, ?, ?, ?)`);
-        insertMessage.run(message.id, message.content, message.author_id, message.channel_id, !message.date ? null : message.date.getTime(), message.guild_id);
+        insertMessage.run(message.id, message.content, message.author_id, message.channel_id, message.date ? message.date.getTime() : null, message.guild_id);
         logger.info('[SQLite] inserted into message');
     } catch (error) {
         logger.warn(`[SQLite] did not insert into message (${error})`);
