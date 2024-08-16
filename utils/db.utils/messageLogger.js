@@ -2,7 +2,7 @@ const { LoggedMessage } = require('../../models/LoggedMessage');
 const { config } = require('../../config.json');
 const { logger } = require('../logger');
 
-
+const ID_LENGTH = 17;
 
 /**
  * Filters out some invalid message id's. Does not accurately verify message id's as true all of the time.
@@ -11,7 +11,7 @@ const { logger } = require('../logger');
  * @returns boolean - false if the provided id is not a valid message id, true if the message is *likely* valid.
  */
 function verifyMessageId(id) {
-    return (id.match('^[0-9]*$') && id.length >= 17) ?? false;
+    return (id.match('^[0-9]*$') && id.length >= ID_LENGTH) ?? false;
 }
 
 function getDbDirectory() {
