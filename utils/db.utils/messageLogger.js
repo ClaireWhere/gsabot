@@ -49,29 +49,29 @@ function insertMessageLog(message) {
     if (!db) { return true; }
 
     try {
-        const insert_user = db.prepare('INSERT INTO user (id, name) VALUES (?, ?)');
-        insert_user.run(message.author_id, message.author_name);
+        const insertUser = db.prepare('INSERT INTO user (id, name) VALUES (?, ?)');
+        insertUser.run(message.author_id, message.author_name);
         logger.info('[SQLite] inserted into user');
     } catch (error) {
         logger.warn(`[SQLite] did not insert into user (${error})`);
     }
     try {
-        const insert_channel = db.prepare(`INSERT INTO channel (id, name) VALUES (?, ?)`);
-        insert_channel.run(message.channel_id, message.channel_name);
+        const insertChannel = db.prepare(`INSERT INTO channel (id, name) VALUES (?, ?)`);
+        insertChannel.run(message.channel_id, message.channel_name);
         logger.info('[SQLite] inserted into channel');
     } catch (error) {
         logger.warn(`[SQLite] did not insert into channel (${error})`);
     }
     try {
-        const insert_message = db.prepare(`INSERT INTO message (id, content, author, channel, date, guild) VALUES (?, ?, ?, ?, ?, ?)`);
-        insert_message.run(message.id, message.content, message.author_id, message.channel_id, !message.date ? null : message.date.getTime(), message.guild_id);
+        const insertMessage = db.prepare(`INSERT INTO message (id, content, author, channel, date, guild) VALUES (?, ?, ?, ?, ?, ?)`);
+        insertMessage.run(message.id, message.content, message.author_id, message.channel_id, !message.date ? null : message.date.getTime(), message.guild_id);
         logger.info('[SQLite] inserted into message');
     } catch (error) {
         logger.warn(`[SQLite] did not insert into message (${error})`);
     }
     try {
-        const insert_deleted = db.prepare(`INSERT INTO deleted_message (message_id, deleted_on) VALUES (?, ?)`);
-        insert_deleted.run(message.id, new Date().getTime());
+        const insertDeleted = db.prepare(`INSERT INTO deleted_message (message_id, deleted_on) VALUES (?, ?)`);
+        insertDeleted.run(message.id, new Date().getTime());
         logger.info('[SQLite] inserted into deleted_message');
     } catch (error) {
         logger.warn(`[SQLite] did not insert into deleted_message (${error})`);
@@ -85,11 +85,11 @@ function insertMessageLog(message) {
 
 /**
  * 
- * @param {number} message_id - the id property of the deleted_message record to retrieve from
+ * @param {number} messageID - the id property of the deleted_message record to retrieve from
  * @returns {LoggedMessage | null} LoggedMessage object containing the information from the deleted_message record
  */
-function getMessageLog(message_id) {
-    if (!verifyMessageId(message_id)) { return null; }
+function getMessageLog(messageID) {
+    if (!verifyMessageId(messageID)) { return null; }
 
     const db = open({
         timeout: 2000,
@@ -100,7 +100,7 @@ function getMessageLog(message_id) {
     if (!db) { return false; }
     
     try {
-        const select_log = db.prepare(`
+        const selectLog = db.prepare(`
         SELECT 
             message.id, message.content, message.guild, message.date, deleted_message.deleted_on, user.id, user.name, channel.id, channel.name
             FROM message
@@ -112,7 +112,7 @@ function getMessageLog(message_id) {
                     ON message.channel=channel.id
             WHERE message.id = @message_id;
         `);
-        const result = select_log.expand().get({message_id: message_id});
+        const result = selectLog.expand().get({message_id: messageID});
         db.close();
         return new LoggedMessage(result.message.id, result.message.content, result.user.id, result.user.name, result.channel.id, result.channel.name, result.message.guild, result.message.date, result.deleted_message.deleted_on);
     } catch (error) {
