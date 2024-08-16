@@ -37,10 +37,10 @@ function open(options) {
 /**
  * 
  * @param {LoggedMessage} message 
- * @returns 
+ * @returns {boolean} - true if the message was successfully inserted into the database, false if the message already exists in the database.
  */
 function insertMessageLog(message) {
-    if (!message) { return; }
+    if (!message) { return false; }
     const db = open({
         timeout: 2000,
         fileMustExist: true
