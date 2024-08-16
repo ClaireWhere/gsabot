@@ -8,7 +8,7 @@ const ID_LENGTH = 17;
  * Filters out some invalid message id's. Does not accurately verify message id's as true all of the time.
  * 
  * @param {string} id
- * @returns boolean - false if the provided id is not a valid message id, true if the message is *likely* valid.
+ * @returns {boolean} - false if the provided id is not a valid message id, true if the message is *likely* valid.
  */
 function verifyMessageId(id) {
     return (id.match('^[0-9]*$') && id.length >= ID_LENGTH) ?? false;
@@ -21,7 +21,7 @@ function getDbDirectory() {
 /**
  * 
  * @param {import('better-sqlite3').Options} options 
- * @returns 
+ * @returns {import('better-sqlite3').Database | undefined} - the database object if it exists, undefined if it does not exist.
  */
 function open(options) {
     try {
@@ -86,7 +86,7 @@ function insertMessageLog(message) {
 /**
  * 
  * @param {number} messageID - the id property of the deleted_message record to retrieve from
- * @returns {LoggedMessage | null} LoggedMessage object containing the information from the deleted_message record
+ * @returns {LoggedMessage | null} - LoggedMessage object containing the information from the deleted_message record, or null if the message does not exist.
  */
 function getMessageLog(messageID) {
     if (!verifyMessageId(messageID)) { return null; }
@@ -122,9 +122,4 @@ function getMessageLog(messageID) {
     return null;
 }
 
-
-
-
-
-module.exports = { insertMessageLog, getMessageLog, verifyMessageId }
-
+module.exports = { insertMessageLog, getMessageLog, verifyMessageId };
