@@ -17,7 +17,7 @@ services:
       - dbConnection
 
   server:
-    build: 
+    build:
       context: ./server
       args:
         DB_HOST: gsabot-db
@@ -35,10 +35,10 @@ services:
       - dbConnection
     volumes:
       - server-logs:/usr/src/server/logs
-    
+
 
   client:
-    build: 
+    build:
       context: ./client
       args:
         DB_HOST: gsabot-db
@@ -58,7 +58,7 @@ services:
         GSA_BANNER: ${GSA_BANNER}
     container_name: gsabot-client
     environment:
-      - TZ: America/New_York
+      TZ: America/New_York
     restart: unless-stopped
     depends_on:
       - db
