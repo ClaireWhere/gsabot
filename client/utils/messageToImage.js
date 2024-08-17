@@ -53,8 +53,6 @@ function calcCanvasWidth(message, nickname) {
     c.font = `${fontSize}px ${font}`;
     const messageWidth = c.measureText(message).width;
 
-    
-
     const minWidth = calcMinWidth(nickname, new Date(message.createdTimestamp));
     const singleLineWidth = initX+avatarRadius*2+padding*2+margins+messageWidth;
     //return singleLineWidth < defaultWidth ? singleLineWidth < minWidth ? minWidth : singleLineWidth : message.content.length < 500 ? defaultWidth : (defaultWidth-(500/3))+message.content.length/3;
@@ -101,44 +99,28 @@ function splitWord(ctx, string, maxWidth, initWidth) {
 /**
  * Takes a string as input and returns an array of strings that will each fit within the provided maxWidth
  * @param {CanvasRenderingContext2D} ctx 
- * @param {string} string
+ * @param {string} text the text to write to fit to each line
  * @param {number} maxWidth the maximum x-position text should be written on each line
- * @returns {[[string]]}
+ * @returns {[string]} an array of strings that will each fit within the provided width without going over
  */
-function fit(ctx, string, maxWidth) {
-    if (ctx.measureText(string).width <= maxWidth) {
-        return [[string]];
-    }
-    const array = string.split(' ');
-    let lines = [];
-    let line;
-    const len = array.length;
-    let width;
-    for (let i = 0; i < len; i++) {
-        line = [];
-        width = 0;
-        let word;
-        // let toPush = [];
-        let splitArray;
-        while (width <= maxWidth && len > i) {
-            splitArray = splitWord(ctx, array[i], maxWidth, width);
-            word = splitArray.pop();
-            line.push(word);
-            if (splitArray.length > 0) {
-                lines.push(line);
-                word = splitArray.pop();
-                line = [word];
-                width = 0;
-                lines = lines.concat(splitArray);
-            }
-            width += ctx.measureText(word).width;
-            width = width <= maxWidth ? i++ : i;
+function fit(ctx, text, maxWidth) {
+    const words = text.split(' ');
+    let line = '';
+    const lines = [];
+    
+    for (let n = 0; n < words.length; n++) {
+        const checkLine = `${line + words[n]  } `;
+        const checkWidth = ctx.measureText(checkLine).width;
+
+        if (checkWidth > maxWidth && n > 0) {
+            lines.push(line);
+            line = `${words[n]  } `;
+        } else {
+            line = checkLine;
         }
-        lines.push(line);
-        
     }
-    // We want to remove the first element if it is [[]] - if not removed the output image message would start with a newline
-    if (lines[0].length === 1 && isEmpty(lines[0][0])) { lines.shift(); } 
+    lines.push(line);
+
     return lines;
 }
 
@@ -163,14 +145,14 @@ function fitText(ctx, text, maxWidth) {
 /**
  * 
  * @param {CanvasRenderingContext2D} ctx 
- * @param {[[string]]} array the lines of words to fill to the canvas
+ * @param {[[string]]} lines the lines of words to fill to the canvas
  * @param {number} x the starting x position
  * @param {number} y the starting y/line position
  * @returns {number} the ending y/line position
  */
-function fillFromArray(ctx, array, x, y) {
-    array.forEach(line => {
-        ctx.fillText(line.join(' '), x, y);
+function fillFromArray(ctx, lines, x, y) {
+    lines.forEach(line => {
+        ctx.fillText(line, x, y);
         y += lineHeight;
     })
     return y;
