@@ -1,4 +1,5 @@
 const { client, healthy } = require('../db');
+const { logger } = require('../../utils/logger');
 
 /**
  * 
@@ -23,11 +24,11 @@ function insertDeletedMessage(messageID, deletedAt) {
         }
         client.query(query, values, (queryError, queryResponse) => {
             if (queryError) {
-                console.error(queryError.stack);
+                logger.error(queryError.stack);
                 reject(queryError);
             } else {
                 const insertID = queryResponse.rows.shift().id;
-                console.log(`Deleted message inserted with ID: ${insertID}`);
+                logger.info(`Inserted deleted message with ID: ${insertID}`);
                 resolve(insertID);
             }
         });
