@@ -1,4 +1,5 @@
 const { client, healthy } = require('../db');
+const { logger } = require('../../utils/logger');
 
 /**
  * 
@@ -29,11 +30,11 @@ function insertUser(id, username, displayName, avatar) {
         }
         client.query(query, values, (queryError, queryResponse) => {
             if (queryError) {
-                console.error(queryError.stack);
+                logger.error(queryError.stack);
                 reject(queryError);
             } else {
                 const insertID = queryResponse.rows.shift().id;
-                console.log(`User inserted with ID: ${insertID}`);
+                logger.info(`User inserted with ID: ${insertID}`);
                 resolve(insertID);
             }
         });

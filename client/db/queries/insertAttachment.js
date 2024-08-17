@@ -1,4 +1,5 @@
 const { client, healthy } = require('../db');
+const { logger } = require('../../utils/logger');
 
 /**
  * 
@@ -22,11 +23,11 @@ function insertAttachment(messageID, url, contentType, name, description) {
         }
         client.query(query, values, (queryError, queryResponse) => {
             if (queryError) {
-                console.error(queryError.stack);
+                logger.error(queryError.stack);
                 reject(queryError);
             } else {
                 const insertID = queryResponse.rows.shift().id;
-                console.log(`Attachment inserted with ID: ${insertID}`);
+                logger.info(`Attachment inserted with ID: ${insertID}`);
                 resolve(insertID);
             }
         });
