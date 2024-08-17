@@ -57,6 +57,8 @@ services:
         REGISTER: ${REGISTER}
         GSA_BANNER: ${GSA_BANNER}
     container_name: gsabot-client
+    environment:
+      - TZ: America/New_York
     restart: unless-stopped
     depends_on:
       - db
