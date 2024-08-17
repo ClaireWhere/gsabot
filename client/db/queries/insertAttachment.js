@@ -11,7 +11,7 @@ const { client, healthy } = require('../db');
  */
 function insertAttachment(messageID, url, contentType, name, description) {
     const query = `
-        INSERT INTO attachments (message_id, url, content_type, name, description) 
+        INSERT INTO attachment (message_id, url, content_type, name, description) 
         VALUES ($1, $2, $3, $4, $5)
         RETURNING id;
     `;
