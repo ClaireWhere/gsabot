@@ -1,5 +1,6 @@
 const { client, healthy } = require('../db');
 const MAX_NAME_LENGTH = 256;
+const { logger } = require('../../utils/logger');
 
 /**
  * 
@@ -29,11 +30,11 @@ function insertChannel(id, name) {
         }
         client.query(query, values, (queryError, queryResponse) => {
             if (queryError) {
-                console.error(queryError.stack);
+                logger.error(queryError.stack);
                 reject(queryError);
             } else {
                 const insertID = queryResponse.rows.shift().id;
-                console.log(`Channel inserted with ID: ${insertID}`);
+                logger.info(`Channel inserted with ID: ${insertID}`);
                 resolve(insertID);
             }
         });

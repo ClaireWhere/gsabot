@@ -1,12 +1,13 @@
 const { Client } = require('pg')
+const { logger } = require('../utils/logger');
 
 const client = new Client();
 let healthy = true;
 
 client.connect().then(() => {
-    console.log(`Successfully connected to ${process.env.PGDATABASE} database`);
+    logger.info(`Successfully connected to "${process.env.PGDATABASE}" database`);
 }).catch((connectionError) => {
-    console.log(`Failed to connect to database (host: ${process.env.PGHOST}, name: ${process.env.PGDATABASE})`)
+    logger.error(`Failed to connect to database (host: ${process.env.PGHOST}, name: ${process.env.PGDATABASE})`)
     console.error(connectionError.stack);
     healthy = false;
 });
@@ -14,10 +15,10 @@ client.connect().then(() => {
 // Verify that the client is healthy
 client.query('SELECT NOW()', (queryError, queryResponse) => {
     if (queryError) {
-        console.error('Error executing query', queryError.stack);
+        logger.error('Error executing query', queryError.stack);
         healthy = false;
     } else {
-        console.log('Successfully executed query', queryResponse.rows);
+        logger.info(`Successfully executed query ${queryResponse.rows(0)}`);
     }
 });
 
