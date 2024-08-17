@@ -127,3 +127,4 @@ dist
 
 # Local databases
 *.db*
+dev-docker-compose.yml
