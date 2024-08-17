@@ -12,7 +12,7 @@ const { logger } = require('../../utils/logger');
  */
 function insertAttachment(messageID, url, contentType, name, description) {
     const query = `
-        INSERT INTO attachments (message_id, url, content_type, name, description) 
+        INSERT INTO attachment (message_id, url, content_type, name, description) 
         VALUES ($1, $2, $3, $4, $5)
         RETURNING id;
     `;
@@ -36,15 +36,20 @@ function insertAttachment(messageID, url, contentType, name, description) {
 
 /**
  * 
- * @param {[{url: string, contentType: string, name: string, description: string}]} attachments
+ * @param {Collection<string, import('discord.js').Attachment>} attachments
  * @param {string} messageID The ID of the message to attach the attachments to
  * @returns {Promise<number[]>} The IDs of the inserted attachments
  */
 async function insertAttachments(attachments, messageID) {
+    
     const attachmentIDs = [];
-    for (const attachment of attachments) {
+    logger.debug(`Inserting ${attachments.size} attachments for message: ${messageID}`);
+
+    await attachments.forEach(async attachment => {
+        logger.debug(`Inserting attachment: ${attachment.url} for message: ${messageID} with name: ${attachment.name}`);
         attachmentIDs.push(await insertAttachment(messageID, attachment.url, attachment.contentType, attachment.name, attachment.description));
-    }
+    });
+
     return attachmentIDs;
 }
 
