@@ -58,6 +58,8 @@ services:
         GSA_BANNER: ${GSA_BANNER}
     container_name: gsabot-client
     restart: unless-stopped
+    depends_on:
+      - db
     volumes:
       - client-logs:/usr/src/client/logs
       - ./fonts:/usr/src/client/fonts
