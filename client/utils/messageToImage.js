@@ -1,7 +1,6 @@
 /* eslint-disable capitalized-comments */
 /* eslint-disable no-magic-numbers */
 const { createCanvas, loadImage } = require('canvas');
-const { isEmpty } = require('./utils');
 const { logger } = require('./logger');
 const textColor = '#DBDEE1'
 const timestampColor = '#949BA4'
@@ -67,33 +66,6 @@ function calcCanvasWidth(message, nickname) {
         return defaultWidth;
     }
     return defaultWidth-500/3 + message.content.length/3;
-}
-
-/**
- * 
- * @param {CanvasRenderingContext2D} ctx 
- * @param {string} string the text to write to fit to each line
- * @param {number} maxWidth the maximum x-position text should be written on each line
- * @param {number} initWidth the initial x-position (width) of the first line before text has been written
- * @returns {[[string]]} an array (lines) of arrays of words that will each fit within the provided width without going over
- */
-function splitWord(ctx, string, maxWidth, initWidth) {
-    // If the word will fit on the 'current' line, just return it
-    if (initWidth+ctx.measureText(string).width+padding <= maxWidth) {
-        return [[string]];
-    }
-    const lines = [];
-    let x;
-    for (let i = 0; i < string.length; i++) {
-        x = i;
-        while (ctx.measureText(string.substring(x, i)).width < maxWidth && i++ < string.length) {
-            continue;
-        }
-        lines.push([string.substring(x, i)]);
-    }
-    // Push to create newline
-    lines.push([]); 
-    return lines;
 }
 
 /**
