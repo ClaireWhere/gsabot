@@ -50,8 +50,13 @@ function buildBanListEmbed(banList, banType) {
         const reason = banItem.reason;
         const isActive = banItem.is_active;
         const MILLISECONDS_IN_SECOND = 1000;
-        const bannedAt = `<t:${Math.floor(new Date(banItem.banned_at).valueOf()/MILLISECONDS_IN_SECOND)}> (<t:${Math.floor(new Date(banItem.banned_at).valueOf()/MILLISECONDS_IN_SECOND)}:R>)`;
-        const unbannedAt = banItem.unbanned_at ? `<t:${Math.floor(new Date(banItem.unbanned_at).valueOf()/MILLISECONDS_IN_SECOND)}> (<t:${Math.floor(new Date(banItem.unbanned_at).valueOf()/MILLISECONDS_IN_SECOND)}:R>)` : undefined;
+        const SECONDS_IN_HOUR = 60;
+
+        const bannedAtUTC = new Date(banItem.banned_at).valueOf() - SECONDS_IN_HOUR * new Date().getTimezoneOffset() * MILLISECONDS_IN_SECOND;
+        const unbannedAtUTC = banItem.unbanned_at ? new Date(banItem.unbanned_at).valueOf() - SECONDS_IN_HOUR * new Date().getTimezoneOffset() * MILLISECONDS_IN_SECOND : null;
+
+        const bannedAt = `<t:${Math.floor(bannedAtUTC/MILLISECONDS_IN_SECOND)}> (<t:${Math.floor(bannedAtUTC/MILLISECONDS_IN_SECOND)}:R>)`;
+        const unbannedAt = banItem.unbanned_at ? `<t:${Math.floor(unbannedAtUTC/MILLISECONDS_IN_SECOND)}> (<t:${Math.floor(unbannedAtUTC/MILLISECONDS_IN_SECOND)}:R>)` : undefined;
 
         embed.fields.push({
             "name": `${isActive ? '🚫 ' : ''}<@${bannee}>`,
