@@ -59,8 +59,8 @@ function buildBanListEmbed(banList, banType) {
         const unbannedAt = banItem.unbanned_at ? `<t:${Math.floor(unbannedAtUTC/MILLISECONDS_IN_SECOND)}> (<t:${Math.floor(unbannedAtUTC/MILLISECONDS_IN_SECOND)}:R>)` : undefined;
 
         embed.fields.push({
-            "name": `${isActive ? '🚫 ' : ''}<@${bannee}>`,
-            "value": `• Banned By \t<@${banner}> On ${bannedAt}${unbannedAt ? `\n• Unbanned By \t<@${unbanner}> On ${unbannedAt}` : ''}\n• Reason:\n>>> ${reason}`
+            "name": ``,
+            "value": `- <@${bannee}>  ${isActive ? '🚫  ' : ''}\n  - **Banned By**:      <@${banner}> On ${bannedAt}${unbannedAt ? `\n  - **Unbanned By**: <@${unbanner}> On ${unbannedAt}` : ''}\n  - **Reason**: \`${reason}\``
         });
     });
 
