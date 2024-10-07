@@ -14,6 +14,27 @@
             "enabled": true,
             "use_database": true
         },
+        "channel_bans": {
+            "enabled": true,
+            "ban_types": [{
+                "display_name": "Safe Space",
+                "id_name": "safe_space",
+                "channel_name": "safe_space",
+                "role_id": "safe_space"
+            },
+            {
+                "display_name": "Politics",
+                "id_name": "politics",
+                "channel_name": "politics",
+                "role_id": "politics"
+            },
+            {
+                "display_name": "Minecraft",
+                "id_name": "minecraft",
+                "channel_name": "minecraft",
+                "role_id": "minecraft"
+            }]
+        },
         "images": {
             "gsa_icon": "https://i.imgur.com/ikQzGjP.png",
             "rules_thmb": "https://i.imgur.com/zCeCcY8.png",

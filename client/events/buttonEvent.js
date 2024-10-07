@@ -7,6 +7,7 @@ const { toggleRole } = require('../utils/roles.utils/roles');
 const { welcomeMember } = require('../utils/message.utils/welcomeMember');
 const { logger } = require('../utils/logger');
 const { ticketDisplayHandler } = require('../utils/ticketHandler');
+const { isBanned } = require('../db/queries/insertBan.js');
 
 const PRONOUNS_BUTTON_ID = 'pronouns';
 const NEOPRONOUNS_BUTTON_ID = 'neo';
@@ -65,6 +66,31 @@ module.exports = {
             return await colorHandler(interaction, id[1]);
         }
 
+        // Check if the role id is bannable
+        if (config.channel_bans.ban_types.find(banType => {return banType.id_name === id[0]}) !== undefined) {
+            // Check if the user is banned
+            
+            const bannedResponse = await isBanned(interaction.user.id, interaction.guild.id, id[0])
+                .then(async (banned) => {
+                    if (banned) {
+                        logger.info(`${interaction.member.user.username} is banned from adding the role ${interaction.customId}`);
+                        await interaction.followUp({ephemeral: true, content: `You are currently banned from this channel. Please contact a moderator for more information.`})
+                            .catch((followUpError) => {logger.error(`Could not follow up on add role from ${interaction.member.user.username} for ${interaction.customId} (${followUpError}) - User is banned`)});
+                        return false;
+                    }
+                    return true;
+                }).catch(async (isBannedError) => {
+                    logger.error(`Could not check if ${interaction.member.user.username} is banned (${isBannedError})`);
+                    await interaction.followUp({ephemeral: true, content: `Something went wrong finding the role you selected D:`})
+                        .catch((followUpError) => {logger.error(`Could not follow up on add role from ${interaction.member.user.username} for ${interaction.customId} (${followUpError})`)});
+                    return false;
+                });
+            
+            // If the user is banned, exit successfully
+            if (!bannedResponse) { return true; }
+        }
+
+        // Get the role name from the config
         let roleName = "";
         if (id.length === 1) {
             roleName = config.roles[id[0]].name;
@@ -72,6 +98,7 @@ module.exports = {
             roleName = config.roles[id[0]][id[1]].name;
         }
 
+        // Check if the role name is valid
         if (roleName === undefined || roleName.length === 0) { 
             logger.warn(`no role found for button: ${id.toString()}!`);
             await interaction.followUp({ephemeral: true, content: `Something went wrong finding the role you selected D:`})
@@ -79,6 +106,7 @@ module.exports = {
             return false;
         }
         
+        // Add / Remove the role from the user
         await toggleRole(interaction, roleName, id);
         return true;
     },

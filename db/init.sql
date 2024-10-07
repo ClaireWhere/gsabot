@@ -63,3 +63,40 @@ CREATE TABLE IF NOT EXISTS message_edit(
     edited_at TIMESTAMP DEFAULT NOW(),
     FOREIGN KEY (message_id) REFERENCES message(id)
 );
+
+CREATE TABLE IF NOT EXISTS ban_type (
+    id SERIAL PRIMARY KEY,
+    ban_type_name VARCHAR(20) NOT NULL UNIQUE,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS ban_role (
+    id SERIAL PRIMARY KEY,
+    role_type_name VARCHAR(20) NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS ban (
+    id SERIAL PRIMARY KEY,
+    guild_id VARCHAR(20) NOT NULL,
+    ban_type_id INTEGER NOT NULL,
+    reason TEXT DEFAULT NULL,
+    banned_at TIMESTAMP DEFAULT NOW(),
+    unbanned_at TIMESTAMP DEFAULT NULL,
+    is_active BOOLEAN DEFAULT TRUE,
+    FOREIGN KEY (guild_id) REFERENCES guild(id),
+    FOREIGN KEY (ban_type_id) REFERENCES ban_type(id)
+);
+
+CREATE TABLE IF NOT EXISTS ban_participant (
+    id SERIAL PRIMARY KEY,
+    user_id VARCHAR(20) NOT NULL,
+    ban_id INTEGER NOT NULL,
+    ban_role_id INTEGER NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES "user"(id),
+    FOREIGN KEY (ban_id) REFERENCES ban(id),
+    FOREIGN KEY (ban_role_id) REFERENCES ban_role(id)
+);
+
+
+INSERT INTO ban_role (role_type_name) VALUES ('banned'), ('banning'), ('unbanned'), ('unbanning');
