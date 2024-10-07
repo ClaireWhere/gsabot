@@ -1,7 +1,7 @@
 {
     "config": {
         "custom_status": {
-            "enabled": true,
+            "enabled": false,
             "state": "Back and better than ever!",
             "name": "Set your name color with /color",
             "status": "online"

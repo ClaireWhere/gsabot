@@ -1,6 +1,9 @@
 # gsabot
 Discord bot for the Gender and Sexuality Alliance.
 
+> [!WARNING]
+> This application is still under heavy development and may not be fully functional. The following docs are HEAVILY outdated and may not reflect the current state of the application. Do not rely on them for accurate information at this time.
+
 > [!IMPORTANT]
 > To see a full list of features, see [List of all Features](FEATURES.md) 
 >
