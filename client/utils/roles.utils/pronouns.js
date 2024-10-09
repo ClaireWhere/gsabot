@@ -68,7 +68,7 @@ async function addNeopronouns(interaction, roles) {
              }
         } else {
             const pos = getMinNeopronounsPosition(interaction);
-            await interaction.guild.roles.create({ name: formatPronouns(element), color: parseInt(config.roles.pronouns.neo.color, 10) ?? 0, permissions: getPermissionsFromArray(config.roles.pronouns.neo.permissions), position: pos })
+            await interaction.guild.roles.create({ name: formatPronouns(element), color: parseInt(Number(config.roles.pronouns.neo.color), 10) ?? 0, permissions: getPermissionsFromArray(config.roles.pronouns.neo.permissions), position: pos })
                 .then((res) => {
                     role = res;
                     logger.info(`${element} role created at position ${pos}`)

@@ -20,7 +20,7 @@ module.exports = {
             title: `Announcements Role`,
             description: `Would you like to be pinged with ${announcementsRole} in ${announcementsChannel} for important GSA announcements?\n\nClick the button below to get notifications to keep you up to date on GSA events and news (click again to remove)`,
             // eslint-disable-next-line no-magic-numbers
-            color: parseInt(config.colors.rainbow[3].hex, 10),
+            color: parseInt(Number(config.colors.rainbow[3].hex), 10),
             thumbnail: {
                 url: config.images.announcements_thmb,
                 height: 0,

@@ -20,7 +20,7 @@ async function sendError(interaction, colorString) {
           title: `The provided color is not valid structure!`,
           description: `\`\`\`${colorString}\`\`\` was your input\n\nThere should be 6 characters (0-9 and a-f)\nTry out [Google Color Picker](https://www.google.com/search?q=color+picker) and copy the HEX`,
           // eslint-disable-next-line no-magic-numbers
-          color: parseInt(config.colors.red.darken[2].hex, 10),
+          color: parseInt(Number(config.colors.red.darken[2].hex), 10),
         }
     ]}).then(() => {
         return true;
@@ -73,7 +73,7 @@ async function sendRemoveColor(interaction) {
     if (role === undefined) {
         logger.info(`${interaction.member.user.username} has no color to remove`);
         // eslint-disable-next-line no-magic-numbers
-        return await interaction.editReply({embeds: [{title: 'You have no color to remove!', description: `use \`/color set\` to set your color!`, color: parseInt(config.colors.red.darken[2].hex, 10)}]})
+        return await interaction.editReply({embeds: [{title: 'You have no color to remove!', description: `use \`/color set\` to set your color!`, color: parseInt(Number(config.colors.red.darken[2].hex), 10)}]})
             .then(() => {
                 return true;
             }).catch((error) => {
@@ -90,7 +90,7 @@ async function sendRemoveColor(interaction) {
     }).then(async () => {
         logger.info(`deleted ${interaction.member.user.username}'s color`);
         // eslint-disable-next-line no-magic-numbers
-        return await interaction.editReply({embeds: [{title: 'Your color role has been removed!', description: `use \`/color set\` to set a new color!`, color: parseInt(config.colors.red.darken[2].hex, 10)}]})
+        return await interaction.editReply({embeds: [{title: 'Your color role has been removed!', description: `use \`/color set\` to set a new color!`, color: parseInt(Number(config.colors.red.darken[2].hex), 10)}]})
             .then(() => {
                 return true;
             }).catch((error) => {
@@ -105,7 +105,7 @@ async function sendViewColor(interaction) {
     if (role === undefined) {
         logger.info(`${interaction.member.user.username} has no color to view`);
         // eslint-disable-next-line no-magic-numbers
-        return await interaction.editReply({embeds: [{title: 'You have no color to view!', description: `use \`/color set\` to set your color!`, color: parseInt(config.colors.red.darken[2].hex, 10)}]})
+        return await interaction.editReply({embeds: [{title: 'You have no color to view!', description: `use \`/color set\` to set your color!`, color: parseInt(Number(config.colors.red.darken[2].hex), 10)}]})
             .then(() => {
                 return true;
             }).catch((error) => {

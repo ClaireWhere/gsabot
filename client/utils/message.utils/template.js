@@ -21,7 +21,7 @@ module.exports = {
     const embed = {
         title: ``,
         description: ``,
-        color: parseInt(config.colors.black.hex, 10),
+        color: parseInt(Number(config.colors.black.hex), 10),
         fields: [
           {
             name: ``,

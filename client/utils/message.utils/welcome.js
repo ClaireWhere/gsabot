@@ -18,7 +18,7 @@ module.exports = {
         const embed1 = {
             title: `‎\nWelcome to the GSA Discord server!!`,
             description: `‎\n🏳️‍🌈 We are the Gender and Sexuality Alliance; we provide a welcoming and safe space for people of all orientations and points in their journey. Straight cis allies are encouraged to be involved.\n\nMany people are still figuring out their gender and sexuality and we are here to support them through the good and the bad times.`,
-            color: parseInt(config.colors.black.hex, 10),
+            color: parseInt(Number(config.colors.black.hex), 10),
             fields: [
             {
                 name: `‎\n🎉 It's so awesome you've shown an interest in joining the Discord`,
@@ -48,7 +48,7 @@ module.exports = {
                 text: `Posted on`,
                 icon_url: config.images.gsa_icon
             },
-            color: parseInt(config.colors.light_red.darken[0].hex, 10)
+            color: parseInt(Number(config.colors.light_red.darken[0].hex), 10)
         };
 
         const welcome = {content: content, embeds: [embed1, embed2], files: [file] };

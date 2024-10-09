@@ -51,7 +51,7 @@ function extractAttachments(attachments, messageID) {
             title: `**ATTACHMENT ${attachmentIndex}/${attachmentQuantity}**`,
             description: `${attachmentUrl}\n**Type: **${attachmentType}\n**Size: **${attachmentSize}`,
             // eslint-disable-next-line no-magic-numbers
-            color: parseInt(config.colors.light_red.darken[2].hex, 10)
+            color: parseInt(Number(config.colors.light_red.darken[2].hex), 10)
         }
 
         if (attachmentType.startsWith('image')) {
@@ -111,7 +111,7 @@ function extractEmbeds(embeds, messageID) {
             title: `**EMBED ${embedIndex}/${embedQuantity}**`,
             description: embedDescription,
             // eslint-disable-next-line no-magic-numbers
-            color: parseInt(config.colors.light_red.darken[2].hex, 10)
+            color: parseInt(Number(config.colors.light_red.darken[2].hex), 10)
         }
 
         const embedExtension = urlSource?.includes('.') ? urlSource.split('.').pop().split('?').shift() : null;
@@ -254,7 +254,7 @@ module.exports = {
                 url: 'attachment://message.png'
             },
             // eslint-disable-next-line no-magic-numbers
-            color: parseInt(config.colors.light_red.darken[2].hex, 10)
+            color: parseInt(Number(config.colors.light_red.darken[2].hex), 10)
         }
         logger.debug(`Generated embed for deleted message ${message.id}`);
 

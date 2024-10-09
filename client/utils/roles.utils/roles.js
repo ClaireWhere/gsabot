@@ -279,7 +279,7 @@ function getMinNeopronounsPosition(interaction) {
     const pronounRoles = getConfigRoles().map(role => {return role.name});
     try {
         interaction.guild.roles.cache.forEach((role) => {
-            if ((role.color !== parseInt(config.roles.pronouns.neo.color, 10) || pronounRoles.includes(role.name)) && (role.position < maxPos && role.position > minPos)) {
+            if ((role.color !== parseInt(Number(config.roles.pronouns.neo.color), 10) || pronounRoles.includes(role.name)) && (role.position < maxPos && role.position > minPos)) {
                 minPos = role.position;
             }
         });

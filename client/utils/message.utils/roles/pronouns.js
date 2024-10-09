@@ -107,7 +107,7 @@ module.exports = {
         const embed = {
             title: `Pronoun Roles`,
             description: `Click the buttons to set your pronouns! \nClicking a button again will remove those pronouns, you may do this as much as you like\n\nIf you use multiple pronouns but have no preference, select the blue options. If you use multiple pronouns and DO have a preference, choose from the gray options.\n\n**Example:** If I use all pronouns but prefer she and they equally. I would choose she/he and they/he, showing that he is my secondary choice. If you prefer your pronouns in a certain order, pick the right option for you!`,
-            color: parseInt(config.colors.rainbow[0].hex, 10),
+            color: parseInt(Number(config.colors.rainbow[0].hex), 10),
             thumbnail: {
             url: config.images.pronouns_thmb,
             height: 0,

@@ -14,7 +14,7 @@ async function welcomeMember(interaction) {
     const introductions = await interaction.guild.channels.cache.find(channel => {return channel.name === 'introductions' && !getChannelParentName(channel).includes('archive')}) ?? `\`#introductions\``;
     const roles = await interaction.guild.channels.cache.find(channel => {return channel.name === 'roles' && !getChannelParentName(channel).includes('archive')}) ?? `\`#roles\``;
     const welcome = await interaction.guild.channels.cache.find(channel => {return channel.name === 'welcome' && !getChannelParentName(channel).includes('archive') && !getChannelParentName(channel).includes('verification')}) ?? `\`#welcome\``;
-    await welcome.send({ content: `${interaction.member}`, embeds: [{title: ``, description: `# Welcome to the GSA Discord Server!\nEveryone say hi to ${interaction.member}! Feel free to introduce yourself in ${introductions} and choose your ${roles}`, color: parseInt(color, 10)}] })
+    await welcome.send({ content: `${interaction.member}`, embeds: [{title: ``, description: `# Welcome to the GSA Discord Server!\nEveryone say hi to ${interaction.member}! Feel free to introduce yourself in ${introductions} and choose your ${roles}`, color: parseInt(Number(color), 10)}] })
         .then(message => {
             message.react('👋');
             logger.info(`Successfully sent welcome message for ${interaction.member}`);

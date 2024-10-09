@@ -18,7 +18,7 @@ module.exports = {
             title: `Minecraft Role`,
             description: `Do you want access to the Minecraft server and talk about Minecraft?\n\nClick the button below to get the ${minecraftRole} role (click again to remove)`,
             // eslint-disable-next-line no-magic-numbers
-            color: parseInt(config.colors.rainbow[4].hex, 10),
+            color: parseInt(Number(config.colors.rainbow[4].hex), 10),
             thumbnail: {
                 url: config.images.minecraft_thmb,
                 height: 0,

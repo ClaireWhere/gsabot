@@ -14,7 +14,7 @@ module.exports = {
         const embed1 = {
             title: ``,
             description: `# GSC Announcement\n‎\n>>> ${announcementData.content}`,
-            color: parseInt(config.colors.light_red.darken[0].hex, 10),
+            color: parseInt(Number(config.colors.light_red.darken[0].hex), 10),
             timestamp: new Date().toISOString(),
             footer: {
                 text: `Announcement created by ${nickname}\nPosted on`,

@@ -39,7 +39,7 @@ function getRoleOutput(interaction) {
  * @returns 
  */
 function getVcOutput(interaction) {
-    return new Promise((res) => {return res(vc.execute(interaction).then((executeRes) => {return executeRes[parseInt(interaction.options.get('type').value, 10)]}))});
+    return new Promise((res) => {return res(vc.execute(interaction).then((executeRes) => {return executeRes[parseInt(Number(interaction.options.get('type').value), 10)]}))});
 }
 
 function getRulesOutput(interaction, channel) {
