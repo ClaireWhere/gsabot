@@ -8,7 +8,7 @@ module.exports = {
         const embed1 = new EmbedBuilder()
             .setTitle(`‎\n📣 REMEMBER THIS IS A SAFE AND POSITIVE SPACE FOR THE LGBTQ+ COMMUNITY AT ${process.env.SCHOOL.toUpperCase()}, AND THE POSTS MADE IN THIS DISCORD ARE REPRESENTATIVE OF OUR ORGANIZATION AS A WHOLE.`)
             .setDescription('‎\nThere is **ABSOLUTELY NO TOLERANCE** for homophobia, transphobia, sexism, racism, or any type of hate speech. If you are unfamiliar with a certain topic that comes up in conversation, ask and be open and respectful.')
-            .setColor(parseInt(config.colors.light_red.darken[0].hex, 10))
+            .setColor(parseInt(Number(config.colors.light_red.darken[0].hex), 10))
             .setAuthor({ name: 'Gender & Sexuality Alliance', iconURL: config.images.gsa_icon })
             .setThumbnail(config.images.rules_thmb);
 
@@ -17,7 +17,7 @@ module.exports = {
         const general = isVerification ? '`#general`': await interaction.guild.channels.cache.find(channel => {return channel.name === 'general' && !getChannelParentName(channel).includes('archive')}) ?? `\`#general\``;
 
         const embed2 = new EmbedBuilder()
-            .setColor(parseInt(config.colors.black.hex, 10))
+            .setColor(parseInt(Number(config.colors.black.hex), 10))
             .addFields(
                 {
                     "name": `1️⃣ Be respectful and welcoming of others`,

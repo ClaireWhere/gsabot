@@ -42,8 +42,8 @@ async function repairRole(interaction, role, position) {
         if (existingRole.name !== role.name) {
             modify.name = role.name
         }
-        if (existingRole.color !== parseInt(role.color, 10)) {
-            modify.color = parseInt(role.color, 10);
+        if (existingRole.color !== parseInt(Number(role.color), 10)) {
+            modify.color = parseInt(Number(role.color), 10);
         }
         if (existingRole.position !== position) {
             console.log(`starting position: ${existingRole.position} | position: ${position}`);
@@ -79,7 +79,7 @@ async function repairRole(interaction, role, position) {
             return {error: true};
         });
     }
-    return await interaction.guild.roles.create({ name: role.name, color: parseInt(role.color, 10) ?? 0, permissions: getPermissionsFromArray(role.permissions), position: position })
+    return await interaction.guild.roles.create({ name: role.name, color: parseInt(Number(role.color), 10) ?? 0, permissions: getPermissionsFromArray(role.permissions), position: position })
     .then(() => {
         logger.info(`created role ${role.name}`);
         return {created: 1, positionChange: -1};
@@ -139,7 +139,7 @@ async function repairNeopronouns(interaction) {
     for (const [, role] of interaction.guild.roles.cache) {
         if (role.position <= position && role.position >= minPosition) {
             skippedRoles++;
-        } else if (!configRoles.includes(role.name) && role.color === parseInt(config.roles.pronouns.neo.color, 10) && !role.name.includes(`'s Color`)) {
+        } else if (!configRoles.includes(role.name) && role.color === parseInt(Number(config.roles.pronouns.neo.color), 10) && !role.name.includes(`'s Color`)) {
             const res = await role.setPosition(position)
                 .then(() => {
                     logger.info(`successfully updated neopronoun role ${role.name}... position -> ${position}`);

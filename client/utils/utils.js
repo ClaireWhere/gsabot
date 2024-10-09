@@ -107,7 +107,7 @@ function toNum(str) {
     if (typeof(str) === typeof(0)) { 
         return str;
     }
-    return parseInt(str, 10);
+    return parseInt(Number(str), 10);
 }
 
 function isNumeric(input){

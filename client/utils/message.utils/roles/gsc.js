@@ -25,7 +25,7 @@ module.exports = {
             title: `GSC Announcements Role`,
             description: `Would you like to be pinged with ${gscRole} in ${gscChannel} for important announcements about the Gender and Sexuality Center (GSC) on campus?\n\nClick the button below to get notifications for imporant news and events, and when the GSC is closed unexpectedly. (click again to remove)`,
             // eslint-disable-next-line no-magic-numbers
-            color: parseInt(config.colors.rainbow[5].hex, 10),
+            color: parseInt(Number(config.colors.rainbow[5].hex), 10),
             thumbnail: {
                 url: config.images.gsc_thmb,
                 height: 0,

@@ -45,7 +45,7 @@ module.exports = {
             title: `Year Roles`,
             description: `Click the buttons below for what year you're in here at OU.\n\nYou can only have one of these at once. At the start of each school year we'll try to remind you to click the next one!`,
             // eslint-disable-next-line no-magic-numbers
-            color: parseInt(config.colors.rainbow[2].hex, 10),
+            color: parseInt(Number(config.colors.rainbow[2].hex), 10),
             thumbnail: {
             url: config.images.year_thmb,
             height: 0,

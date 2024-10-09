@@ -26,7 +26,7 @@ module.exports = {
                 icon_url: config.images.gsa_icon
             },
             // eslint-disable-next-line no-magic-numbers
-            color: parseInt(config.colors.light_red.darken[0].hex, 10)
+            color: parseInt(Number(config.colors.light_red.darken[0].hex), 10)
         }
 
         const agreement = {embeds: [embed], components: [row] };

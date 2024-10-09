@@ -18,7 +18,7 @@ function buildBanListEmbed(banList, banType) {
     const embed = {
         "title": banType === 'all' ? "All Bans" : `${getBanTypeDisplay(banType)} Bans`,
         "description": "",
-        "color": parseInt(config.colors.light_red.darken[0].hex, 10),
+        "color": parseInt(Number(config.colors.light_red.darken[0].hex), 10),
         "fields": [],
         "footer": {
             "text": "Last updated "
