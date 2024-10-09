@@ -255,7 +255,7 @@ function getMaxNeopronounsPosition(interaction) {
  */
 function getConfigRoles(root, roles) {
     if (!root) { 
-        root = require('../../client/config.json').config.roles;
+        root = require('../../config.json').config.roles;
         roles = [];
     }
     for (const [, value] of Object.entries(root)) {
