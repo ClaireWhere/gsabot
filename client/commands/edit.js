@@ -14,7 +14,7 @@ const year = require('../utils/message.utils/roles/year.js');
 const gsc = require('../utils/message.utils/roles/gsc.js');
 const { getChannelParentName } = require('../utils/utils.js');
 const { logger } = require('../utils/logger.js');
-const gscTicket = require('../utils/message.utils/gsc_ticket.js');
+const ticket = require('../utils/message.utils/ticket.js');
 
 /**
  * 
@@ -66,7 +66,7 @@ function getOutput(interaction, channel) {
          : subcommand === 'vc' ? getVcOutput(interaction)
          : subcommand === 'welcome' ? welcome.execute(interaction)
          : subcommand === 'button' ? null
-         : subcommand === 'gsc_ticket' ? gscTicket.execute(interaction)
+         : subcommand === 'ticket' ? ticket.execute(interaction)
          : null;
 }
 

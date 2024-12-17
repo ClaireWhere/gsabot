@@ -7,7 +7,7 @@ const welcome = require('../utils/message.utils/welcome.js');
 const vc = require('../utils/message.utils/vc.js');
 const politics = require('../utils/message.utils/politics.js');
 const safeSpace = require('../utils/message.utils/safe_space.js');
-const gscTicket = require('../utils/message.utils/gsc_ticket.js')
+const ticket = require('../utils/message.utils/ticket.js');
 const { getChannelParentName } = require('../utils/utils.js');
 const { logger } = require('../utils/logger.js');
 
@@ -35,7 +35,7 @@ function getOutput(interaction, channel) {
          : subcommand === 'vc' ? vc.execute(interaction)
          : subcommand === 'welcome' ? welcome.execute(interaction) 
          : subcommand === 'button' ? null
-         : subcommand === 'gsc_ticket' ? gscTicket.execute(interaction)
+         : subcommand === 'ticket' ? ticket.execute(interaction)
          : null;
 }
 
@@ -120,14 +120,39 @@ module.exports = {
             )}
         )
         .addSubcommand(subcommand =>
-            {return subcommand.setName('gsc_ticket')
-            .setDescription('Sends the gsc ticket submission button in the specified channel')
+            {return subcommand.setName('ticket')
+            .setDescription('Sends a ticket submission button message in the specified channel')
             .addChannelOption(option =>
                 {return option.setName('channel')
-                .setDescription('The channel to send the gsc ticket submission button to')
-                .setRequired(true)}
-            )}
-        ),
+                .setDescription('The channel to send the ticket submission button to')
+                .setRequired(true)})
+            .addStringOption(option =>
+                {return option.setName('type')
+                .setDescription('The type of ticket to send')
+                .setRequired(true)
+                .addChoices(
+                    {name: 'Support', value: 'support_ticket'},
+                    {name: 'GSC Announcement', value: 'gsc_announcement'}
+                )})
+            .addStringOption(option =>
+                {return option.setName('title')
+                .setDescription('The title of the ticket message')
+                .setRequired(true)})
+            .addStringOption(option =>
+                {return option.setName('description')
+                .setDescription('The description of the ticket message')
+                .setRequired(true)})
+            .addStringOption(option =>
+                {return option.setName('label')
+                .setDescription('The text to display on the button in the ticket message')
+                .setRequired(true)})
+            .addStringOption(option =>
+                {return option.setName('emoji')
+                .setDescription('The emoji to use for the button')
+                .setRequired(true)})
+            }
+        )
+        ,
         async execute(interaction) {
             if (interaction.commandName !== 'send') { return false; }
 
@@ -136,6 +161,8 @@ module.exports = {
             let output = await getOutput(interaction, channel).catch((error) => {
                 logger.warn(`error in retrieving output for ${interaction.commandName} ${interaction.options.getSubcommand()} interaction (${error})`);
             });
+
+            logger.debug(`got output for ${interaction.commandName} ${interaction.options.getSubcommand()} interaction`);
 
             if (!output) {
                 await interaction.editReply({content: `Error: invalid subcommand specified`})
@@ -148,7 +175,10 @@ module.exports = {
                 output = [output];
             }
 
+            logger.debug(`sending ${output.length} messages for ${interaction.options.getSubcommand()}`);
+
             for (let i = 0; i < output.length; i++) {
+                logger.debug(`Sending message ${i+1} of ${output.length} for ${interaction.options.getSubcommand()}`);
                 await channel.send(output[i])
                     .then(() => {
                         logger.info(`Successfully sent message ${i+1} of ${output.length} for ${interaction.options.getSubcommand()}`);
