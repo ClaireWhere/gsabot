@@ -310,7 +310,7 @@ async function getNeopronounRoles(interaction) {
  */
 async function getBotRolePosition(interaction) {
     const botUser = await interaction.guild.members.fetch(interaction.client.user.id);
-    return interaction.guild.roles.cache.find( role => {return botUser.roles.cache.has(role.id)} ).position-1;
+    return Math.max(...botUser.roles.cache.map(role => {return role.position-1}));
 }
 
 
