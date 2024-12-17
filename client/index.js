@@ -98,28 +98,34 @@ client.on(Events.InteractionCreate, async interaction => {
 
     if (!command) {return;}
 
-    if (!await interaction.deferReply({ ephemeral: true })
-            .then(() => {
-                logger.info(`/${interaction.commandName} command deferred`);
-                return true;
-            }).catch((error) => {
-                logger.warn(`/${interaction.commandName} could not be deferred (${error})`);
-                return false;
-            })
-    ) {
-        return;
-    }
+    let response = null;
 
+    response = await interaction.deferReply({ ephemeral: true })
+        .then(() => {
+            logger.debug(`/${interaction.commandName} command deferred`);
+            return true;
+        }).catch((error) => {
+            logger.warn(`/${interaction.commandName} could not be deferred (${error})`);
+            return false;
+        });
+
+    if (!response) {return;}
+    
     await command.execute(interaction)
         .then((res) => {
-            logger.info(`${interaction.commandName} command execution completed with status ${res}`)
+            if (res === true) {
+                logger.info(`${interaction.commandName} command execution completed successfully`)
+            } else if (res === false) {
+                logger.warn(`${interaction.commandName} command execution completed unsuccessfully`)
+            } else {
+                logger.debug(`${interaction.commandName} command execution completed with unknown response`)
+            }
         }).catch(async (error) => {
             await interaction.followUp({content: 'There was an error D:', ephemeral: true})
                 .then(() => {
                     logger.warn(`${interaction.commandName} command executed with error. Application successfully sent error message`)
                 }).catch(() => {
                     logger.error(`${interaction.commandName} command was unable to be executed. Application did not respond in time: ${error}`);
-                    return false;
                 });
         });
     
