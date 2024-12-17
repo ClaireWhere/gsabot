@@ -48,41 +48,45 @@ if (client) {
 
 // Initialize Events
 const eventFiles = fs.readdirSync(`${__dirname}/events`).filter(file => {return file.endsWith('.js')});
+let eventsLoaded = 0;
 logger.info(`Found ${eventFiles.length} events to load`);
 
 eventFiles.forEach(file => {
-    logger.info(`loading event from ${file} (full path: ${__dirname}/events/${file})`);
-    
     try {
-        require(`${__dirname}/events/${file}`);
+        logger.debug(`loading event from ${file} (full path: ${__dirname}/events/${file})`);
+        const event = require(`${__dirname}/events/${file}`);
+        if (event.once) {
+            client.once(event.name, (...args) => {return event.execute(...args)});
+        } else {
+            client.on(event.name, (...args) => {return event.execute(...args)});
+        }
+        logger.debug(`registered event: ${event.name} from ${file}`)
+        eventsLoaded++;
     } catch (error) {
         logger.error(`There was an error loading event from file ${file}: ${error}`);
     }
-
-    const event = require(`${__dirname}/events/${file}`);
-    if (event.once) {
-        client.once(event.name, (...args) => {return event.execute(...args)});
-    } else {
-        client.on(event.name, (...args) => {return event.execute(...args)});
-    }
-    logger.info(`registered event: ${event.name} from ${file}`)
 });
-
+logger.info(`Loaded ${eventsLoaded} / ${eventFiles.length} events`);
 
 // Initialize Commands
 client.commands = new Collection();
 const commandFiles = fs.readdirSync(`${__dirname}/commands`).filter(file => {return file.endsWith('.js')});
+let commandsLoaded = 0;
 logger.info(`Found ${commandFiles.length} commands to load`);
 
 for (const file of commandFiles) {
-    const command = require(`${__dirname}/commands/${file}`);
     try {
+        logger.debug(`loading command from ${file} (full path: ${__dirname}/commands/${file})`);
+        const command = require(`${__dirname}/commands/${file}`);
+
         client.commands.set(command.data.name, command);
-        logger.info(`initialized command: ${command.data.name}`);
+        logger.debug(`registered command: ${command.data.name} from ${file}`);
+        commandsLoaded++;
     } catch (error) {
-        logger.error(`could not load command from file ${file}: ${error}`);
+        logger.error(`There was an error loading command from file ${file}: ${error}`);
     }
 }
+logger.info(`Loaded ${commandsLoaded} / ${commandFiles.length} commands`);
 
 // Command handler
 client.on(Events.InteractionCreate, async interaction => {
