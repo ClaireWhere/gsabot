@@ -136,4 +136,14 @@ function pad(num, size) {
     return num;
 }
 
-module.exports = { arrayMatch, isEmpty, formatList, removeIntersection, arrayToLowerCase, toNum, isNumeric, getChannelParentName, getDate }
+/**
+ * 
+ * @param {string} hex 
+ * @returns {boolean} true if the passed string is a valid hex color, false otherwise
+ */
+function isValidHexColor(hex) {
+    return /^#?([0-9A-F]{3}|[0-9A-F]{6})$/i.test(hex);
+}
+
+
+module.exports = { arrayMatch, isEmpty, formatList, removeIntersection, arrayToLowerCase, toNum, isNumeric, getChannelParentName, getDate, isValidHexColor }
