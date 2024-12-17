@@ -35,7 +35,7 @@ async function colorHandler(interaction, id) {
     }
     
     // Color value of 0 specifies no/default color in discord, but we want it to be fully black (like #000000), so we make it like #000001 instead
-    const hex = parseInt(Number(id), 16) === 0 ? 1 : parseInt(Number(id), 16);
+    const hex = parseInt(id, 16) === 0 ? 1 : parseInt(id, 16);
 
     const roleName = `${interaction.member.nickname ?? interaction.member.displayName ?? interaction.member.id}'s Color`;
 
