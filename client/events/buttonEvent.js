@@ -43,7 +43,7 @@ module.exports = {
         }
 
         if (id[0] === TICKET_BUTTON_ID) {
-            return await ticketDisplayHandler(interaction, id[1]);
+            return await ticketDisplayHandler(interaction);
         }
 
         if (!await interaction.deferUpdate()
