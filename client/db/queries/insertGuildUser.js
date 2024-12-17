@@ -42,4 +42,28 @@ function insertGuildUser(guildID, userID, nickname, displayHexColor) {
     });
 }
 
-module.exports = insertGuildUser;
+function getGuildUserID(guildID, userID) {
+    const query = `
+        SELECT id
+        FROM guild_user
+        WHERE guild_id = $1
+        AND user_id = $2;
+    `;
+    const values = [guildID, userID];
+    return new Promise((resolve, reject) => {
+        if (!healthy) {
+            reject(new Error('No database connection.'));
+        }
+        client.query(query, values, (queryError, queryResponse) => {
+            if (queryError) {
+                logger.error(queryError.stack);
+                reject(queryError);
+            } else {
+                const guildUserID = queryResponse.rows.shift().id;
+                resolve(guildUserID);
+            }
+        });
+    });
+}
+
+module.exports = {insertGuildUser, getGuildUserID};
