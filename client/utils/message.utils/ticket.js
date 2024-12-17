@@ -1,14 +1,18 @@
 const { config } = require('../../config.json');
 const { ButtonStyle, ActionRowBuilder, ButtonBuilder } = require('discord.js');
 
+
+const SUPPORT_TICKET_ID = 'support_ticket';
+const GSC_TICKET_ID = 'gsc_announcement';
+
 function getTicketTypeID(type) {
     switch (type) {
         case 'gsc_announcement':
-            return 'gsc_announcement';
-        case 'new_ticket':
-            return 'new_ticket';
+            return GSC_TICKET_ID;
+        case 'support_ticket':
+            return SUPPORT_TICKET_ID;
         default:
-            return null;
+            return 'unknown';
     }
 }
 
