@@ -12,10 +12,10 @@ const MILLIS_IN_SECOND = 1000;
  * @param {import('discord.js').Interaction} interaction 
  * @returns 
  */
-async function getGreatestRolePosition(interaction) {
+function getGreatestRolePosition(interaction) {
     try {
         // The 'starting' location should be the location of either the president role or one lower than the lowest positioned color role (if any exist), whichever has the smallest position
-        let pos = await getBotRolePosition(interaction);
+        let pos = getBotRolePosition(interaction);
         interaction.guild.roles.cache.forEach((role) => {
             if ((role.name === config.roles.president.name || role.name.endsWith(`'s Color`)) && role.position < pos) {
                 pos = role.position;
@@ -98,7 +98,7 @@ async function repairRoles(interaction) {
     let rolesCreated = 0;
     let rolesModified = 0;
     let rolesSkipped = 0;
-    let position = await getGreatestRolePosition(interaction);
+    let position = getGreatestRolePosition(interaction);
     logger.info(`Repairing roles with starting position ${position}`);
 
     const configRoles = getConfigRoles();

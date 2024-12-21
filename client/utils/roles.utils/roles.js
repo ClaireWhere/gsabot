@@ -304,13 +304,12 @@ async function getNeopronounRoles(interaction) {
 }
 
 /**
- * Gets the role position of the bot's role
- * @param {import('discord.js').Interaction} interaction 
- * @returns {Promise<number>} the position of the bot's role
+ * Gets the highest role position of the bot
+ * @param {import('discord.js').Interaction} interaction
+ * @returns {number} the position of the bot's highest role in the guild
  */
-async function getBotRolePosition(interaction) {
-    const botUser = await interaction.guild.members.fetch(interaction.client.user.id);
-    return Math.max(...botUser.roles.cache.map(role => {return role.position-1}));
+function getBotRolePosition(interaction) {
+    return interaction.guild.members.me.roles.highest.position;
 }
 
 
