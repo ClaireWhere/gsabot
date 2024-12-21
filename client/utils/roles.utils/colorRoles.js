@@ -57,17 +57,27 @@ function getNewRolePosition(interaction) {
  * @returns 
  */
 async function cancelInteraction(interaction, message) {
-    await interaction.editReply({content: `Interaction cancelled ${message}`, embeds: [], components: []});
+    await interaction.editReply({content: `Interaction cancelled. ${message}`, embeds: [], components: []});
     return false;
 }
 
+/**
+ * 
+ * @param {import('discord.js').Interaction} interaction
+ * @param {string} id 
+ * @returns 
+ */
 async function colorHandler(interaction, id) {
     if (id.length === 0) { 
-        return await cancelInteraction(interaction, '. There was an error! It looks like the button you clicked was invalid 🤔\nTry `/set color` again');
+        return await interaction.editReply({content: 'There was an error! It looks like the button you clicked was invalid 🤔\nTry `/set color` again'});
     }
     if (id === 'no') {
         await cancelInteraction(interaction, '');
         return true;
+    }
+
+    if (!isValidHexColor(id)) {
+        return await interaction.editReply({content: 'There was an error! The hex color specified is not a valid color...\nTry `/set color` again'});
     }
     
     // Color value of 0 specifies no/default color in discord, but we want it to be fully black (like #000000), so we make it like #000001 instead
@@ -75,37 +85,42 @@ async function colorHandler(interaction, id) {
 
     const roleName = `${interaction.member.nickname ?? interaction.member.displayName ?? interaction.member.id}'s Color`;
 
-    const memberRole = await interaction.member.roles.cache.find(role => {return role.name.endsWith(`'s Color`)});
+    const member = interaction.guild.members.cache.get(interaction.user.id);
+    const memberRole = member.roles.cache.find(role => {return role.name.endsWith(`'s Color`)});
 
     if (memberRole === undefined) {
         return await interaction.guild.roles.create( {name: roleName, color: hex, permissions: [], position: getNewRolePosition(interaction)} )
             .then(async role => {
-                    await interaction.member.roles.add(role);
-                    await interaction.editReply({content: `#${id.toUpperCase()}`, embeds: [{title: 'Your color has been set!', description: `${role} is your color\nUse \`/color set\` again to change it`, color: hex}], components: []});
-                })
-            .catch(async error => {
+                return await interaction.member.roles.add(role)
+                    .then(async () => {
+                        logger.info(`Added role ${roleName} to ${interaction.member.displayName}`);
+                        await interaction.editReply({content: `#${id.toUpperCase()}`, embeds: [{title: 'Your color has been set!', description: `${role} is your color\nUse \`/color set\` again to change it`, color: hex}], components: []});
+                        return true;
+                    }).catch(async (error) => {
+                        logger.error(error);
+                        await interaction.editReply({content: 'There was an error adding your role. Try again and if the issue persists, please contact a moderator'});
+                        return false;
+                    });
+            }).catch(async (error) => {
                 logger.error(error);
-                return await error(interaction, '. There was an error creating your role. Try again and if the issue persists, please contact a moderator');
+                await interaction.editReply({content: 'There was an error creating your role. Try again and if the issue persists, please contact a moderator'});
+                return false;
             });
-        return true;
     }
     
-    let response;
-    response = await memberRole.setName(roleName)
-        .catch(logger.error)
-        .then(() => {return true});
-    if (!response) {
-        return await cancelInteraction(interaction, '. There was an error updating your role. Try again and if the issue persists, please contact a moderator');
-    }
-    response = await memberRole.setColor(hex)
-        .catch(logger.error)
-        .then(() => {return true});
-    if (!response) {
-        return await cancelInteraction(interaction, '. There was an error updating your role. Try again and if the issue persists, please contact a moderator');
-    }
-
-    await interaction.editReply({content: `#${id.toUpperCase()}`, embeds: [{title: 'Your color has been updated!', description: `${memberRole} is now your color`, color: hex}], components: []});
-    return true;
+    await memberRole.setName(roleName)
+        .then(() => {
+            logger.info(`Updated role name to ${roleName}`);
+        }).catch(error => {
+            logger.error(error);
+        });
+    return await memberRole.setColor(hex)
+        .then(async () => {
+            return await interaction.editReply({content: `#${id.toUpperCase()}`, embeds: [{title: 'Your color has been updated!', description: `${memberRole} is now your color`, color: hex}], components: []});
+        }).catch(async (error) => {
+            logger.error(error);
+            return await interaction.editReply({content: 'There was an error updating your color. Try again and if the issue persists, please contact a moderator'});
+        });
 }
 
 
