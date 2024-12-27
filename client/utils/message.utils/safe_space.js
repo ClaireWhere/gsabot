@@ -40,7 +40,7 @@ module.exports = {
                 },
                 {
                     "name": `‎\n2️⃣ Please do not include names without permission`,
-                    "value": `If a person attends or is affiliated with Oakland University, please do not name them in any negative context unless you have asked permission. Include in the message that you got permission. Do not name any GSA member or anyone otherwise involved in the GSA in a negative context. Otherwise, the message may be deleted and you'll be messaged to post it again with the name removed. Referring to someone as "my friend", "my brother", "somebody" etc. is completely acceptable unless they are in this server or otherwise involved with the GSA.`
+                    "value": `If a person attends or is affiliated with Oakland University, please do not name them in any negative context unless you have asked permission. Include in the message that you got permission. Do not name any ${config.roles.member.name} or anyone otherwise involved in the GSA in a negative context. Otherwise, the message may be deleted and you'll be messaged to post it again with the name removed. Referring to someone as "my friend", "my brother", "somebody" etc. is completely acceptable unless they are in this server or otherwise involved with the GSA.`
                 },
                 {
                     "name": `‎\n3️⃣ As always, be respectful and welcoming of others`,

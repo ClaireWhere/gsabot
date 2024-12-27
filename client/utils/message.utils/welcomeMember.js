@@ -5,11 +5,11 @@ const { logger } = require("../logger");
 
 
 async function welcomeMember(interaction) {
-    if (await memberHasRoleName(interaction, "GSA Member")) {
+    if (await memberHasRoleName(interaction, config.roles.member.name)) {
         await interaction.followUp({ephemeral: true, content: `${await interaction.guild.emojis.cache.find(emoji => {return emoji.name === 'rich_thinking'}) ?? '🤔'} There was an error. You are already a member!`});
         return false;
     }
-    await addFormatRole(interaction, "GSA Member");
+    await addFormatRole(interaction, config.roles.member.name);
     const color = config.colors.rainbow.at(Math.random()*config.colors.rainbow.length).hex;
     const introductions = await interaction.guild.channels.cache.find(channel => {return channel.name === 'introductions' && !getChannelParentName(channel).includes('archive')}) ?? `\`#introductions\``;
     const roles = await interaction.guild.channels.cache.find(channel => {return channel.name === 'roles' && !getChannelParentName(channel).includes('archive')}) ?? `\`#roles\``;
