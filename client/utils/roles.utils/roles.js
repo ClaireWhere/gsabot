@@ -164,7 +164,7 @@ async function addFormatRole(interaction, roleName) {
     const res = await addRole(interaction, role);
     if (!res) { return false; }
     
-    if (roleName === 'GSA Member') {
+    if (roleName === config.roles.member.name) {
         return await interaction.followUp({ephemeral: true, content: `🥳🥳 You are now a officially a part of the GSA Discord server!`})
             .then(() => { return true; })
             .catch((error) => {
