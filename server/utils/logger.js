@@ -43,7 +43,7 @@ if (process.env.NODE_ENV !== 'production') {
         format.colorize({
             all: true,
             colors: {
-                debug: 'black',
+                debug: 'gray',
                 info: 'cyan',
                 warn: 'yellow',
                 error: 'red'
