@@ -167,6 +167,21 @@ module.exports = {
 
         const authorID = message.author.id;
         const guildUser = message.guild.members.cache.find(user => {return user.id === authorID});
+        
+        if (!guildUser) {
+            await message.guild.members.fetch(authorID)
+                .then((fetchedUser) => {
+                    logger.info(`Fetched user ${fetchedUser.displayName} (id: ${fetchedUser.id})`);
+                })
+                .catch((error) => {
+                    logger.error(`Failed to fetch user ${authorID}: ${error}`);
+                });
+            if (!guildUser) {
+                logger.error(`User ${authorID} not found in guild: ${message.guild.name}`);
+                return;
+            }
+        }
+
         const authorUsername = message.author.username;
         const authorDisplayName = guildUser.displayName;
         const authorNickname = message.author.nickname;
