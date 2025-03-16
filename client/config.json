@@ -1,14 +1,14 @@
 {
     "config": {
         "custom_status": {
-            "enabled": false,
-            "state": "Back and better than ever!",
+            "enabled": true,
+            "state": "G A Y",
             "name": "Set your name color with /color",
             "status": "online"
         },
         "minecraft_tracker": {
-            "enabled": true,
-            "frequency_mins": 2
+            "enabled": false,
+            "frequency_mins": 1000
         },
         "deleted_message_log": {
             "enabled": true,
@@ -36,7 +36,7 @@
             }]
         },
         "images": {
-            "gsa_icon": "https://i.imgur.com/ikQzGjP.png",
+            "gsa_icon": "https://i.imgur.com/3hcgcrY.png",
             "rules_thmb": "https://i.imgur.com/zCeCcY8.png",
             "agreement_thmb": "https://i.imgur.com/zCeCcY8.png",
             "safe_space_thmb": "https://i.imgur.com/BG949wk.png",
