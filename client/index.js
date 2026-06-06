@@ -70,7 +70,8 @@ function loadDatabase() {
 }
 
 loadDatabase().catch(() => {
-    logger.info("Error")
+    logger.error(`Failed to connect to database (host: ${process.env.PGHOST}, name: ${process.env.PGDATABASE})`);
+    process.exit(0);
 }).then(() => {
     // Initialize Events
     eventFiles.forEach(file => {
