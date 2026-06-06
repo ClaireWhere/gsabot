@@ -1,8 +1,8 @@
 const { ButtonBuilder, ButtonStyle, ActionRowBuilder } = require("discord.js");
 const { config } = require('../../../config.json');
 
-module.exports = { 
-    execute() {
+module.exports = {
+    async execute(interaction) {
         const row1 = new ActionRowBuilder()
             .addComponents(
                 new ButtonBuilder()

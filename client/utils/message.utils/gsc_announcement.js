@@ -1,11 +1,12 @@
 const { config } = require('../../config.json');
+const { getRandomName } = require('../utils');
 
 module.exports = {
     /**
-     * 
-     * @param {import('discord.js').Interaction} interaction 
+     *
+     * @param {import('discord.js').Interaction} interaction
      * @param {{ping: boolean, content: string}} announcementData
-     * @returns 
+     * @returns
      */
     execute(interaction, announcementData) {
         const gscRole = announcementData.ping ? interaction.guild.roles.cache.find(role => {return role.name === config.roles.gsc.name}) : '';
@@ -17,15 +18,15 @@ module.exports = {
             color: parseInt(Number(config.colors.light_red.darken[0].hex), 10),
             timestamp: new Date().toISOString(),
             footer: {
-                text: `Announcement created by ${nickname}\nPosted on`,
+                text: `Announcement created by ${nickname}\nPosted`,
                 icon_url: interaction.member.displayAvatarURL()
             },
             author: {
-                name: `Gender & Sexuality Alliance`,
+                name: getRandomName(),
                 icon_url: config.images.gsa_icon
             },
         };
-        
+
         const gscAnnouncement = { content: `${gscRole}`, embeds: [embed1] }
         return gscAnnouncement
     }

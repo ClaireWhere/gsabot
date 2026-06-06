@@ -1,11 +1,35 @@
 const { createLogger, format, transports } = require('winston')
 const { combine } = format;
 const { version, name } = require('../package.json');
+const fs = require('fs');
 
-const errorLogFilepath = '../logs/error.log';
-const combinedLogFilepath = '../logs/combined.log';
-const exceptionsLogFilepath = '../logs/exceptions.log';
-const rejectionsLogFilepath = '../logs/rejections.log';
+function getFormattedDate() {
+    const date = new Date();
+
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+    let hour = date.getHours();
+    let min = date.getMinutes();
+    let sec = date.getSeconds();
+
+    month = `${(month < 10 ? "0" : "")}${month}`;
+    day = `${(day < 10 ? "0" : "")}${day}`;
+    hour = `${(hour < 10 ? "0" : "")}${hour}`;
+    min = `${(min < 10 ? "0" : "")}${min}`;
+    sec = `${(sec < 10 ? "0" : "")}${sec}`;
+
+    const str = `${date.getFullYear()}-${month}-${day}_${hour}-${min}-${sec}`;
+    return str;
+}
+
+const baseDir = `${process.env.LOGS_DIR}/${getFormattedDate()}`
+if (!fs.existsSync('baseDir')) {
+    fs.mkdirSync(baseDir, { recursive: true});
+}
+const errorLogFilepath = `${baseDir}/error.log`;
+const combinedLogFilepath = `${baseDir}/combined.log`;
+const exceptionsLogFilepath = `${baseDir}/exceptions.log`;
+const rejectionsLogFilepath = `${baseDir}/rejections.log`;
 
 const logLevel = process.env.NODE_ENV === 'production' ? 'info' : 'debug';
 

@@ -2,7 +2,7 @@ const { ButtonBuilder, ButtonStyle, ActionRowBuilder } = require("discord.js");
 const { config } = require('../../../config.json');
 
 module.exports = { 
-    execute(interaction) {
+    async execute(interaction) {
         const row1 = new ActionRowBuilder()
             .addComponents(
                 new ButtonBuilder()

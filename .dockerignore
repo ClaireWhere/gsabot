@@ -1,2 +1,43 @@
+# Version control
+.git/
+.github/
+.gitignore
+
+# Dependencies (installed in container)
 node_modules/
+
+# Build outputs (built in container)
+dist/
 npm-debug.log
+
+# Environment files
+.env*
+
+# Development files
+.vscode/
+*.log
+coverage/
+.eslintcache
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Documentation
+*.md
+docs/
+
+# Deployment configs
+compose.yaml
+Taskfile.yml
+nodejs-sample-kubernetes.yaml
+*Dockerfile*
+*docker-compose*
+
+# Non-essential configs (keep build configs)
+*.config.js
+!vite.config.ts
+!esbuild.config.js
+!tailwind.config.js
+!postcss.config.js
+!tsconfig.json

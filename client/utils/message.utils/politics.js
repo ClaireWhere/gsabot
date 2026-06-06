@@ -3,8 +3,9 @@ const { ButtonStyle, ActionRowBuilder, ButtonBuilder } = require('discord.js');
 const { getChannelParentName } = require('../utils');
 
 module.exports = {
-    async execute(interaction) {
-        const politics = await interaction.guild.channels.cache.find(channel => {return channel.name === 'politics' && !getChannelParentName(channel).includes('archive')}) ?? `\`#politics\``;
+    async execute(interaction, isEdit = false) {
+        const politics = "`#politics`";
+	const politicsChannel = await interaction.guild.channels.cache.find(channel => {return channel.name === 'politics' && !getChannelParentName(channel).includes('archive')}) ?? `\`#politics\``;
         const rules = await interaction.guild.channels.cache.find(channel => {return channel.name === 'rules' && !getChannelParentName(channel).includes('archive') && !getChannelParentName(channel).includes('verification')}) ?? `\`#rules\``;
 
         const row = new ActionRowBuilder()
@@ -21,7 +22,7 @@ module.exports = {
             description: `‎\n# ❗Politics Rules❗\nTo gain access to the ${politics} channel, please press the button below. This channel contains political content that may be upsetting to some, but please note that all the rules of the server still apply on top of the following.\n\n### Disclaimer:\nThe ${politics} channel is the place to talk about political issues. This is **NOT** a place to argue politics, but rather to inform and discuss with others current and historical political events/issues. Please respect the following rules for ${politics} as well as the ${rules} of the server.`,
             color: parseInt(Number(config.colors.light_red.darken[0].hex), 10),
             author: {
-            name: `Gender & Sexuality Alliance`,
+            name: 'Sexuality And Gender Establishment',
             icon_url: config.images.gsa_icon
             },
             thumbnail: {
@@ -35,7 +36,7 @@ module.exports = {
             fields: [
                 {
                     "name": `1️⃣  Be respectful and welcoming of others`,
-                    "value": `Homophobia, transphobia, sexism, racism, or any type of hate speech, discriminatory, or toxic behavior is **not** tolerated.\nBe welcoming of other people's political views even if they differ from your own. Anyone with harmful views will be dealt with by the eBoard, please refrain from interacting with trolls and anyone trying to cause issues.`
+                    "value": `Homophobia, transphobia, sexism, racism, or any type of hate speech, discriminatory, or toxic behavior is **not** tolerated.\nBe welcoming of other people's political views even if they differ from your own. Anyone with harmful views will be dealt with by the Eboard, please refrain from interacting with trolls and anyone trying to cause issues.`
                 },
                 {
                     "name": `‎\n2️⃣ Do not participate in arguments`,
@@ -57,11 +58,11 @@ module.exports = {
         };
         const embed3 = {
             title: ``,
-            description: `# ❗ By agreeing below, you acknowledge that you have read the rules and understand the purpose and appropriate use of the ${politics} channel.\n\nYou agree that you will continue to be respectful to others and sensitive to everyone's feelings regarding political issues. Please keep the things discussed in the ${politics} channel in this channel only. \n\nThis role may be removed at any time if you are not using this space appropriately and you will be messaged about it. Please note if you are removed, you are not in trouble, we will just not issue warnings for ${politics} as it is a highly sensitive place.\n\n### Click this button again to remove ${politics} from your view at any time\n`,
+            description: `# ❗ By agreeing below, you acknowledge that you have read the rules and understand the purpose and appropriate use of the ${politics} channel.\n\nYou agree that you will continue to be respectful to others and sensitive to everyone's feelings regarding political issues. Please keep the things discussed in the ${politics} channel in this channel only. \n\nThis role may be removed at any time if you are not using this space appropriately and you will be messaged about it. Please note if you are removed, you are not in trouble, we will just not issue warnings for ${politics} as it is a highly sensitive place.\n\n### Click this button again to remove ${politicsChannel} from your view at any time\n`,
             color: parseInt(Number(config.colors.light_red.darken[0].hex), 10),
             timestamp: new Date().toISOString(),
             footer: {
-                text: `Posted on`,
+                text: isEdit ? `Updated` : `Posted`,
                 icon_url: config.images.gsa_icon
             }
         };

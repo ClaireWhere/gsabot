@@ -1,9 +1,10 @@
-FROM --platform=arm64 node:alpine3.19
+FROM node:20-alpine3.19
 
 # Create app directory
 WORKDIR /usr/src/client
 
 # Setup environment
+ARG LOGS_DIR
 ARG DB_HOST
 ARG DB_PORT
 ARG DB_NAME
@@ -20,6 +21,7 @@ ARG SCHOOL_CODE
 ARG REGISTER
 ARG GSA_BANNER
 
+ENV LOGS_DIR=$LOGS_DIR
 ENV PGHOST=$DB_HOST
 ENV PGPORT=$DB_PORT
 ENV PGDATABASE=$DB_NAME
@@ -44,20 +46,27 @@ COPY package*.json ./
 # RUN apt-get install -y build-essential libcairo2-dev libpango1.0-dev
 
 RUN apk add --no-cache \
+    python3 \
     make \
     g++ \
+    pkgconfig \
     cairo-dev \
-    pango-dev
+    pango-dev \
+    pixman-dev \
+    jpeg-dev \
+    giflib-dev \
+    librsvg-dev \
+    fontconfig-dev
 
 RUN npm cache clean --force \
     && npm install canvas@2.11.2 --build-from-source \
-    && NODE_ENV=production \
     && npm install --omit=dev \
     && npm cache clean --force
 
+
 RUN mkdir -p /usr/share/fonts/
 COPY ./fonts/ /usr/share/fonts/
-RUN install -m644 /usr/share/fonts/*/* /usr/share/fonts/ \
+RUN find /usr/share/fonts -type f -exec install -m644 {} /usr/share/fonts/ \; \
     && fc-cache -f -v
 
 COPY . .

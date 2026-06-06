@@ -51,16 +51,16 @@
             "vc_text_pc": "https://i.imgur.com/YNbQ4pF.png"
         },
         "roles": {
-            "president": {"name": "GSA President", "color": "0x3498DB", "permissions": ["Administrator"]},
-            "technology_manager": {"name": "GSA Technology Manager", "color": "0x1F8B4C", "permissions": ["Administrator"]},
-            "vice_president": {"name": "GSA Vice President", "color": "0x2ECC71"},
-            "treasurer": {"name": "GSA Treasurer", "color": "0x9B59B6"},
-            "secretary": {"name": "GSA Secretary", "color": "0xF1C40F"},
+            "president": {"name": "SAGE President", "color": "0x3498DB", "permissions": ["Administrator"]},
+            "technology_manager": {"name": "SAGE Technology Manager", "color": "0x1F8B4C", "permissions": ["Administrator"]},
+            "vice_president": {"name": "SAGE Vice President", "color": "0x2ECC71"},
+            "treasurer": {"name": "SAGE Treasurer", "color": "0x9B59B6"},
+            "secretary": {"name": "SAGE Secretary", "color": "0xF1C40F"},
             "eboard": {"name": "Eboard", "color": "0xB0E0FF", "permissions": ["CreatePrivateThreads", "DeafenMembers", "KickMembers", "ManageEmojisAndStickers", "ManageEvents", "ManageGuildExpressions",  "ManageRoles", "ManageThreads", "ModerateMembers", "MoveMembers", "MuteMembers", "MentionEveryone", "ViewAuditLog", "ViewGuildInsights"]},
             "gsc_coordinator": {"name": "GSC Coordinator", "color": "0xF59BA7"},
             "gsc_graduate_assistant": {"name": "GSC Graduate Assistant", "color": "0x3EAD49"},
             "gsc_student_assistant": {"name": "GSC Student Assistant", "color": "0x273A92"},
-            "member": {"id": "member", "name": "GSA Member", "color": "0x009ED5", "permissions": ["AddReactions", "AttachFiles", "ChangeNickname", "Connect", "CreateInstantInvite", "CreatePublicThreads", "EmbedLinks", "ReadMessageHistory", "RequestToSpeak", "SendMessages", "SendMessagesInThreads", "Speak", "Stream", "UseApplicationCommands", "UseEmbeddedActivities", "UseExternalEmojis", "UseExternalSounds", "UseExternalStickers", "UseSoundboard", "UseVAD", "ViewChannel"]},
+            "member": {"id": "member", "name": "SAGE Member", "color": "0x009ED5", "permissions": ["AddReactions", "AttachFiles", "ChangeNickname", "Connect", "CreateInstantInvite", "CreatePublicThreads", "EmbedLinks", "ReadMessageHistory", "RequestToSpeak", "SendMessages", "SendMessagesInThreads", "Speak", "Stream", "UseApplicationCommands", "UseEmbeddedActivities", "UseExternalEmojis", "UseExternalSounds", "UseExternalStickers", "UseSoundboard", "UseVAD", "ViewChannel"]},
             "pronouns": {
                 "she_her": {"id": "pronouns:she_her", "name": "She/Her", "color": "0x8365AC", "exclusion": ["she_they", "she_he", "she_he_they", "she_they_he", "he_they", "he_she", "he_she_they", "he_they_she", "they_she", "they_he", "they_she_he", "they_he_she", "any"]},
                 "she_they": {"id": "pronouns:she_they", "name": "She/They", "color": "0x8365AC", "exclusion": ["she_her", "she_he_they", "she_they_he", "he_him", "he_she", "he_she_they", "he_they_she", "they_them", "they_she", "they_he", "they_she_he", "they_he_she", "any"]},
