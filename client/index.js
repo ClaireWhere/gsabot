@@ -4,6 +4,7 @@ require('dotenv').config();
 const minecraftTracker = require('./events/minecraftTracker');
 const { config } = require('./config.json');
 const { logger } = require('./utils/logger');
+const { client: db } = require('./db/db');
 
 logger.info(`Starting client with id ${process.env.CLIENT_ID}...`);
 
@@ -36,7 +37,6 @@ function getClient() {
     }
 }
 
-
 const client = getClient();
 
 if (client) {
@@ -46,43 +46,63 @@ if (client) {
     process.exit(1);
 }
 
-// Initialize Events
+// Load Event files
 const eventFiles = fs.readdirSync(`${__dirname}/events`).filter(file => {return file.endsWith('.js')});
 logger.info(`Found ${eventFiles.length} events to load`);
 
-eventFiles.forEach(file => {
-    logger.info(`loading event from ${file} (full path: ${__dirname}/events/${file})`);
-    
-    try {
-        require(`${__dirname}/events/${file}`);
-    } catch (error) {
-        logger.error(`There was an error loading event from file ${file}: ${error}`);
-    }
-
-    const event = require(`${__dirname}/events/${file}`);
-    if (event.once) {
-        client.once(event.name, (...args) => {return event.execute(...args)});
-    } else {
-        client.on(event.name, (...args) => {return event.execute(...args)});
-    }
-    logger.info(`registered event: ${event.name} from ${file}`)
-});
-
-
-// Initialize Commands
+// Load Command files
 client.commands = new Collection();
 const commandFiles = fs.readdirSync(`${__dirname}/commands`).filter(file => {return file.endsWith('.js')});
 logger.info(`Found ${commandFiles.length} commands to load`);
 
-for (const file of commandFiles) {
-    const command = require(`${__dirname}/commands/${file}`);
-    try {
-        client.commands.set(command.data.name, command);
-        logger.info(`initialized command: ${command.data.name}`);
-    } catch (error) {
-        logger.error(`could not load command from file ${file}: ${error}`);
-    }
+function loadDatabase() {
+    return new Promise((resolve, reject) => {
+        db.query('SELECT NOW();', (queryError, queryResponse) => {
+            if (queryError) {
+                logger.error('Error executing query', queryError.stack);
+                reject(new Error('No database connection'));
+            } else {
+                logger.info(`Successfully executed query ${queryResponse.rows[0]}`);
+                resolve(queryResponse.rows);
+            }
+        });
+    });
 }
+
+loadDatabase().catch(() => {
+    logger.error(`Failed to connect to database (host: ${process.env.PGHOST}, name: ${process.env.PGDATABASE})`);
+    process.exit(0);
+}).then(() => {
+    // Initialize Events
+    eventFiles.forEach(file => {
+        logger.info(`loading event from ${file} (full path: ${__dirname}/events/${file})`);
+
+        try {
+            require(`${__dirname}/events/${file}`);
+        } catch (error) {
+            logger.error(`There was an error loading event from file ${file}: ${error}`);
+        }
+
+        const event = require(`${__dirname}/events/${file}`);
+        if (event.once) {
+            client.once(event.name, (...args) => {return event.execute(...args)});
+        } else {
+            client.on(event.name, (...args) => {return event.execute(...args)});
+        }
+        logger.info(`registered event: ${event.name} from ${file}`)
+    });
+
+    // Initialize Commands
+    for (const file of commandFiles) {
+        const command = require(`${__dirname}/commands/${file}`);
+        try {
+            client.commands.set(command.data.name, command);
+            logger.info(`initialized command: ${command.data.name}`);
+        } catch (error) {
+            logger.error(`could not load command from file ${file}: ${error}`);
+        }
+    }
+});
 
 // Command handler
 client.on(Events.InteractionCreate, async interaction => {
@@ -118,7 +138,7 @@ client.on(Events.InteractionCreate, async interaction => {
                     return false;
                 });
         });
-    
+
 });
 
 client.login(process.env.DISCORD_TOKEN);

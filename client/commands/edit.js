@@ -23,7 +23,6 @@ const gscTicket = require('../utils/message.utils/gsc_ticket.js');
  */
 function getRoleOutput(interaction) {
     const type = interaction.options.get('type').value;
-    console.log(`type: ${type}`);
     return type === 'announcements' ? announcements.execute(interaction)
          : type === 'identity' ? identity.execute(interaction)
          : type === 'minecraft' ? minecraft.execute(interaction)
@@ -44,9 +43,9 @@ function getVcOutput(interaction) {
 
 function getRulesOutput(interaction, channel) {
     if (getChannelParentName(channel).includes('verification')) {
-        return rules.execute(interaction, true)
+        return rules.execute(interaction, true, true)
     }
-    return rules.execute(interaction, false);
+    return rules.execute(interaction, false, true);
 }
 
 /**
@@ -57,16 +56,15 @@ function getRulesOutput(interaction, channel) {
 function getOutput(interaction, channel) {
     const subcommand = interaction.options.getSubcommand(false);
     if (!subcommand) { return null; }
-
-    return subcommand === 'agreement' ? agreement.execute(interaction)
-         : subcommand === 'politics' ? politics.execute(interaction)
+    return subcommand === 'agreement' ? agreement.execute(interaction, true)
+         : subcommand === 'politics' ? politics.execute(interaction, true)
          : subcommand === 'roles' ? getRoleOutput(interaction)
          : subcommand === 'rules' ? getRulesOutput(interaction, channel)
-         : subcommand === 'safe_space' ? safeSpace.execute(interaction)
+         : subcommand === 'safe_space' ? safeSpace.execute(interaction, true)
          : subcommand === 'vc' ? getVcOutput(interaction)
-         : subcommand === 'welcome' ? welcome.execute(interaction)
+         : subcommand === 'welcome' ? welcome.execute(interaction, true)
          : subcommand === 'button' ? null
-         : subcommand === 'gsc_ticket' ? gscTicket.execute(interaction)
+         : subcommand === 'gsc_ticket' ? gscTicket.execute(interaction, true)
          : null;
 }
 

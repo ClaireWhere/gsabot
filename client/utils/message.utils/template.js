@@ -6,8 +6,8 @@ module.exports = {
   async execute(interaction) {
     const file = new AttachmentBuilder()
         .setFile(process.env.GSA_BANNER)
-        .setName(`gsa_banner.png`)
-        .setDescription(`Gender and Sexuality Alliance Banner`);
+        .setName(`sage_banner.png`)
+        .setDescription(`SAGE Banner`);
 
     const row = new ActionRowBuilder()
             .addComponents(
@@ -29,7 +29,7 @@ module.exports = {
           }
         ],
         author: {
-          name: `Gender & Sexuality Alliance`,
+          name: `Sexuality And Gender Everywhere`,
           icon_url: config.images.gsa_icon
         },
         thumbnail: {
@@ -39,7 +39,7 @@ module.exports = {
         },
         timestamp: new Date().toISOString(),
         footer: {
-            text: `Posted on`,
+            text: `Posted`,
             icon_url: config.images.gsa_icon
         }
     };

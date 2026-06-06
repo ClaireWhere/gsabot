@@ -28,14 +28,14 @@ function getOutput(interaction, channel) {
     if (!subcommand) { return null; }
 
     return subcommand === 'agreement' ? agreement.execute(interaction)
-         : subcommand === 'politics' ? politics.execute(interaction)     
+         : subcommand === 'politics' ? politics.execute(interaction)
          : subcommand === 'roles' ? roles.execute(interaction)
          : subcommand === 'rules' ? getRulesOutput(interaction, channel)
          : subcommand === 'safe_space' ? safeSpace.execute(interaction)
          : subcommand === 'vc' ? vc.execute(interaction)
-         : subcommand === 'welcome' ? welcome.execute(interaction) 
+         : subcommand === 'welcome' ? welcome.execute(interaction)
          : subcommand === 'button' ? null
-         : subcommand === 'gsc_ticket' ? gscTicket.execute(interaction)
+         : subcommand === 'gsc_ticket' ? gscTicket.execute()
          : null;
 }
 

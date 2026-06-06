@@ -1,5 +1,6 @@
 const { config } = require('../../config.json');
 const { ButtonStyle, ActionRowBuilder, ButtonBuilder } = require('discord.js');
+const { getRandomName } = require('../utils');
 
 function getTicketTypeID(type) {
     switch (type) {
@@ -12,7 +13,7 @@ function getTicketTypeID(type) {
     }
 }
 
-module.exports = { 
+module.exports = {
     execute(interaction) {
         const button = new ButtonBuilder()
             .setStyle(ButtonStyle.Danger)
@@ -20,7 +21,7 @@ module.exports = {
             .setCustomId(`ticket:${getTicketTypeID(interaction.options.getString('type'))}`)
             .setEmoji(interaction.options.getString('emoji'))
             .setDisabled(false);
-        
+
         const row = new ActionRowBuilder()
             .addComponents(button);
 
@@ -29,11 +30,11 @@ module.exports = {
             description: interaction.options.getString('description'),
             timestamp: new Date().toISOString(),
             footer: {
-                text: `Posted on`,
+                text: `Posted`,
                 icon_url: config.images.gsa_icon
             },
             author: {
-                name: `Gender & Sexuality Alliance`,
+                name: getRandomName(),
                 icon_url: config.images.gsa_icon
             },
             color: parseInt(Number(config.colors.light_red.darken[0].hex), 10)

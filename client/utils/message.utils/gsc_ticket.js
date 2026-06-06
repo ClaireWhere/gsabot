@@ -1,8 +1,9 @@
 const { config } = require('../../config.json');
 const { ButtonStyle, ActionRowBuilder, ButtonBuilder } = require('discord.js');
+const { getRandomName } = require('../utils');
 
-module.exports = { 
-    execute() {
+module.exports = {
+    async execute(interaction, isEdit = false) {
         const button = new ButtonBuilder()
             .setStyle(ButtonStyle.Danger)
             .setLabel(`Submit GSC Announcement`)
@@ -17,11 +18,11 @@ module.exports = {
             description: `# Click the button below to start a new GSC Announcement\nThis will not send anything immediately.`,
             timestamp: new Date().toISOString(),
             footer: {
-                text: `Posted on`,
+                text: isEdit ? `Updated` : `Posted`,
                 icon_url: config.images.gsa_icon
             },
             author: {
-                name: `Gender & Sexuality Alliance`,
+                name: getRandomName(),
                 icon_url: config.images.gsa_icon
             },
             color: parseInt(Number(config.colors.light_red.darken[0].hex), 10)

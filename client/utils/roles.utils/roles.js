@@ -165,7 +165,7 @@ async function addFormatRole(interaction, roleName) {
     if (!res) { return false; }
     
     if (roleName === config.roles.member.name) {
-        return await interaction.followUp({ephemeral: true, content: `🥳🥳 You are now a officially a part of the GSA Discord server!`})
+        return await interaction.followUp({ephemeral: true, content: `🥳🥳 You are now a officially a part of the SAGE Discord server!`})
             .then(() => { return true; })
             .catch((error) => {
                 logger.error(`Unable to respond to Welcome Agreement interaction for ${interaction.member.user.username} (${error})`); 

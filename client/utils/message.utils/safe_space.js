@@ -3,8 +3,9 @@ const { ButtonStyle, ActionRowBuilder, ButtonBuilder } = require('discord.js');
 const { getChannelParentName } = require('../utils');
 
 module.exports = {
-    async execute(interaction) {
-        const safeSpace = await interaction.guild.channels.cache.find(channel => {return channel.name === 'safe-space' && !getChannelParentName(channel).includes('archive')}) ?? `\`#safe_space\``;
+    async execute(interaction, isEdit = false) {
+        const safeSpace = "`#safe-space`";
+	const safeSpaceChannel = await interaction.guild.channels.cache.find(channel => {return channel.name === 'safe-space' && !getChannelParentName(channel).includes('archive')}) ?? `\`#safe_space\``;
         const rules = await interaction.guild.channels.cache.find(channel => {return channel.name === 'rules' && !getChannelParentName(channel).includes('archive') && !getChannelParentName(channel).includes('verification')}) ?? `\`#rules\``;
 
         const row = new ActionRowBuilder()
@@ -21,7 +22,7 @@ module.exports = {
             description: `‎\n# ❗ Safe Space Rules ❗\nTo gain access to the ${safeSpace} channel, please press the button below. This channel contains heavier topics such as mental health and venting but please note that all the rules of the server still apply on top of the following rules. \n\n### Disclaimer:\nThis is not a space to argue or talk politics, disagreements should be respectful and absolutely no harassment is tolerated.`,
             color: parseInt(Number(config.colors.red.darken[0].hex), 10),
             author: {
-                name: `Gender & Sexuality Alliance`,
+                name: `Sexuality And Gender Entry`,
                 icon_url: config.images.gsa_icon
             },
             thumbnail: {
@@ -40,7 +41,7 @@ module.exports = {
                 },
                 {
                     "name": `‎\n2️⃣ Please do not include names without permission`,
-                    "value": `If a person attends or is affiliated with Oakland University, please do not name them in any negative context unless you have asked permission. Include in the message that you got permission. Do not name any ${config.roles.member.name} or anyone otherwise involved in the GSA in a negative context. Otherwise, the message may be deleted and you'll be messaged to post it again with the name removed. Referring to someone as "my friend", "my brother", "somebody" etc. is completely acceptable unless they are in this server or otherwise involved with the GSA.`
+                    "value": `If a person attends or is affiliated with ${process.env.SCHOOL}, please do not name them in any negative context unless you have asked permission. Include in the message that you got permission. Do not name any ${config.roles.member.name} or anyone otherwise involved in SAGE in a negative context. Otherwise, the message may be deleted and you'll be messaged to post it again with the name removed. Referring to someone as "my friend", "my brother", "somebody" etc. is completely acceptable unless they are in this server or otherwise involved with SAGE.`
                 },
                 {
                     "name": `‎\n3️⃣ As always, be respectful and welcoming of others`,
@@ -55,11 +56,11 @@ module.exports = {
 
         const embed3 = {
             title: ``,
-            description: `## ❗ By agreeing below, you acknowledge that you have read the rules and understand the purpose and appropriate use of the ${safeSpace} channel.\nYou agree that you will continue to be respectful to others and sensitive to everyone's feelings. Please keep the things discussed in the ${safeSpace} channel private and avoid discussing things outside. \n\nThis role may be removed at any time if you are not using this space appropriately and you will be messaged about it. Please note if you are removed, you are not in trouble, we will just not issue warnings for ${safeSpace} as it is a highly sensitive place.\n\n### Click this button again to remove ${safeSpace} from your view\n‎`,
+            description: `## ❗ By agreeing below, you acknowledge that you have read the rules and understand the purpose and appropriate use of the ${safeSpace} channel.\nYou agree that you will continue to be respectful to others and sensitive to everyone's feelings. Please keep the things discussed in the ${safeSpace} channel private and avoid discussing things outside. \n\nThis role may be removed at any time if you are not using this space appropriately and you will be messaged about it. Please note if you are removed, you are not in trouble, we will just not issue warnings for ${safeSpace} as it is a highly sensitive place.\n\n### Click this button again to remove ${safeSpaceChannel} from your view\n‎`,
             color: parseInt(Number(config.colors.red.darken[0].hex), 10),
             timestamp: new Date().toISOString(),
             footer: {
-                text: `Posted on`,
+                text: isEdit ? `Updated` : `Posted`,
                 icon_url: config.images.gsa_icon
             }
         };

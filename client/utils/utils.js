@@ -1,3 +1,72 @@
+function getRandomName() {
+    if (Math.random() > 0.99) {
+        const evilNames = ["Ḛ̷͇̪͇̑̉", "Ė̷̡̡̧̟͕̞̱͙̥̱̥̬̬̲̭̟̮̮̯̪̺͙͚̑̈̊̓͋̈́̒͌́͆̕̚ͅ", "Ȩ̵̢̨̡̢̧̢̛͇̮͉͎̘̳̠͉̦̦̝͓̳͓̰̤̹̼̩̥̪̖̥͙͈͖͖̖̙̬͖̺̫͖̻̖̳̪̗͍̳͖̪̖͕̝̳͓̦̼̗̦̦̤̪̬͓̲͎͉̻̘̠͓̹͖͙̞́̈́͊͑̏̑͐̂͊̅̀̋̀̍͗͊̾̑͑̆͑̽̉̈́̊̈̀́͋͐͌̅̃̌̏̉̾͐͊̉̒͗̈́̿̅́̋̈̓̑́͗̈́́̽̀͆̊̂̑͆͘͘͘̚̚͘͜͝͝ͅͅ", "Ě̴̡̧̢͎̟̞̱̹͈͍͖̦̪͚͓͕̖̦͎̤̦̹͓̤͎͖̱̣̜͕̞͍̮̱̳̣̭̣͈̯̦̤̬̂̃͐̏ͅ"];
+        const evilIndex = Math.floor(Math.random() * evilNames.length);
+        return evilNames[evilIndex];
+    }
+    const names = [
+        "Sexuality And Gender Entity",
+        "Sexuality And Gender Enterprise",
+        "Sexuality And Gender Extra",
+        "Sexuality And Gender Etc.",
+        "Sexuality And Gender Everywhere",
+        "Sexuality And Gender for Everyone",
+        "Sexuality And Gender Establishment",
+        "Sexuality And Gender EVERYWHERE",
+        "Sexuality And Gender on Earth",
+        "Sexuality And Gender Enjoyers",
+        "Sexuality And Gender Enjoyers",
+        "Sexuality And Gender Extravaganza",
+        "Sexuality And Gender Enhanced",
+        "Sexuality And Gender EXTREME",
+        "Sexuality And Gender Empire",
+        "Sexuality And Gender Ecosystem",
+        "Sexuality And Gender Engagement",
+        "Sexuality And Gender Engaged",
+        "Sexuality And Gender Engagers",
+        "Sexuality And Gender Everyday",
+        "Sexuality And Gender Enthusiasts",
+        "Sexuality And Gender Ensemble",
+        "Sexuality And Gender Emporium",
+        "Sexuality And Gender Exchange",
+        "Sexuality And Gender Experience",
+        "Sexuality And Gender Experiencers",
+        "Sexuality And Gender Exploration",
+        "Sexuality And Gender Explorers",
+        "Sexuality And Gender Extravaganza",
+        "Sexuality And Gender Excessively",
+        "Sexuality And Gender Excitement",
+        "Sexuality And Gender Everything",
+        "Sexuality And Gender Existence",
+        "Sexuality And Gender Exists",
+        "Sexuality And Gender Evolution",
+        "Sexuality And Gender Evolved",
+        "Sexuality And Gender Endless",
+        "Sexuality And Gender Emergence",
+        "Sexuality And Gender Emerged",
+        "Sexuality And Gender Endgame",
+        "Sexuality And Gender Enormous",
+        "Sexuality And Gender Elevated",
+        "Sexuality And Gender Entourage",
+        "Sexuality And Gender Experts",
+        "Sexuality And Gender Encouraged",
+        "Sexuality And Gender Encouragers",
+        "Sexuality And Gender Expansion",
+        "Sexuality And Gender Escape",
+        "Sexuality And Gender Entertainment",
+        "Sexuality And Gender Eternal",
+        "Sexuality And Gender Eternity",
+        "Sexuality And Gender Entirely",
+        "Sexuality And Gender Endeavor",
+        "Sexuality And Gender Empowerers",
+        "Sexuality And Gender Empowered",
+        "Sexuality And Gender Empowerment",
+        "Sexuality × Gender = ???"
+    ];
+    const i = Math.floor(Math.random() * names.length);
+    return names[i];
+}
+
 /**
  * 
  * @param {Array} a 
@@ -146,4 +215,4 @@ function isValidHexColor(hex) {
 }
 
 
-module.exports = { arrayMatch, isEmpty, formatList, removeIntersection, arrayToLowerCase, toNum, isNumeric, getChannelParentName, getDate, isValidHexColor }
+module.exports = { getRandomName, arrayMatch, isEmpty, formatList, removeIntersection, arrayToLowerCase, toNum, isNumeric, getChannelParentName, getDate, isValidHexColor }

@@ -7,40 +7,39 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
     container_name: gsabot-db
-    ports:
-      - "5432:5432"
     volumes:
-      - data:/var/lib/postgresql/data
+      - /opt/data/gsabot/db/data:/var/lib/postgresql/data
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
     restart: always
     networks:
-      - dbConnection
+      - gsabot_internal
 
-  server:
-    build:
-      context: ./server
-      args:
-        DB_HOST: gsabot-db
-        DB_PORT: ${DB_PORT}
-        DB_USER: ${DB_USER}
-        DB_PASSWORD: ${DB_PASSWORD}
-        DB_NAME: ${DB_NAME}
-    container_name: gsabot-server
-    restart: unless-stopped
-    ports:
-      - "8080:8080"
-    depends_on:
-      - db
-    networks:
-      - dbConnection
-    volumes:
-      - server-logs:/usr/src/server/logs
+#  server:
+#    build:
+#      context: ./server
+#      args:
+#        DB_HOST: gsabot-db
+#        DB_PORT: ${DB_PORT}
+#        DB_USER: ${DB_USER}
+#        DB_PASSWORD: ${DB_PASSWORD}
+#        DB_NAME: ${DB_NAME}
+#    container_name: gsabot-server
+#    restart: unless-stopped
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      - db
+#    networks:
+#      - gsabot_internal
+#    volumes:
+#      - server-logs:/usr/src/server/logs
 
 
   client:
     build:
       context: ./client
       args:
+        LOGS_DIR: ${INTERNAL_LOGS_DIR:-/usr/src/client/logs}
         DB_HOST: gsabot-db
         DB_PORT: ${DB_PORT}
         DB_USER: ${DB_USER}
@@ -63,19 +62,12 @@ services:
     depends_on:
       - db
     volumes:
-      - client-logs:/usr/src/client/logs
+      - /opt/data/gsabot/client/logs:${INTERNAL_LOGS_DIR:-/usr/src/client/logs}
       - ./fonts:/usr/src/client/fonts
     networks:
-      - dbConnection
-
-volumes:
-  data:
-    driver: local
-  server-logs:
-    driver: local
-  client-logs:
-    driver: local
+      - gsabot_internal
 
 networks:
-  dbConnection:
+  gsabot_internal:
+    name: gsabot_internal
     driver: bridge
