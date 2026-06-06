@@ -37,7 +37,6 @@ function getClient() {
     }
 }
 
-
 const client = getClient();
 
 if (client) {
@@ -47,19 +46,14 @@ if (client) {
     process.exit(1);
 }
 
-// Initialize Events
+// Load Event files
 const eventFiles = fs.readdirSync(`${__dirname}/events`).filter(file => {return file.endsWith('.js')});
 logger.info(`Found ${eventFiles.length} events to load`);
 
-
-
-
-// Initialize Commands
+// Load Command files
 client.commands = new Collection();
 const commandFiles = fs.readdirSync(`${__dirname}/commands`).filter(file => {return file.endsWith('.js')});
 logger.info(`Found ${commandFiles.length} commands to load`);
-
-
 
 function loadDatabase() {
     return new Promise((resolve, reject) => {
@@ -69,7 +63,7 @@ function loadDatabase() {
                 reject(new Error('No database connection'));
             } else {
                 logger.info(`Successfully executed query ${queryResponse.rows[0]}`);
-		resolve(queryResponse.rows);
+                resolve(queryResponse.rows);
             }
         });
     });
@@ -78,6 +72,7 @@ function loadDatabase() {
 loadDatabase().catch(() => {
     logger.info("Error")
 }).then(() => {
+    // Initialize Events
     eventFiles.forEach(file => {
         logger.info(`loading event from ${file} (full path: ${__dirname}/events/${file})`);
 
@@ -96,6 +91,7 @@ loadDatabase().catch(() => {
         logger.info(`registered event: ${event.name} from ${file}`)
     });
 
+    // Initialize Commands
     for (const file of commandFiles) {
         const command = require(`${__dirname}/commands/${file}`);
         try {
